@@ -16,6 +16,7 @@ return new class extends Migration
     {
         $this->table = 'wali_kelas';
     } 
+    
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
