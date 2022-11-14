@@ -11,16 +11,19 @@ return new class extends Migration
      *
      * @return void
      */
+
+    //menentukan nama tabel
+    protected $table;
+    function __construct()
+    {
+        $this->table = 'angkatan';
+    }
+
     public function up()
     {
-        Schema::create('failed_jobs', function (Blueprint $table) {
-            $table->id();
-            $table->string('uuid')->unique();
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->tinyInteger('id_angkatan')->autoIncrement();
+            $table->integer('tahun')->length(4)->nullable(false);
         });
     }
 
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('failed_jobs');
+        Schema::dropIfExists($this->table);
     }
 };
