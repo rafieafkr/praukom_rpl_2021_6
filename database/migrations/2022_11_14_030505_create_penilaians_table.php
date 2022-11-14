@@ -11,11 +11,21 @@ return new class extends Migration
      *
      * @return void
      */
+    protected $table;
+    public function __construct()
+    {
+        $this->table = 'penilaian';
+    } 
+    
     public function up()
     {
-        Schema::create('penilaians', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->tinyInteger('id_penilaian')->length(4)->autoIncrement()->nullable(false);
+            $table->string('nis')->length(15)->nullable(false);
+            $table->string('nik_pp')->length(17)->nullable(false);
+    
+            $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete();
+            $table->foreign('nik_pp')->references('nik_pp')->on('pembimbing_perusahaan')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penilaians');
+        Schema::dropIfExists($this->table);
     }
 };

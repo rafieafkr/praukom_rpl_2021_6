@@ -11,11 +11,18 @@ return new class extends Migration
      *
      * @return void
      */
+    protected $table;
+    public function __construct()
+    {
+        $this->table = 'perusahaan';
+    } 
+    
     public function up()
     {
-        Schema::create('perusahaans', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->tinyInteger('id_perusahaan')->length(4)->autoIncrement();
+            $table->string('nama_perusahaan')->length(60)->nullable(false);
+            $table->string('alamat_perusahaan')->length(60)->nullable(false);
         });
     }
 
@@ -26,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perusahaans');
+        Schema::dropIfExists($this->table);
     }
 };

@@ -11,12 +11,21 @@ return new class extends Migration
      *
      * @return void
      */
+    protected $table;
+    public function __construct()
+    {
+        $this->table = 'pembimbing_perusahaan';
+    } 
+    
     public function up()
     {
-        Schema::create('pembimbingperusahaans', function (Blueprint $table) {
-            $table->string('nik_pp')->length(17)->primary()->nullable(false);
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->string('nik_pp')->length(20)->nullable(false)->primary();
             $table->tinyInteger('id_akun')->length(4)->nullable(false);
-            $table->timestamps();
+            $table->string('nama_pp')->length(60)->nullable(false);
+
+            $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete();
+
         });
     }
 
@@ -27,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembimbingperusahaans');
+        Schema::dropIfExists($this->table);
     }
 };
