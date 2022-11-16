@@ -11,11 +11,19 @@ return new class extends Migration
      *
      * @return void
      */
+    protected $table;
+    public function __construct()
+    {
+        $this->table = 'sertifikat';
+    } 
+    
     public function up()
     {
-        Schema::create('sertifikats', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->tinyInteger('id_sertifikat')->length(4)->autoIncrement();
+            $table->tinyInteger('id_penilaian')->length(4)->nullable(false);
+    
+            $table->foreign('id_penilaian')->references('id_penilaian')->on('penilaian')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sertifikats');
+        Schema::dropIfExists($this->table);
     }
 };

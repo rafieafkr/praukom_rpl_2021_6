@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Sertifikat extends Model
 {
     use HasFactory;
+    protected $table = 'sertifikat';
+    protected $primaryKey = 'id_sertifikat';
+    protected $softDelete = false;
+    public $timestamps = false;
+    protected $fillable = ['id_penilaian'];
 }

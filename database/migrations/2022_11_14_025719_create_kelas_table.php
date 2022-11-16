@@ -11,11 +11,25 @@ return new class extends Migration
      *
      * @return void
      */
+    protected $table;
+    public function __construct()
+    {
+        $this->table = 'kelas';
+    } 
+    
     public function up()
     {
-        Schema::create('kelas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create($this->table, function (Blueprint $table) {
+            $table->tinyInteger('id_kelas')->length(4)->autoIncrement();
+            $table->tinyInteger('id_walas')->length(4)->nullable(false);
+            $table->tinyInteger('id_jurusan')->length(4)->nullable(false);
+            $table->tinyInteger('id_angkatan')->length(4)->nullable(false);
+            $table->string('nama_kelas')->length(5)->nullable(false);
+            $table->string('tingkat_kelas')->length(5)->nullable(false);
+
+            $table->foreign('id_walas')->references('id_walas')->on('wali_kelas')->cascadeOnDelete();
+            $table->foreign('id_jurusan')->references('id_jurusan')->on('jurusan')->cascadeOnDelete();
+            $table->foreign('id_angkatan')->references('id_angkatan')->on('angkatan')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelas');
+        Schema::dropIfExists($this->table);
     }
 };
