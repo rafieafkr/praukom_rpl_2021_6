@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StaffhubinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function() {
+  return redirect('/hubin');
+});
 Route::get('/login', [loginController::class, 'index']);
 
-Route::get('/hubin', [loginController::class, 'index']);
+Route::get('/hubin', [StaffhubinController::class, 'index']);

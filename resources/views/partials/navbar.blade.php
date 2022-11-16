@@ -1,10 +1,13 @@
-<nav class="flex justifiy-center align-middle w-full shadow-lg mb-4 py-3 px-3">
-  <div class="basis-1/2 py-1 pl-3">
-    <p class="font-semibold tracking-widest">INVENTARIS</p>
+<nav class="flex justify-between w-full shadow-lg mb-4 pl-6">
+  <div class="py-4">
+    <p class="font-semibold tracking-widest">SIMAK</p>
   </div>
-  <div class="flex">
-    <p class="px-4 py-1 hover:bg-slate-300 rounded-md transition">Item 1</p>
-    <p class="px-4 py-1 hover:bg-slate-300 rounded-md transition">Item 2</p>
-    <p class="px-4 py-1 hover:bg-slate-300 rounded-md transition">Item 3</p>
+  <div>
+    <a href="/logout" class="bg-[#06283D] py-4 px-4 text-white flex justify-center w-[110px]">
+      <button>
+          Logout
+          <x-icons.logout @class(['w-[16pt]', 'inline'])/>
+      </button>
+    </a>
   </div>
 </nav>
