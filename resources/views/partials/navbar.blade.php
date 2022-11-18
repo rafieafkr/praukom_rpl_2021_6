@@ -1,12 +1,12 @@
-<nav class="flex justify-between w-full shadow-lg mb-4 pl-6">
+<nav class="flex w-full justify-between pl-6 shadow-lg">
   <div class="py-4">
     <p class="font-semibold tracking-widest">SIMAK</p>
   </div>
   <div>
-    <a href="/logout" class="bg-[#06283D] py-4 px-4 text-white flex justify-center w-[110px]">
+    <a href="/logout" class="flex w-[115px] justify-center bg-[#06283D] py-4 px-4 text-white">
       <button>
-          Logout
-          <x-icons.logout @class(['w-[16pt]', 'inline'])/>
+        Logout
+        <x-heroicon-o-arrow-right-on-rectangle class="inline-block inline w-5" />
       </button>
     </a>
   </div>

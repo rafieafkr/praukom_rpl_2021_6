@@ -20,3 +20,7 @@ Route::get('/', function() {
 Route::get('/login', [loginController::class, 'index']);
 
 Route::get('/hubin', [StaffhubinController::class, 'index']);
+
+Route::get('/listsiswa', function() {
+  return view('hubin.list_siswa');
+});
