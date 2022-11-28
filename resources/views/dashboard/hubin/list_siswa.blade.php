@@ -40,7 +40,7 @@
         <td></td>
         <td></td>
         <td>
-          <div class="flex hidden w-44 flex-wrap">
+          <div class="hidden w-44 flex-wrap">
             <button class="btn mx-1 mb-2 border-0 bg-red-600 shadow-md"> hapus</button>
             <button class="btn mx-1 mb-2 border-0 bg-cyan-900 shadow-md">edit</button>
           </div>

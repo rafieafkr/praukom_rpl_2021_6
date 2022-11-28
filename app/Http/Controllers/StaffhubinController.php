@@ -15,7 +15,7 @@ class StaffhubinController extends Controller
      */
     public function index()
     {
-        return view('hubin.index');
+        return view('dashboard.index');
     }
 
     /**
