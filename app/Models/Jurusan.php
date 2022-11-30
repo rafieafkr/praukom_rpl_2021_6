@@ -12,5 +12,5 @@ class Jurusan extends Model
     protected $primaryKey = 'id_jurusan';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nip_guru','nama'];
+    protected $fillable = ['kepala_jurusan','nama_jurusan','akronim'];
 }

@@ -13,4 +13,9 @@ class Pembimbingsekolah extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nip_guru','id_akun','nama_ps'];
+
+    public function monitoring()
+    {
+        return $this->belongsTo(Monitoring::class, 'id_ps');
+    }
 }

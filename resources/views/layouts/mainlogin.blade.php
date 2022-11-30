@@ -17,8 +17,7 @@
 </head>
 
 <body>
-    @include('partials.navbar')
-    <div class="bg-[#CCE0DD] px-6 pt-4 h-screen">
+    <div class="md:flex bg-[url('../img/bg-login.png')] bg-cover bg-center h-screen">
         @yield('container')
     </div>
 </body>

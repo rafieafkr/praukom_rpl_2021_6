@@ -27,8 +27,10 @@ return new class extends Migration
             $table->string('nama_siswa')->length(60)->nullable(false);
             $table->string('tempat_lahir')->length(60)->nullable(false);
             $table->date('tanggal_lahir')->nullable(false);
+            $table->string('foto_siswa')->length(255)->nullable();
 
-            $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete();
+            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete();
+            // $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete();
             $table->foreign('jurusan')->references('id_jurusan')->on('jurusan')->cascadeOnDelete();
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->cascadeOnDelete();
         });

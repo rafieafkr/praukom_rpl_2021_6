@@ -12,4 +12,9 @@ class Leveluser extends Model
     protected $primaryKey = 'id_level';
     protected $softDelete = false;
     public $timestamps = false;
+
+    public function staff_hubin()
+    {
+        return $this->belongsTo(Leveluser::class, 'id_akun');
+    }
 }

@@ -14,6 +14,6 @@ class LeveluserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Leveluser::factory(1)->create();
     }
 }

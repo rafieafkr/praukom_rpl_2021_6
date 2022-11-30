@@ -24,9 +24,11 @@ return new class extends Migration
             $table->string('nip_guru')->length(20)->nullable(false);
             $table->tinyInteger('id_akun')->length(4)->nullable(false);
             $table->string('nama_walas')->length(60)->nullable(false);
+            $table->string('foto_walas')->length(255)->nullable();
 
             $table->foreign('nip_guru')->references('nip_guru')->on('guru')->cascadeOnDelete();
-            $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete();
+            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete();
+            // $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete();
         });
     }
 

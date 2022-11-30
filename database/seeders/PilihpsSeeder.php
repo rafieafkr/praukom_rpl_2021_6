@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AkunSeeder extends Seeder
+class PilihpsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class AkunSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(2)->create();
+        //
     }
 }

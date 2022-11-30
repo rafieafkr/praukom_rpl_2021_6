@@ -12,5 +12,5 @@ class Guru extends Model
     protected $primaryKey = 'nip_guru';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nip_guru','nama'];
+    protected $fillable = ['nip_guru','nama_guru'];
 }

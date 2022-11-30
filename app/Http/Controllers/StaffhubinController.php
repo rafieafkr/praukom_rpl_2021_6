@@ -14,7 +14,11 @@ class StaffhubinController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $hubin = Staffhubin::all();
+
+        // return response()->json($hubin);
+        
         return view('dashboard.index');
     }
 

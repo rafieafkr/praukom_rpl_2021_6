@@ -13,4 +13,14 @@ class Monitoring extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['id_monitoring','id_ps','id_kelas','id_perusahaan','tanggal','resume','verifikasi'];
+
+    public function pembimbing_sekolah()
+    {
+        return $this->hasMany(Pembimbingsekolah::class, 'id_ps');
+    }
+
+    public function perusahaan()
+    {
+        return $this->hasMany(Perusahaan::class, 'id_perusahaan');
+    }
 }

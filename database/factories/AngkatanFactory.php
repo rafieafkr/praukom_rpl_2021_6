@@ -17,7 +17,7 @@ class AngkatanFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'tahun' => 2018,
         ];
     }
 }

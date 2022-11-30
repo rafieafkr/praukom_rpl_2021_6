@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\leveluser>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pilihps>
  */
-class LeveluserFactory extends Factory
+class PilihpsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +17,7 @@ class LeveluserFactory extends Factory
     public function definition()
     {
         return [
-            'nama_level' => 'hubin',
-            'keterangan' => Str::random(10),
+            //
         ];
     }
 }

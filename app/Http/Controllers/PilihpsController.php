@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
-use App\Http\Requests\StoreAkunRequest;
-use App\Http\Requests\UpdateAkunRequest;
+use App\Models\pilihps;
+use App\Http\Requests\StorepilihpsRequest;
+use App\Http\Requests\UpdatepilihpsRequest;
 
-class AkunController extends Controller
+class PilihpsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class AkunController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAkunRequest  $request
+     * @param  \App\Http\Requests\StorepilihpsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAkunRequest $request)
+    public function store(StorepilihpsRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class AkunController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Akun  $Akun
+     * @param  \App\Models\pilihps  $pilihps
      * @return \Illuminate\Http\Response
      */
-    public function show(Akun $Akun)
+    public function show(pilihps $pilihps)
     {
         //
     }
@@ -53,10 +53,10 @@ class AkunController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Akun  $Akun
+     * @param  \App\Models\pilihps  $pilihps
      * @return \Illuminate\Http\Response
      */
-    public function edit(Akun $Akun)
+    public function edit(pilihps $pilihps)
     {
         //
     }
@@ -64,11 +64,11 @@ class AkunController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAkunRequest  $request
-     * @param  \App\Models\Akun  $Akun
+     * @param  \App\Http\Requests\UpdatepilihpsRequest  $request
+     * @param  \App\Models\pilihps  $pilihps
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAkunRequest $request, Akun $Akun)
+    public function update(UpdatepilihpsRequest $request, pilihps $pilihps)
     {
         //
     }
@@ -76,10 +76,10 @@ class AkunController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Akun  $Akun
+     * @param  \App\Models\pilihps  $pilihps
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Akun $Akun)
+    public function destroy(pilihps $pilihps)
     {
         //
     }
