@@ -5,6 +5,10 @@
   <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 
        @vite('resources/css/app.css')
@@ -16,7 +20,7 @@
 </center>
 <div class="overflow-x-auto mx-20 mt-20">
     <div class="float-left">
-      <label for="my-modal-4" class="btn bg-blue-500 mb-2">Isi Nilai</label>
+      <label for="my-modal-3" class="btn bg-blue-500 mb-2">Isi Nilai</label>
     </div>
 </div>
 
@@ -53,92 +57,85 @@
   </tr>
 </table>
 </div>
-
-<!--EDIT NILAI SISWA-->
 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box font-bold">
-    <h1 class="text-center font-extrabold mb-4">EDIT NILAI SISWA</h1>
     <label for="my-modal-3" class="btn btn-sm btn-circle absolute hover:bg-red-500 border border-white right-2 top-2">✕</label>
-    <form action="">
+    <form >
+        @csrf
         <div class="w-full mb-2">
-            <label for="nama"> Nama </label>
+            <label for="nis"> Siswa </label>
             <br>
-            <input type="text" name="" id="nama" class="w-full rounded-md shadow-inner border border-gray-400" required>
+            <select name="nis" id="nis" class="select select-bordered w-full p-1 text-center">
+            <option value="" disabled selected>--Pilih Siswa--</option>
+            @foreach($murid as $siswa)
+            <option value="{{$siswa->nis}}">{{$siswa->nama_siswa}} NIS( {{$siswa->nis}} )</option>
+            @endforeach
+            </select>
         </div>
-        <div class="w-full flex flex-wrap text-[#06283D]">
-            <div class="flex flex-wrap w-full mt-2">
-                <label for="pp">Pembimbing</label>
-                <br>
-                <input type="text" name="pp" id="pp" class="w-full shadow-inner rounded-md border border-gray-400">
-            </div>
-
-            <!-- perulangan kompetensi -->
-            <div class="flex flex-wrap w-full mt-2">
-                <label for="kompetensi">Kompetensi</label>
-                <br>
-                <input type="text" name="kompetensi" id="kompetensi" class="w-full shadow-inner rounded-md border border-gray-400">
-            </div>
-            <!-- selesai perulangan kompetensi -->
-            <!-- --------------------------------------------------------------------- -->
-            <div class="flex flex-wrap w-full mt-2">
-                <label for="Nilai">Nilai</label>
-                <br>
-                <input type="number" name="Nilai" id="Nilai" class="w-full shadow-inner rounded-md border border-gray-400">
-            </div>
+        <div class="w-full mb-2">
+            <label for="jurusan"> Jurusan</label>
+            <br>
+            <select id="jurusan" class="select select-bordered w-full p-1 text-center">
+                <option selected disabled>--Pilih Jurusan--</option>
+                @foreach ($jurusan as $j)
+                <option value="{{ $j->id_jurusan }}">{{ $j->nama_jurusan }}</option>
+                @endforeach
+            </select>
         </div>
-
-        
+        <div class="w-full mb-2">
+            <label for="kompetensi">Kompetensi</label>
+            <select name="kompetensi" id="kompetensi" class="select select-bordered w-full p-1 text-center"></select>
+        </div>
+        <div class="w-full mb-2">
+            <label for="nilai"> Nilai </label>
+            <br>
+            <input type="number" max="100" name="nilai" id="nilai" class="w-full rounded-md shadow-inner border border-gray-400">
+        </div>
+      
         <div class="modal-action">
-        <button type="submit" class="btn bg-[#256D85] rounded-lg px-5 py-3 text-center shadow-md hover:bg-emerald-700 font-bold text-white">Simpan</button>
+        <button type="submit" value="simpan" class="btn bg-[#256D85] rounded-lg px-5 py-3 text-center shadow-md hover:bg-emerald-700 font-bold text-white">Simpan</button>
         </div>
 
     </form>
   </div>
 </div>
 
-<!--INSERT NILAI SISWA-->
-<input type="checkbox" id="my-modal-4" class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box font-bold">
-    <h1 class="text-center font-extrabold mb-4">INPUT NILAI SISWA</h1>
-    <label for="my-modal-4" class="btn btn-sm btn-circle absolute hover:bg-red-500 border border-white right-2 top-2">✕</label>
-    <form action="">
-        <div class="w-full mb-2">
-            <label for="nama"> Nama </label>
-            <br>
-            <input type="text" name="" id="nama" class="w-full rounded-md shadow-inner border border-gray-400" required>
+<!-- <div class="m-5 w-50">
+        <h1 class="lead">Dependent dropdown example</h1>
+        <div class="mb-3">
+            <select class="form-select form-select-lg mb-3" id="jurusan">
+                <option selected disabled>Select country</option>
+                @foreach ($jurusan as $j)
+                <option value="{{ $j->id_jurusan }}">{{ $j->nama_jurusan }}</option>
+                @endforeach
+            </select>
         </div>
-        <div class="w-full flex flex-wrap text-[#06283D]">
-            <div class="flex flex-wrap w-full mt-2">
-                <label for="pp">Pembimbing</label>
-                <br>
-                <input type="text" name="pp" id="pp" class="w-full shadow-inner rounded-md border border-gray-400">
-            </div>
-
-            <!-- perulangan kompetensi -->
-            <div class="flex flex-wrap w-full mt-2">
-                <label for="kompetensi">Kompetensi</label>
-                <br>
-                <input type="text" name="kompetensi" id="kompetensi" value="KJD" class="w-full shadow-inner rounded-md border border-gray-400" disabled>
-                </input>
-            </div>
-            <!-- selesai perulangan kompetensi -->
-            <!-- --------------------------------------------------------------------- -->
-            <div class="flex flex-wrap w-full mt-2">
-                <label for="Nilai">Nilai</label>
-                <br>
-                <input type="number" name="Nilai" id="Nilai" class="w-full shadow-inner rounded-md border border-gray-400">
-            </div>
+        <div class="mb-3">
+            <select class="form-select form-select-lg mb-3" id="kompetensi"></select>
         </div>
+    </div> -->
 
-        
-        <div class="modal-action">
-        <button type="submit" class="btn bg-[#256D85] rounded-lg px-5 py-3 text-center shadow-md hover:bg-emerald-700 font-bold text-white">Simpan</button>
-        </div>
-
-    </form>
-  </div>
-</div>
+<!-- js -->
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#jurusan').on('change', function () {
+                var id_jurusan = this.value;
+                $('#kompetensi').html('');
+                $.ajax({
+                    url: "{{ route('getKompetensi') }}?id_jurusan="+id_jurusan,
+                    type: 'get',
+                    success: function (res) {
+                        $('#kompetensi').html('<option value="">--Pilih Kompetensi--</option>');
+                        $.each(res, function (key, value) {
+                            $('#kompetensi').append('<option value="' + value
+                                .id_kompetensi + '">' + value.nama_kompetensi + '</option>');
+                        });
+                        $('#city').html('<option value=""></option>');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

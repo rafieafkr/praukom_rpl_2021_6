@@ -28,7 +28,7 @@
     <th class="w-[30em]">PASSWORD</th>
     <th>EMAIL</th>
     <th>LEVEL USER</th>
-    <th>AKSI</th>
+    <th>OPSI</th>
   </tr>
 
   <tr>
