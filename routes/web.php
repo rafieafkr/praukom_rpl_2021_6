@@ -17,10 +17,15 @@ use App\Http\Controllers\StaffhubinController;
 Route::get('/', function() {
   return redirect('/hubin');
 });
+
 Route::get('/login', [loginController::class, 'index']);
 
 Route::get('/hubin', [StaffhubinController::class, 'index']);
+Route::get('/hubin/leveluser', function() {
+    return view('dashboard.hubin.leveluser');
+  }
+)->name('hubin.leveluser');
 
-Route::get('/listsiswa', function() {
-  return view('hubin.list_siswa');
-});
+Route::get('/hubin/listsiswa', function() {
+  return view('dashboard.hubin.list_siswa');
+})->name('hubin.listsiswa');

@@ -16,11 +16,14 @@
   <title>@yield('title')</title>
 </head>
 
-<body>
+<body class="bg-[#CCE0DD]">
   @include('partials.navbar')
+
   <div class="bg-[#CCE0DD] px-6 pt-4">
     @yield('container')
   </div>
+
+  @include('partials.footer')
 </body>
 
 </html>

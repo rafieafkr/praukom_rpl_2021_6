@@ -1,4 +1,4 @@
-<nav class="flex w-full justify-between pl-6">
+<nav class="flex w-full justify-between bg-white pl-6">
   <div class="py-4">
     <p class="font-semibold tracking-widest">SIMAK</p>
   </div>

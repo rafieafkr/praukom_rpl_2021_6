@@ -13,10 +13,8 @@
   </div>
   <div class="overflow-x-auto">
     <table border="1" cellpadding="0" class="table w-full border-collapse rounded-none text-center">
-      <tr class="border-collapse text-white">
-      </tr>
       <tr>
-        <td class="font-bold">NO</td>
+        <th>NO</th>
         <th>NIS</th>
         <th>NAMA</th>
         <th>PERUSAHAAN</th>
