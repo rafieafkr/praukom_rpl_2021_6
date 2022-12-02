@@ -36,3 +36,6 @@ Route::get('/pengajuanmurid',[PengajuanMuridController::class,'form']);
 
 Route::get('/penilaian', [PenilaianController::class, 'index']);
 Route::get('get-kompetensi', [PenilaianController::class, 'getKompetensi'])->name('getKompetensi');
+Route::post('/simpan',[PenilaianController::class,'simpan']);
+Route::get('/nilai/edit/{id}',[PenilaianController::class,'edit']);
+Route::post('/nilai/edit/update',[PenilaianController::class,'update']);

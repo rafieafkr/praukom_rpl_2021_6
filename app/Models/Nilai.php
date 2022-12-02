@@ -9,7 +9,8 @@ class Nilai extends Model
 {
     use HasFactory;
     protected $table = 'nilai';
+    protected $primaryKey = 'id_penilaian';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['kompetensi','nilai'];
+    protected $fillable = ['id_penilaian','kompetensi','nilai'];
 }

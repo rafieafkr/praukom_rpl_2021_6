@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -33,7 +34,10 @@ return new class extends Migration
             $table->foreign('id_kaprog')->references('id_kaprog')->on('kepala_program')->cascadeOnDelete();
             $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->cascadeOnDelete();
         });
+
+       
     }
+    
 
     /**
      * Reverse the migrations.

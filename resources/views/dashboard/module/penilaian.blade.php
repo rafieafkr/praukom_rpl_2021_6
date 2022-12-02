@@ -37,39 +37,45 @@
     <th>AKSI</th>
   </tr>
 
+  <?php 
+        $no = 1;
+    ?>
+    @foreach($dataview as $d)
   <tr>
-    <td>1</td>
-    <td>Joe </td>
-    <td>Mr. BIjix Suparman </td>
+    <td>{{$no++}}</td>
+    <td>{{$d->nama_siswa }}</td>
+    <td>{{$d->nama_pp}}</td>
     <td>
-        <p class="whitespace-normal text-left">Pemrograman Android dan Robotik</p>
+        <p class="whitespace-normal text-left">{{$d->nama_kompetensi}}</p>
     <td>
-      99.98
+      {{$d->nilai}}
     </td>
     <td>
     <div class="flex w-44 justify-center">
             <a href="" 
             onclick="return confirm('Anda yakin ingin hapus data ini ?')"><label for="" class="bg-red-600 mr-1  hover:bg-yellow-400 text-white rounded-lg font-bold text-sm p-2 btn
             ">HAPUS</label></a>
-        <label for="my-modal-3" class="btn shadow-md">Edit</label> 
+            <a href="/nilai/edit/{{$d->id_penilaian}}"><button type="submit" class="btn btn-success mr-6">EDIT</button></a>
       </div>
   </td>
   </tr>
+  @endforeach
 </table>
+
 </div>
 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box font-bold">
     <label for="my-modal-3" class="btn btn-sm btn-circle absolute hover:bg-red-500 border border-white right-2 top-2">✕</label>
-    <form >
+    <form action="simpan" method="POST">
         @csrf
         <div class="w-full mb-2">
-            <label for="nis"> Siswa </label>
+            <label for="id_penilaian"> Siswa </label>
             <br>
-            <select name="nis" id="nis" class="select select-bordered w-full p-1 text-center">
-            <option value="" disabled selected>--Pilih Siswa--</option>
-            @foreach($murid as $siswa)
-            <option value="{{$siswa->nis}}">{{$siswa->nama_siswa}} NIS( {{$siswa->nis}} )</option>
+            <select name="id_penilaian" id="id_penilaian" class="select select-bordered w-full p-1 text-center">
+            <option disabled selected>--Pilih Siswa--</option>
+            @foreach($nilaisiswa as $siswa)
+            <option value="{{$siswa->id_penilaian}}">{{$siswa->nama_siswa}} NIS( {{$siswa->nis}} )</option>
             @endforeach
             </select>
         </div>
