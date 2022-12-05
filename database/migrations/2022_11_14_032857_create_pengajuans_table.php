@@ -21,6 +21,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
+            $table->engine = 'innodb';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_pengajuan')->length(4)->autoIncrement()->nullable(false);
             $table->string('nis')->length(15)->nullable(false);
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
@@ -31,12 +34,12 @@ return new class extends Migration
             $table->string('status_pengajuan')->length(20)->nullable(false);
             $table->string('bukti_terima')->lengt(60)->nullable(false);
 
-            $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete();
-            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->cascadeOnDelete();
-            $table->foreign('id_kaprog')->references('id_kaprog')->on('kepala_program')->cascadeOnDelete();
-            $table->foreign('id_walas')->references('id_walas')->on('wali_kelas')->cascadeOnDelete();
-            $table->foreign('id_ps')->references('id_ps')->on('pembimbing_sekolah')->cascadeOnDelete();
-            $table->foreign('id_staff')->references('id_staff')->on('staff_hubin')->cascadeOnDelete();
+            $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_kaprog')->references('id_kaprog')->on('kepala_program')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_walas')->references('id_walas')->on('wali_kelas')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_ps')->references('id_ps')->on('pembimbing_sekolah')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_staff')->references('id_staff')->on('staff_hubin')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

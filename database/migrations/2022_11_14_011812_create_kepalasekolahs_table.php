@@ -22,12 +22,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
-            $table->tinyInteger('id_kepsek')->length(4)->autoIncrement();
-            $table->string('nip_guru')->length(20)->nullable(false);
-            $table->string('nama_kepsek')->length(60)->nullable(false);
+            $table->engine = 'innodb';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
             $table->string('jabatan')->length(30)->nullable(false);
-
-            $table->foreign('nip_guru')->references('nip_guru')->on('guru')->cascadeOnDelete();
+            $table->tinyInteger('id_kepsek')->length(4)->autoIncrement();
+            $table->tinyInteger('id_guru')->length(4)->nullable(false);
+            
+            $table->foreign('id_guru')->references('id_guru')->on('guru')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
