@@ -26,7 +26,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_kaprog')->length(4)->autoIncrement();
-            $table->tinyInteger('id_guru')->length(4)->nullable(false);
+            $table->tinyInteger('id_guru')->length(4)->nullable(false)->unique();
             
             $table->foreign('id_guru')->references('id_guru')->on('guru')->cascadeOnDelete()->cascadeOnUpdate();
         });

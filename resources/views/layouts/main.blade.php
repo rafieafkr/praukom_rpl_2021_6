@@ -19,11 +19,12 @@
 <body class="bg-[#CCE0DD]">
   @include('partials.navbar')
 
-  <div class="bg-[#CCE0DD] px-6 pt-4">
+  <div class="min-h-screen bg-[#CCE0DD] px-6 pt-4">
     @yield('container')
   </div>
 
   @include('partials.footer')
 </body>
+@vite('resources/js/app.js')
 
 </html>

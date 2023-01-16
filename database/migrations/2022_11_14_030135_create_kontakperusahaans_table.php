@@ -24,7 +24,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
-            $table->string('kontak_perusahaan')->length(60)->nullable(false);
+            $table->string('kontak_perusahaan')->length(60)->nullable(true);
 
             $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->cascadeOnDelete()->cascadeOnUpdate();
         });

@@ -29,10 +29,10 @@ return new class extends Migration
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
             $table->tinyInteger('id_kaprog')->length(4)->nullable(false);
             $table->tinyInteger('id_walas')->length(4)->nullable(false);
-            $table->tinyInteger('id_ps')->length(4)->nullable(false);
+            $table->tinyInteger('id_ps')->length(4)->nullable(true);
             $table->tinyInteger('id_staff')->length(4)->nullable(false);
-            $table->string('status_pengajuan')->length(20)->nullable(false);
-            $table->string('bukti_terima')->lengt(60)->nullable(false);
+            $table->string('status_pengajuan')->length(20)->default('1')->nullable(false);
+            $table->string('bukti_terima')->lengt(60)->nullable(true);
 
             $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->cascadeOnDelete()->cascadeOnUpdate();
