@@ -24,13 +24,15 @@ return new class extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->engine = 'innodb';
-            $table->tinyInteger('id_akun')->length(4)->autoIncrement();
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->integer('id_akun')->autoIncrement();
             $table->tinyInteger('level_user')->length(3)->nullable(false);
-            $table->string('email',60)->nullable(false);
-            $table->string('password',60)->nullable(false);
+            $table->string('email',60)->nullable(true);
+            $table->string('password',255)->nullable(false);
             $table->string('username',60)->nullable(false);
             
-            $table->foreign('level_user')->references('id_level')->on('level_user')->cascadeOnDelete();
+            $table->foreign('level_user')->references('id_level')->on('level_user')->cascadeOnDelete()->cascadeOnUpdate();
 
         });
 

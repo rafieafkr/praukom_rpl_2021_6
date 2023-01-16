@@ -5,3 +5,8 @@
 * {
     font-family: "Poppins", sans-serif !important;
 }
+
+.modal-box.relative {
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+}

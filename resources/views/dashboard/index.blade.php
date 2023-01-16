@@ -1,11 +1,12 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard Hubin - SIMAK')
+@section('title', 'Dashboard Hubin | SIMAK')
 
 @section('container')
   <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
-    Muhammad Rafie Afkar Yunansyah</div>
+    Muhammad Rafie Afkar Yunansyah
+  </div>
   <div class="flex flex-wrap gap-4 lg:grid lg:grid-cols-4 lg:grid-rows-3">
     {{-- Profile --}}
     <div
@@ -47,7 +48,7 @@
           <p class="text-lg font-semibold uppercase tracking-widest">Surat Pengajuan</p>
         </div>
         <div>
-          <a href="#">
+          <a href="{{ route('pengajuan.index') }}">
             <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
           </a>
         </div>
@@ -88,7 +89,7 @@
           <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Level User</p>
         </div>
         <div>
-          <a href="#">
+          <a href="{{ route('leveluser.index') }}">
             <button
               class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
           </a>
@@ -170,7 +171,7 @@
           <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Presensi Siswa</p>
         </div>
         <div>
-          <a href="#">
+          <a href="">
             <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
           </a>
         </div>
