@@ -24,12 +24,13 @@ return new class extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->engine = 'innodb';
-            $table->tinyInteger('id_akun')->length(4)->autoIncrement();
+            $table->tinyInteger('id')->length(4)->autoIncrement();
             $table->tinyInteger('level_user')->length(3)->nullable(false);
             $table->string('email',60)->nullable(false);
             $table->string('password',60)->nullable(false);
             $table->string('username',60)->nullable(false);
-            
+            $table->rememberToken();
+            $table->timestamps();
             $table->foreign('level_user')->references('id_level')->on('level_user')->cascadeOnDelete();
 
         });

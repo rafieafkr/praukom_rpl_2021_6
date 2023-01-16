@@ -12,5 +12,5 @@ class Penilaian extends Model
     protected $primaryKey = 'id_penilaian';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nis','nik_pp'];
+    protected $fillable = ['id_penilaian','nis','nik_pp'];
 }

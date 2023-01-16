@@ -5,6 +5,7 @@ use App\Http\Controllers\StaffhubinController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PengajuanMuridController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\PresensisiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,13 @@ Route::get('/pengajuanmurid',[PengajuanMuridController::class,'form']);
 
 
 Route::get('/penilaian', [PenilaianController::class, 'index']);
-Route::get('get-kompetensi', [PenilaianController::class, 'getKompetensi'])->name('getKompetensi');
-Route::post('/simpan',[PenilaianController::class,'simpan']);
+Route::get('/getKompetensi', [PenilaianController::class, 'getKompetensi'])->name('getKompetensi');
+Route::post('/simpan_nilai',[PenilaianController::class,'simpan']);
 Route::get('/nilai/edit/{id}',[PenilaianController::class,'edit']);
 Route::post('/nilai/edit/update',[PenilaianController::class,'update']);
+
+Route::get('/presensi', [PresensisiswaController::class, 'index']);
+Route::get('/get-kompetensi', [PresensisiswaController::class, 'getPp'])->name('getPp');
+Route::post('/simpan',[PresensisiswaController::class,'simpan']);
+Route::get('/edit/{id}',[PresensisiswaController::class,'edit']);
+Route::put('/update_presensi',[PresensisiswaController::class,'update']);

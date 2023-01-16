@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->tinyInteger('id_prakerin')->length(4)->autoIncrement();
             $table->string('nis')->length(15)->nullable(false);
             $table->string('nik_pp')->length(17)->nullable(false);
-            $table->tinyInteger('id_ps')->length(4)->nullable(false);
+            $table->tinyInteger('id_ps')->length(4)->nullable();
             $table->tinyInteger('id_kaprog')->length(4)->nullable(false);
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
 
@@ -34,10 +33,7 @@ return new class extends Migration
             $table->foreign('id_kaprog')->references('id_kaprog')->on('kepala_program')->cascadeOnDelete();
             $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->cascadeOnDelete();
         });
-
-       
     }
-    
 
     /**
      * Reverse the migrations.

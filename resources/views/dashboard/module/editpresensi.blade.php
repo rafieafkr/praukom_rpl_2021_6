@@ -37,46 +37,56 @@
         </div>
     </div>
     <!-- Form Surat Pengajuan  -->
-    <div class="ml-5">
-        <a href="/penilaian"><button class="btn">Kembali</button></a>
-    </div>
 
     <div class="container px-5 mt-10 bg-white pb-5 overflow-auto w-full mx-auto">
         <div class="bg-white pb-10 w-full">
             <!-- Judul Form -->
             <div class="w-full text-center mb-10 pt-5">
-                <p class="font-extrabold">Form Nilai Kompetensi Siswa</p>
+                <p class="font-extrabold">Form Presensi</p>
             </div>
-
-            @foreach($datanilai as $d)
-            <form action="update" method="POST">
+            @foreach($dataupdt as $d)
+            <form action="/update_presensi" method="POST">
                 {{csrf_field()}}
-
                 <div class=" w-full px-2  font-bold">
-
                     <div class="w-full">
-
-                        <input type="hidden" id="id_penilaian" name="id_penilaian" value="{{$d->id_penilaian}}" />
-                        <label for="">{{$d->nama_kompetensi}}</label>
-                        <input type="hidden" name='kompetensi' value="{{$d->kompetensi}}"
+                        <label for="">Tanggal Kehadiran</label>
+                        <input type="date" name="tgl_kehadiran" value="{{$d->tgl_kehadiran}}"
                             class="rounded-md shadow-inner w-full border border-gray-400">
-
-                        <br>
-
-                        <label for="">Nilai</label>
-                        <input type="number" max="100" name="nilai" value="{{$d->nilai}}"
-                            class="rounded-md shadow-inner w-full border border-gray-400">
-
-
-
-                        <button type="submit" value="simpan"
-                            class="btn bg-[#256D85] rounded-lg px-5 mb-5 py-3 text-center shadow-md hover:bg-emerald-700 font-bold text-white">Simpan</button>
                     </div>
+                    <div class="w-full">
+                        <input type="text" id="id_presensi" class="hidden" name="id_presensi"
+                            value="{{$d->id_presensi}}" />
+                        <label for="">Jam Masuk</label>
+                        <input type="time" name="jam_masuk" value="{{$d->jam_masuk}}"
+                            class="rounded-md shadow-inner w-full border border-gray-400">
+                    </div>
+                    <div class="w-full">
+                        <label for="">Jam Keluar</label>
+                        <input type="time" name="jam_keluar" value="{{$d->jam_keluar}}"
+                            class="rounded-md shadow-inner w-full border border-gray-400">
+                    </div>
+                    <div class="w-full">
+                        <label for="">Keterangan</label>
+                        <select name="keterangan" id="keterangan" class="select select-bordered w-full p-1 text-center">
+                            <option value="" disabled selected> --Pilih Keterangan Presensi--</option>
+                            <option value="hadir">Hadir</option>
+                            <option value="sakit">Sakit</option>
+                            <option value="izin">Izin</option>
+                            <option value="alfa">Alfa</option>
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <label for="kegiatan"> Kegiatan </label>
+                        <br>
+                        <input type="text" name="kegiatan"
+                            class="w-full rounded-md shadow-inner border whitespace-normal h-[10em] border-gray-400"
+                            value="{{$d->kegiatan}}">
+                    </div>
+                    <button type="submit" value="simpan"
+                        class="btn bg-[#256D85] rounded -lg px-5 mb-5 py-3 text-center shadow-md hover:bg-emerald-700 font-bold text-white">Simpan</button>
                 </div>
-
             </form>
             @endforeach
-
         </div>
     </div>
 </body>
