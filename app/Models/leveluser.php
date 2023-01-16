@@ -13,8 +13,8 @@ class Leveluser extends Model
     protected $softDelete = false;
     public $timestamps = false;
 
-    public function staff_hubin()
+    public function user()
     {
-        return $this->belongsTo(Leveluser::class, 'id_akun');
+        return $this->hasMany(User::class, 'id_level', 'id_level');
     }
 }

@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    protected $user;
+    public function __construct()
+    {
+        $this->user = User::all();
+    }
     public function index(){
         return view('auth.login', [
             'active' => 'login'

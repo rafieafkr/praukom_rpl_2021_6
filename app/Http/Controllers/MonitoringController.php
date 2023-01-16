@@ -6,6 +6,7 @@ use App\Models\Monitoring;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMonitoringRequest;
 use App\Http\Requests\UpdateMonitoringRequest;
+use App\Models\Prakerin;
 use Illuminate\Support\Facades\DB;
 
 class MonitoringController extends Controller
@@ -26,7 +27,7 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        $Monitoring = Monitoring::all();
+        // $Monitoring = Monitoring::all();
 
         // return response()->json($hubin);
 

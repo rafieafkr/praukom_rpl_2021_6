@@ -23,7 +23,7 @@ return new class extends Migration
             $table->tinyInteger('id_prakerin')->length(4)->autoIncrement();
             $table->string('nis')->length(15)->nullable(false);
             $table->string('nik_pp')->length(17)->nullable(false);
-            $table->tinyInteger('id_ps')->length(4)->nullable(false);
+            $table->tinyInteger('id_ps')->length(4)->nullable();
             $table->tinyInteger('id_kaprog')->length(4)->nullable(false);
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
 

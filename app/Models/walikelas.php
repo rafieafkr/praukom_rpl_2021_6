@@ -13,4 +13,9 @@ class Walikelas extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nip_guru','id_akun','nama_walas'];
+
+    public function prakerin()
+    {
+        return $this->belongsTo(Prakerin::class, 'id_walas', 'id_walas');
+    }
 }

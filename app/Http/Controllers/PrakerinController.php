@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Prakerin;
 use App\Http\Requests\StorePrakerinRequest;
 use App\Http\Requests\UpdatePrakerinRequest;
+use Illuminate\Support\Facades\DB;
 
 class PrakerinController extends Controller
 {
+    // Mendefinisikan $Prakerin & Middleware.
+    public function __construct()
+    {
+        $this->Prakerin = new Prakerin;
+        // $this->middleware('auth:web',[]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class PrakerinController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

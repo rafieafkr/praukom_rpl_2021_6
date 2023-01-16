@@ -12,5 +12,15 @@ class Siswa extends Model
     protected $primaryKey = 'nis';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nis','jurusan','id_kelas','nama_walas','tempat_lahir','tanggal_lahir'];
+    protected $fillable = ['nis','jurusan','id_kelas','nama_siswa','tempat_lahir','tanggal_lahir'];
+
+    public function prakerin()
+    {
+        return $this->belongsTo(Prakerin::class, 'nis', 'nis');
+    }
+
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'nis', 'nis');
+    }
 }

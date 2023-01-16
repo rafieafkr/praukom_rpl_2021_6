@@ -26,7 +26,8 @@ return new class extends Migration
             $table->engine = 'innodb';
             $table->tinyInteger('id')->length(4)->autoIncrement();
             // $table->tinyInteger('id_akun')->length(4)->autoIncrement();
-            $table->tinyInteger('level_user')->length(3)->nullable(false);
+            $table->tinyInteger('level_user')->length(3)->nullable();
+            $table->string('username',60)->nullable(false);
             $table->string('email',60)->nullable(false);
             $table->string('password',60)->nullable(false);
             $table->rememberToken();

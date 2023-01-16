@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Staffhubin;
+use App\Models\User;
 use App\Http\Requests\StoreStaffhubinRequest;
 use App\Http\Requests\UpdateStaffhubinRequest;
+use App\Models\Leveluser;
+use Illuminate\Support\Facades\Auth;
 
 class StaffhubinController extends Controller
 {
@@ -13,13 +16,26 @@ class StaffhubinController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $level_user;
+    protected $ambilLevel;
+    
+    public function __construct()
+    {
+        $this->level_user = Leveluser::all();
+    }
     public function index()
     {   
-        $hubin = Staffhubin::all();
+        // $hubin = Staffhubin::all();
+        // $user = User::all();
+        // $level_user = Leveluser::all();
 
         // return response()->json($hubin);
+        // $this->authorize('hubin');
+    
         
-        return view('dashboard.index');
+        return view('dashboard.index', [
+            'level_user' => $this->level_user
+        ]);
     }
 
     /**

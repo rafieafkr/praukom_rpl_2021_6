@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Leveluser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,8 +19,7 @@ class LeveluserFactory extends Factory
     public function definition()
     {
         return [
-            'nama_level' => 'hubin',
-            'keterangan' => Str::random(10),
+            
         ];
     }
 }

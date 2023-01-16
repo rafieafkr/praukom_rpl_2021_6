@@ -5,7 +5,7 @@
 @section('container')
 <div class="flex w-full">
     <div class="flex-warp mr-auto">
-        <a href="/monitoring"><button class="btn">Kembali</button></a>
+        <a href="/dashboard"><button class="btn">Kembali</button></a>
     </div>
     <div class="flex-warp ml-auto">
         <a href="/monitoring/tambah"><button class="btn">Tambah Monitoring</button></a>
@@ -18,22 +18,21 @@
             <td colspan="7" class="bg-[#0A3A58] h-14 sticky w-max-auto">Monitoring</td>
         </tr>
         <tr>
-            <td class="font-bold">NO</td>
-            <th>PEMBIMBING</th>
-            <th>PERUSAHAAN</th>
-            <th>TANGGAL</th>
-            <th>RESUME</th>
-            <th>VERIFIKASI</th>
-            <th>AKSI</th>
+            <td>NO</td>
+            <td>PEMBIMBING</td>
+            <td>PERUSAHAAN</td>
+            <td>TANGGAL</td>
+            <td>VERIFIKASI</td>
+            <td>AKSI</td>
         </tr>
 
+        <?php $i=1; ?>
         @foreach ($monitoring as $key => $monit)
         <tr class="text-center">
-            <td class="table-auto">{{$monitoring -> firstItem() + $key}}</td>
-            <td class="table-auto">{{$monit -> id_ps}}</td>
-            <td class="table-auto">{{$monit -> id_perusahaan}}</td>
+            <td class="table-auto">{{$i++}}</td>
+            <td class="table-auto">{{$monit -> pembimbingsekolah[0] -> nama_ps}}</td>
+            <td class="table-auto">{{$monit -> perusahaan[0] -> nama_perusahaan}}</td>
             <td class="table-auto">{{$monit -> tanggal}}</td>
-            <td class="table-auto">{{$monit -> resume}}</td>
             <td class="table-auto">{{$monit -> verifikasi}}</td>
             <td class="table-auto text-center">
                 <a href="/monitoring/edit/{{$monit->id_monitoring}}"><button

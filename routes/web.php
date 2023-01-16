@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffhubinController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\PrakerinController;
+use App\Http\Controllers\PembimbingsekolahController;
+use App\Http\Controllers\KepalaprogramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,24 +27,32 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', [StaffhubinController::class, 'index'])->middleware('auth');
+Route::get('/dashboard', [StaffhubinController::class, 'index']);
+
+// ->middleware('hubin')
 
 // Route Modul Monitoring
-Route::get('/monitoring', [MonitoringController::class, 'index']);
-Route::get('/monitoring/tambah', [MonitoringController::class, 'tambah']);
-Route::post('/monitoring/masuk', [MonitoringController::class, 'store']);
-Route::get('/monitoring/edit/{id_monitoring}', [MonitoringController::class, 'edit']);
-Route::post('/monitoring/update', [MonitoringController::class, 'update']);
-Route::post('/monitoring/hapus', [MonitoringController::class, 'destroy']);
+Route::get('/monitoring', [PembimbingsekolahController::class, 'monitoring']);
+Route::get('/monitoring/tambah', [PembimbingsekolahController::class, 'tambahmonitoring']);
+Route::post('/monitoring/masuk', [PembimbingsekolahController::class, 'storemonitoring']);
+Route::get('/monitoring/edit/{id_monitoring}', [PembimbingsekolahController::class, 'editmonitoring']);
+Route::post('/monitoring/update', [PembimbingsekolahController::class, 'updatemonitoring']);
+Route::post('/monitoring/hapus', [PembimbingsekolahController::class, 'destroymonitoring']);
 
 // Route Modul Pilih Pembimbing Sekolah
-Route::get('/pilihpembimbingsekolah', [MonitoringController::class, 'index']);
-Route::get('/pilihpembimbingsekolah/tambah', [MonitoringController::class, 'tambah']);
-Route::post('/pilihpembimbingsekolah/masuk', [MonitoringController::class, 'store']);
-Route::get('/pilihpembimbingsekolah/edit/{id_monitoring}', [MonitoringController::class, 'edit']);
-Route::post('/pilihpembimbingsekolah/update', [MonitoringController::class, 'update']);
-Route::post('/pilihpembimbingsekolah/hapus', [MonitoringController::class, 'destroy']);
+Route::get('/pilihpembimbingsekolah', [KepalaprogramController::class, 'indexps']);
+Route::get('/pilihpembimbingsekolah/edit/{id_prakerin}', [KepalaprogramController::class, 'editps']);
+Route::post('/pilihpembimbingsekolah/edit/update', [KepalaprogramController::class, 'updateps']);
 
+// Route Modul Surat Pengajuan
+Route::get('/suratpengajuan', [KepalaprogramController::class, 'indexsuratpengajuan']);
+Route::get('/suratpengajuan/detail/{id_pengajuan}', [KepalaprogramController::class, 'detailsuratpengajuan']);
+Route::post('/suratpengajuan/detail/terimapengajuan/{id_pengajuan}', [KepalaprogramController::class, 'updateterima']);
+Route::post('/suratpengajuan/detail/tolakpengajuan/{id_pengajuan}', [KepalaprogramController::class, 'updatetolak']);
+Route::post('/suratpengajuan/hapus/{id_pengajuan}', [KepalaprogramController::class, 'hapussuratpengajuan']);
+
+// Route Modul Presensi Siswa
+Route::get('/presensisiswa', [PembimbingsekolahController::class, 'index']);
 
 Route::get('/listsiswa', function() {
   return view('hubin.list_siswa');

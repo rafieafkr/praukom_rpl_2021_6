@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -21,10 +22,23 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = new User;
+    }
+    
     public function boot()
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('hubin', function() {
+            return $this->user->level_user === 2;
+        });
+        
+        Gate::define('kepalaprogram', function() {
+            return $this->user->level_user === 3;
+        });
     }
 }

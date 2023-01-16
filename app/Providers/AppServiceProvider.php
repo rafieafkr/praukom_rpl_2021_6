@@ -24,10 +24,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    
     public function boot()
     {
-        // Gate::define('hubin', function(User $user) {
-        //     return $user->level_user === '2';
-        // });
+
     }
 }

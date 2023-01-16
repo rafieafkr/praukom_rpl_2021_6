@@ -16,6 +16,16 @@ class Pembimbingsekolah extends Model
 
     public function monitoring()
     {
-        return $this->belongsTo(Monitoring::class, 'id_ps');
+        return $this->belongsTo(Monitoring::class, 'id_ps','id_ps');
+    }
+
+    public function prakerin()
+    {
+        return $this->belongsTo(Prakerin::class, 'id_ps', 'id_ps');
+    }
+
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'id_ps', 'id_ps');
     }
 }

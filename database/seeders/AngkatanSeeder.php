@@ -14,6 +14,6 @@ class AngkatanSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Angkatan::factory(2)->create();
+        \App\Models\Angkatan::factory(1)->create();
     }
 }
