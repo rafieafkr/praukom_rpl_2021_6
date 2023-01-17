@@ -90,7 +90,7 @@ class PengajuanController extends Controller
           $validated['bukti_terima'] = null;
         }
 
-        // try {
+        try {
         // execute procedure
         DB::select('CALL procedure_tambah_pengajuan(?, ?, ?, ?, ?, ?, ?, ?)', [
           $validated['nis'],
@@ -103,11 +103,11 @@ class PengajuanController extends Controller
           $validated['bukti_terima']
         ]);
 
-        // } catch(Exception) {
+        } catch(Exception) {
           // reload page apabila gagal kirim pengajuan
-          // return back()->withErrors('Pengajuan gagal dikirim');
-        // }
-      // redirect ke siswa/pengajuan apabila sukses kirim pengajan
+          return back()->withErrors('Pengajuan gagal dikirim');
+        }
+      // redirect ke siswa/pengajuan apabila sukses kirim pengajuan
       return redirect(route('pengajuan.index'))->withSuccess('Pengajuan berhasil dikirim');
     }
 

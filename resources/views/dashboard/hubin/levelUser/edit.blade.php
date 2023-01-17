@@ -86,13 +86,6 @@
       </label>
       <br><br>
       <label>
-        Password
-        <br>
-        <input type="text" name="password" placeholder="Edit password akun" class="input-bordered input w-full"
-          value="{{ $user[0]->password }}" />
-      </label>
-      <br><br>
-      <label>
         Level User
         <br>
         <select id="level_user" name="level_user" class="select-bordered select w-full">

@@ -15,10 +15,10 @@ return new class extends Migration
     public function up()
     {
         DB::unprepared('
-        CREATE OR REPLACE PROCEDURE procedure_update_akun (nId_akun INT, nLevel_user INT, nEmail VARCHAR(60), nPassword VARCHAR(60), nUsername VARCHAR(60), nNama VARCHAR(60), nIdentitas VARCHAR(20))
+        CREATE OR REPLACE PROCEDURE procedure_update_akun (nId_akun INT, nLevel_user INT, nEmail VARCHAR(60), nUsername VARCHAR(60), nNama VARCHAR(60), nIdentitas VARCHAR(20))
           BEGIN
             DECLARE idguru INT;
-            UPDATE akun SET level_user=nLevel_user, email=nEmail, password=nPassword, username=nUsername WHERE id_akun=nId_akun;
+            UPDATE akun SET level_user=nLevel_user, email=nEmail, username=nUsername WHERE id_akun=nId_akun;
             SELECT id_guru INTO idguru FROM guru WHERE id_akun=nId_akun;
             IF(nLevel_user = 1) THEN
               UPDATE guru SET nip_guru=nIdentitas, nama_guru=nNama;

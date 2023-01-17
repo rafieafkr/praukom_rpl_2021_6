@@ -146,7 +146,6 @@ class AkunController extends Controller
         $validated = $request->validate([
           "level_user" => ['required'],
           "email" => ['required', 'email', 'max:60'],
-          "password" => ['required', Password::min(8)],
           "username" => ['required', 'max:60'],
           "nama" => ['required', 'max:70'],
           "identitas" => ['required', 'max:20'],
@@ -154,11 +153,10 @@ class AkunController extends Controller
 
         // try {
         // execute procedure
-        Akun::hydrate(DB::select('CALL procedure_update_akun(?, ?, ?, ?, ?, ?, ?)', [
+        Akun::hydrate(DB::select('CALL procedure_update_akun(?, ?, ?, ?, ?, ?)', [
           $akun->id_akun,
           $validated['level_user'],
           $validated['email'],
-          $validated['password'],
           $validated['username'],
           $validated['nama'],
           $validated['identitas'],

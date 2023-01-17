@@ -22,7 +22,7 @@
         </div>
         <div class="mt-[20px]">
           <p class="text-lg font-light md:text-2xl">Muhammad Rafie Afkar Yunansyah Hebat</p>
-          <p class="text-lg font-light md:text-2xl">Staff Hubin</p>
+          <p class="text-lg font-light md:text-2xl">Siswa</p>
           <a href="#" class="hidden h-20 bg-red-500 md:inline">
             <button class="mt-5 rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">Edit
               Profil</button>

@@ -1,6 +1,10 @@
 <nav class="flex w-full justify-between bg-white pl-6">
   <div class="py-4">
-    <p class="font-semibold tracking-widest">SIMAK</p>
+    <p class="font-semibold tracking-widest">
+      <a href="/hubin">
+        SIMAK
+      </a>
+    </p>
   </div>
   <div>
     <a href="/logout" class="flex w-[115px] justify-center bg-[#06283D] py-4 px-4 text-white">
