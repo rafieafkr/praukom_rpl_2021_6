@@ -151,7 +151,7 @@ class AkunController extends Controller
           "identitas" => ['required', 'max:20'],
         ]);
 
-        // try {
+        try {
         // execute procedure
         Akun::hydrate(DB::select('CALL procedure_update_akun(?, ?, ?, ?, ?, ?)', [
           $akun->id_akun,
@@ -162,10 +162,10 @@ class AkunController extends Controller
           $validated['identitas'],
         ]));
 
-        // } catch(Exception) {
+        } catch(\Exception) {
           // reload page apabila gagal buat akun
-          // return back()->withErrors('Akun gagal diubah');
-        // }
+          return back()->withErrors('Akun gagal diubah');
+        }
       // redirect ke hubin/leveluser apabila sukses buat akun
       return redirect(route('leveluser.index'))->withSuccess('Akun berhasil diubah');
     }
