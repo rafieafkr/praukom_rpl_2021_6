@@ -296,10 +296,12 @@
                     <div class="w-full ml-3 font-normal uppercase text-xl mb-3 text-[#173A6F]">
                         <p>Profile</p>
                     </div>
-                    <div class="flex space-x-2 m-auto">
-                        <div class="relative m-auto w-[9em] h-[9em]">
-                            <img src="President_Suharto,_1993.jpg" alt="Pa Har" class="w-[9em] h-[9em] rounded-full" />
-                        </div>
+                    <div class="flex space-x-2">
+                        <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                            <div class="w-[10em] rounded-full">
+                                <img src="https://placeimg.com/80/80/people" />
+                            </div>
+                        </label>
                     </div>
                     <div class="w-fit m-auto mt-3 text-center">
                         <label class="font-normal text-center m-auto" for="image-profile">

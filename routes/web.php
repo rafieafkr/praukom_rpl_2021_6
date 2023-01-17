@@ -33,8 +33,6 @@ Route::get('/dashboard', [StaffhubinController::class, 'index']);
 
 // Route Modul Monitoring
 Route::get('/monitoring', [PembimbingsekolahController::class, 'monitoring']);
-Route::get('/monitoring/tambah', [PembimbingsekolahController::class, 'tambahmonitoring']);
-Route::post('/monitoring/masuk', [PembimbingsekolahController::class, 'storemonitoring']);
 Route::get('/monitoring/edit/{id_monitoring}', [PembimbingsekolahController::class, 'editmonitoring']);
 Route::post('/monitoring/update', [PembimbingsekolahController::class, 'updatemonitoring']);
 Route::post('/monitoring/hapus', [PembimbingsekolahController::class, 'destroymonitoring']);

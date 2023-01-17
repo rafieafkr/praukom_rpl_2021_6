@@ -7,9 +7,6 @@
     <div class="flex-warp mr-auto">
         <a href="/dashboard"><button class="btn">Kembali</button></a>
     </div>
-    <div class="flex-warp ml-auto">
-        <a href="/monitoring/tambah"><button class="btn">Tambah Monitoring</button></a>
-    </div>
 </div>
 
 <div class="overflow-x-auto mx-20 my-10">

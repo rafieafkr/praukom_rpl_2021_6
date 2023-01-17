@@ -17,11 +17,14 @@ class PembimbingsekolahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    protected $Ps;
     protected $presensi;
     protected $monitoring;
     
     public function __construct()
     {
+        $this->Ps = Pembimbingsekolah::all();
         $this->presensi = Presensisiswa::all();
         $this->monitoring = Monitoring::all();
     }
@@ -45,30 +48,13 @@ class PembimbingsekolahController extends Controller
             'monitoring' => $this->monitoring
         ]);
     }
-    public function tambahmonitoring(){
-        return view('monitoring.tambah');
-    }
-    public function storemonitoring(Request $request)
-    {
-            $data = [
-                'id_ps' => $request->input('id_ps'),
-                'id_kepsek' => $request->input('id_kepsek'),
-                'id_perusahaan' => $request->input('id_perusahaan'),
-                'tanggal' => $request->input('tanggal'),
-                'resume' => $request->input('resume'),
-                'verifikasi' => $request->input('verifikasi'),
-            ];
-            // Memasukan data ke Database.
-            $insert = $this->Supplier::create($data);
-            if ($insert) {
-                return redirect('monitoring');
-            } else {
-                return "input data gagal";
-            }
-    }
+  
     public function editmonitoring($id_monitoring = null)
     {
-        $edit = $this->Monitoring->whereIdMonitoring($id_monitoring)->first();
+        $edit = DB::table('monitoring')
+                ->where('id_monitoring', $id_monitoring)
+                ->select()
+                ->get();;
         return view('monitoring.edit', ['edit' => $edit]);
     }
     public function updatemonitoring(Request $request)
@@ -81,7 +67,7 @@ class PembimbingsekolahController extends Controller
             'resume' => $request->input('resume'),
             'verifikasi' => $request->input('verifikasi'),
         ];
-        $upd = $this->Monitoring
+        $upd = $this->monitoring
                     ->where('id_monitoring', $request->input('id_monitoring'))
                     ->update($data);
         if ($upd) {

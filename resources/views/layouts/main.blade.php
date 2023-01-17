@@ -18,9 +18,11 @@
 
 <body>
     @include('partials.navbar')
-    <div class="bg-[#CCE0DD] px-6 pt-4 h-screen">
+    <div class="bg-[#CCE0DD] px-6 pt-4 min-h-screen">
         @yield('container')
     </div>
+
+    @include('partials.footer')
 </body>
 
 </html>
