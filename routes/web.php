@@ -22,6 +22,19 @@ Route::get('/', function() {
 
 // Route::get('/login', [loginController::class, 'index']);
 
+//Routes Fitur Penilaian Siswa
+Route::get('/penilaian', [PenilaianController::class, 'index']);
+Route::get('/getKompetensi', [PenilaianController::class, 'getKompetensi'])->name('getKompetensi');
+Route::post('/simpan_nilai',[PenilaianController::class,'simpan']);
+Route::get('/nilai/edit/{id}',[PenilaianController::class,'edit']);
+Route::post('/nilai/edit/update',[PenilaianController::class,'update']);
+//Routes Fitur Presensi Siswa
+Route::get('/presensi', [PresensisiswaController::class, 'index']);
+Route::get('/get-kompetensi', [PresensisiswaController::class, 'getPp'])->name('getPp');
+Route::post('/simpan',[PresensisiswaController::class,'simpan']);
+Route::get('/edit/{id}',[PresensisiswaController::class,'edit']);
+Route::put('/update_presensi',[PresensisiswaController::class,'update']);
+
 Route::get('/hubin', [StaffhubinController::class, 'index'])->name('hubin');
 Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun'])->names([
   'index', 'hubin.leveluser.index',
