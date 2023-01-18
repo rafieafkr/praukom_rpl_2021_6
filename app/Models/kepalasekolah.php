@@ -13,4 +13,9 @@ class Kepalasekolah extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nip_guru','nama_kepsek','jabatan'];
+
+    public function monitoring()
+    {
+        return $this->belongsTo(Monitoring::class, 'id_kepsek', 'id_kepsek');
+    }
 }

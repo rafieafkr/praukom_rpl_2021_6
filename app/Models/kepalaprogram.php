@@ -13,4 +13,14 @@ class Kepalaprogram extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nip_guru','id_akun','nama_kaprog'];
+
+    public function prakerin()
+    {
+        return $this->belongsTo(Prakerin::class, 'id_kaprog', 'id_kaprog');
+    }
+
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'id_kaprog', 'id_kaprog');
+    }
 }

@@ -3,11 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Monitoring;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreMonitoringRequest;
 use App\Http\Requests\UpdateMonitoringRequest;
+use App\Models\Prakerin;
+use Illuminate\Support\Facades\DB;
 
 class MonitoringController extends Controller
 {
+    protected $Monitoring;
+
+    // Mendefinisikan $Monitoring & Middleware.
+    public function __construct()
+    {
+        $this->Monitoring = new Monitoring;
+        // $this->middleware('auth:web',[]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +27,18 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        //
+        // $Monitoring = Monitoring::all();
+
+        // return response()->json($hubin);
+
+        $Monitoring = DB::table('monitoring')
+        ->paginate(5);
+
+        // Mengirim data monitoing ke view (monitoring.index).
+        return view('monitoring.index',[
+            'title' => 'Monitoring',
+            'monitoring' => $Monitoring
+        ]);
     }
 
     /**
@@ -23,9 +46,8 @@ class MonitoringController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function tambah(){
+        return view('monitoring.tambah');
     }
 
     /**
@@ -34,9 +56,23 @@ class MonitoringController extends Controller
      * @param  \App\Http\Requests\StoreMonitoringRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMonitoringRequest $request)
+    public function store(Request $request)
     {
-        //
+            $data = [
+                'id_ps' => $request->input('id_ps'),
+                'id_kepsek' => $request->input('id_kepsek'),
+                'id_perusahaan' => $request->input('id_perusahaan'),
+                'tanggal' => $request->input('tanggal'),
+                'resume' => $request->input('resume'),
+                'verifikasi' => $request->input('verifikasi'),
+            ];
+            // Memasukan data ke Database.
+            $insert = $this->Supplier::create($data);
+            if ($insert) {
+                return redirect('monitoring');
+            } else {
+                return "input data gagal";
+            }
     }
 
     /**
@@ -56,9 +92,10 @@ class MonitoringController extends Controller
      * @param  \App\Models\Monitoring  $monitoring
      * @return \Illuminate\Http\Response
      */
-    public function edit(Monitoring $monitoring)
+    public function edit(Monitoring $Monitoring, $id_monitoring = null)
     {
-        //
+        $edit = $this->Monitoring->whereIdMonitoring($id_monitoring)->first();
+        return view('monitoring.edit', ['edit' => $edit]);
     }
 
     /**
@@ -68,9 +105,24 @@ class MonitoringController extends Controller
      * @param  \App\Models\Monitoring  $monitoring
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMonitoringRequest $request, Monitoring $monitoring)
+    public function update(Request $request, Monitoring $monitoring)
     {
-        //
+        $data = [
+            'id_ps' => $request->input('id_ps'),
+            'id_kepsek' => $request->input('id_kepsek'),
+            'id_perusahaan' => $request->input('id_perusahaan'),
+            'tanggal' => $request->input('tanggal'),
+            'resume' => $request->input('resume'),
+            'verifikasi' => $request->input('verifikasi'),
+        ];
+        $upd = $this->Monitoring
+                    ->where('id_monitoring', $request->input('id_monitoring'))
+                    ->update($data);
+        if ($upd) {
+            return redirect('monitoring');
+        } else {
+            return "update data gagal";
+        }
     }
 
     /**
@@ -79,8 +131,13 @@ class MonitoringController extends Controller
      * @param  \App\Models\Monitoring  $monitoring
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Monitoring $monitoring)
+    public function destroy(Monitoring $monitoring, $id_monitoring = null)
     {
-        //
+        $hapus = $this->Monitoring
+                            ->where('id_monitoring',$id_monitoring)
+                            ->delete();
+            if($hapus){
+                return redirect('monitoring');
+            }
     }
 }

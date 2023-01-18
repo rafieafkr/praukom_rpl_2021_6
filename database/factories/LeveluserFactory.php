@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Leveluser;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\leveluser>
@@ -17,8 +19,12 @@ class LeveluserFactory extends Factory
     public function definition()
     {
         return [
+<<<<<<< HEAD
             // "nama_level" => fake()->jobTitle(),
             // "keterangan" => '',
+=======
+            
+>>>>>>> origin/kinoy
         ];
     }
 }

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('nik_pp')->length(17)->nullable(false);
             $table->string('nis')->length(15)->nullable(false);
             $table->date('tgl_kehadiran')->nullable(false);
-            $table->text('keterangan')->nullable(false);
+            $table->text('keterangan')->nullable();
             $table->time('jam_masuk')->nullable(false);
             $table->time('jam_keluar')->nullable(false);
             $table->text('kegiatan')->nullable(false);

@@ -17,7 +17,8 @@ class PerusahaanFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nama_perusahaan' => fake()->userName(),
+            'alamat_perusahaan' => fake()->address()
         ];
     }
 }

@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\akun>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\pilihps>
  */
-class AkunFactory extends Factory
+class PilihpsFactory extends Factory
 {
     /**
      * Define the model's default state.

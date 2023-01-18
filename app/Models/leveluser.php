@@ -12,4 +12,9 @@ class Leveluser extends Model
     protected $primaryKey = 'id_level';
     protected $softDelete = false;
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->hasMany(User::class, 'id_level', 'id_level');
+    }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,10 +16,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    
+    protected $table = 'akun';
+    // protected $primaryKey = 'id_akun';
+
     protected $fillable = [
-        'name',
+        'level_user',
         'email',
-        'password',
+        'username',
+        'password'
     ];
 
     /**
@@ -30,15 +34,25 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'remember_token'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // /**
+    //  * The attributes that should be cast.
+    //  *
+    //  * @var array<string, string>
+    //  */
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
+
+    public function leveluser()
+    {
+        return $this->belongsTo(Leveluser::class, 'level_user', 'id_level');
+    }
+
+    // public function staffhubin()
+    // {
+    //     return $this->hasOne(Staffhubin::class);
+    // }
 }

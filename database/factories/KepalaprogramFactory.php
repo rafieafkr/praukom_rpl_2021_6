@@ -17,7 +17,7 @@ class KepalaprogramFactory extends Factory
     public function definition()
     {
         return [
-            //
+            
         ];
     }
 }

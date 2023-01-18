@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('nik_pp')->length(20)->nullable(false)->primary();
             $table->integer('id_akun')->nullable(false);
             $table->string('nama_pp')->length(60)->nullable(false);
+            $table->string('foto_pp')->length(255)->nullable();
 
-            $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
-
+            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

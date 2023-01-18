@@ -13,4 +13,9 @@ class Staffhubin extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nip_guru','id_akun','nama_staff'];
+
+    // public function user()
+    // {
+    //     return $this->belongsToMany(User::class, 'id_akun');
+    // }
 }

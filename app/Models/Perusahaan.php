@@ -13,4 +13,19 @@ class Perusahaan extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nama_perusahaan','alamat_perusahaan'];
+
+    public function prakerin()
+    {
+        return $this->belongsTo(Prakerin::class, 'id_perusahaan', 'id_perusahaan');
+    }
+
+    public function monitoring()
+    {
+        return $this->belongsTo(Monitoring::class, 'id_perusahaan', 'id_perusahaan');
+    }
+
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'id_perusahaan', 'id_perusahaan');
+    }
 }

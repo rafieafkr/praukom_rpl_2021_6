@@ -17,7 +17,9 @@ class KepalasekolahFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nip_guru' => 202106,
+            'nama_kepsek' => 'Karto',
+            'jabatan' => 'Kepala Sekolah'
         ];
     }
 }

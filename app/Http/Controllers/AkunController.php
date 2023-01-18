@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Akun;
+use App\Models\User as Akun;
 use App\Models\ViewLihatAkun;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreakunRequest;
@@ -42,10 +42,10 @@ class AkunController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreakunRequest  $request
+     * @param  \App\Http\Requests\StoreAkunRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreakunRequest $request)
+    public function store(StoreAkunRequest $request)
     {
       // validasi pembuatan akun
         $validated = $request->validate([
@@ -82,7 +82,7 @@ class AkunController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Akun  $akun
+     * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
     public function show(Akun $akun)
@@ -112,12 +112,11 @@ class AkunController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateakunRequest  $request
-     * @param  \App\Models\Akun  $akun
+     * @param  \App\Http\Requests\UpdateAkunRequest  $request
+     * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateakunRequest $request, Akun $akun)
+    public function update(UpdateAkunRequest $request, Akun $akun)
     {
         if ($request->level_user !== $akun->level_user) {
           $id_guru = DB::table('guru')->select('id_guru')->where('id_akun', '=', $akun->id_akun)->get();
@@ -172,8 +171,7 @@ class AkunController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Akun  $akun
+     * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
     public function destroy(Akun $akun)

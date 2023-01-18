@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Akun;
+use App\Models\User as Akun;
 
 class AkunSeeder extends Seeder
 {
