@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>View Presensi</title>
+    <title>View Penilaian</title>
     <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">   -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,10 @@
 </head>
 
 <body class="bg-[#CCE0DD] h-full">
+
+    <div class="float-right w-[20em]">
+       
+    </div>
     <center>
         <h1 class=" font-extrabold text-[30px] tracking-[.20em] text-[#173A6F] mt-10"> DAFTAR NILAI SISWA PRAKERIN</h1>
     </center>
@@ -27,6 +31,10 @@
 
     <!-- The button to open modal -->
     <div class="overflow-x-scroll mx-20">
+    <form action="/search_penilaian" method="GET">
+            <input type="text" name="cari" placeholder="Cari Siswa .." value="" class="input input-bordered inline-block max-w-xs">
+            <input type="submit" value="CARI" class="btn inline-block">
+    </form>
         <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
             <tr>
 
@@ -53,10 +61,14 @@
                 </td>
                 <td>
                     <div class="flex w-44 justify-center">
-                        <a href="" onclick="return confirm('Anda yakin ingin hapus data ini ?')"><label for="" class="bg-red-600 mr-1 hidden hover:bg-yellow-400 text-white rounded-lg font-bold text-sm p-2 btn
-            ">HAPUS</label></a>
+                        <a href="" onclick="return confirm('Anda yakin ingin hapus data ini ?')"><label for="" class="bg-red-600 mr-1 hidden hover:bg-yellow-400 text-white rounded-lg font-bold text-sm p-2 btn">HAPUS</label></a>
+
                         <a href="/nilai/edit/{{$d->id_penilaian}}"><button type="submit"
-                                class="btn btn-success mr-6">EDIT</button></a>
+                        class="btn btn-success mr-6">EDIT</button></a>
+
+                        <a href="/cetak_penilaian/{{$d->nis}}"><button type="submit"
+                        class="btn btn-success mr-6">CETAK</button></a>
+
                     </div>
                 </td>
             </tr>
