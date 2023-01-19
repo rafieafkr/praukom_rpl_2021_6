@@ -24,8 +24,15 @@
         <div class="float-left">
             <label for="my-modal-3" class="btn bg-blue-500 mb-2">Isi Presensi</label>
         </div>
+        <div class="float-right bg-red-200 w-[20em]">
+        <form action="/search" method="GET">
+            <input type="text" name="cari" placeholder="Cari Siswa .." value="" class="input input-bordered inline-block max-w-xs">
+            <input type="submit" value="CARI" class="btn inline-block">
+        </form>
     </div>
-
+    </div>
+    <!-- form search -->
+   
     <!-- The button to open modal -->
     <div class="overflow-x-scroll mx-20">
         <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
@@ -38,6 +45,8 @@
                 <th>JAM KELUAR</th>
                 <th>KEGIATAN</th>
                 <th>KETERANGAN</th>
+                <th>STATUS</th>
+                <th>FOTO KEGIATAN</th> 
                 <th>AKSI</th>
             </tr>
 
@@ -53,13 +62,19 @@
                 <td>{{$d->jam_keluar}}</td>
                 <td>{{$d->kegiatan}}</td>
                 <td>{{$d->keterangan}}</td>
+                <td></td>
+                <td></td>
                 <td>
                     <div class="flex w-44 justify-center ">
-                        <a href="" onclick="return confirm('Anda yakin ingin hapus data ini ?') "><label for="" class="bg-red-600 mr-1 hidden hover:bg-yellow-400 text-white rounded-lg font-bold text-sm p-2 btn
-            ">HAPUS</label>
+                        <a href="" onclick="return confirm('Anda yakin ingin hapus data ini ?') "><label for="" class="bg-red-600 mr-1 hidden hover:bg-yellow-400 text-white rounded-lg font-bold text-sm p-2 btn">HAPUS</label>
                         </a>
+
                         <a href="/edit/{{$d->id_presensi}}"><button type="submit"
-                                class="btn btn-success mr-6">EDIT</button></a>
+                        class="btn btn-success mr-6">EDIT</button></a>
+
+                        <a href="/cetak_presensi/{{$d->nis}}"><button type="submit"
+                        class="btn btn-success mr-6">CETAK</button></a>
+
                     </div>
                 </td>
             </tr>
