@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Penilaian;
-use App\Http\Requests\StorePenilaianRequest;
-use App\Http\Requests\UpdatePenilaianRequest;
+use App\Models\Nilai;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Psy\Command\WhereamiCommand;
 
 class PenilaianController extends Controller
 {
@@ -13,9 +18,40 @@ class PenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $penilaian;
+    protected $nilai;
+    public function __construct()
+    {
+        $this->penilaian = new Penilaian();
+        $this->nilai = new Nilai();
+    }
     public function index()
     {
-        //
+        $jurusan = DB::table('jurusan')
+            ->get();
+        
+        //get data view
+        $dataview = DB::table('view_penilaian')
+            // ->join('pembimbing_perusahaan', 'pembimbing_perusahaan.nik_pp', '=', 'penilaian.nik_pp')
+            // ->join('nilai', 'nilai.id_penilaian', '=', 'penilaian.id_penilaian')
+            // ->join('kompetensi', 'kompetensi.id_kompetensi', '=', 'nilai.kompetensi')
+            // ->join('siswa', 'siswa.nis', '=', 'penilaian.nis')
+            // 'pembimbing_perusahaan.nama_pp', 'penilaian.*', 'siswa.nama_siswa','nilai.nilai','kompetensi.nama_kompetensi'
+            ->select()
+            ->get();
+
+        //get data form
+        $nilaisiswa = DB::table('view_penilaian')
+            // ->join('prakerin', 'prakerin.nis', '=', 'penilaian.nis')
+            // ->join('siswa', 'siswa.nis', '=', 'penilaian.nis')
+            // 'penilaian.*', 'prakerin.*','siswa.nama_siswa'
+            ->select()
+            ->get();
+            // dd($nilaisiswa);
+            return view('dashboard.modules.penilaian',compact('jurusan'),['nilaisiswa'=>$nilaisiswa,
+                                                                         'dataview'=>$dataview
+                                                                        ]);
+
     }
 
     /**
@@ -23,9 +59,15 @@ class PenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getKompetensi(Request $request)
     {
-        //
+        $kompetensi = DB::table('kompetensi')
+            ->where('id_jurusan', $request->id_jurusan)
+            ->get();
+        
+        if (count($kompetensi) > 0) {
+            return response()->json($kompetensi);
+        }
     }
 
     /**
@@ -34,53 +76,109 @@ class PenilaianController extends Controller
      * @param  \App\Http\Requests\StorePenilaianRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePenilaianRequest $request)
+    public function simpan(Request $request)
     {
-        //
+        //insert tabel nilai
+        try {
+            $datanilai = [
+                'id_penilaian' => $request->input('id_penilaian'),
+                'kompetensi' => $request->input('kompetensi'),
+                'nilai'      => $request->input('nilai')
+            
+              
+            ];
+            // dd($datanilai);
+            //insert data ke database
+            // $insert = $this->nilai->create($datanilai);
+            $insert = Nilai::create($datanilai);
+            if ($insert) {
+                //redirect('gudang','refresh');
+                return redirect('penilaian');
+            } else {
+                return "input data gagal";
+            }
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            return "yaaah error nih, sorry ya";
+        }
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penilaian  $penilaian
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Penilaian $penilaian)
-    {
-        //
-    }
+    public function cari(Request $request)
+	{
+		// menangkap data pencarian
+        $prakerin = DB::table('prakerin')
+        ->select()
+        ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penilaian  $penilaian
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penilaian $penilaian)
-    {
-        //
-    }
+        $jurusan = DB::table('jurusan')
+        ->get();
+    
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePenilaianRequest  $request
-     * @param  \App\Models\Penilaian  $penilaian
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePenilaianRequest $request, Penilaian $penilaian)
-    {
-        //
-    }
+        $nilaisiswa = DB::table('view_penilaian')
+        ->select()
+        ->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Penilaian  $penilaian
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Penilaian $penilaian)
+		$cari = $request->cari;
+ 
+    		// mengambil data dari table pegawai sesuai pencarian data
+		$dataview = DB::table('view_penilaian')
+		->where('nama_siswa','like',"%".$cari."%")
+		->paginate();
+ 
+    		// mengirim data pegawai ke view index
+		return view('dashboard.modules.penilaian',['dataview' => $dataview,
+                                                'prakerin' => $prakerin,
+                                                'jurusan' => $jurusan,
+                                                'nilaisiswa' => $nilaisiswa]);
+ 
+	}
+  
+       //UPDATE 
+   public function edit($id)
+   {
+    // dd($nilai);
+       $datanilai = DB::table('nilai')
+                    ->join('kompetensi', 'kompetensi.id_kompetensi', '=', 'nilai.kompetensi')
+                    ->select('kompetensi.nama_kompetensi', 'nilai.*')
+                    ->where('id_penilaian', $id, 'nilai.*')
+                    ->get();
+
+       return view('dashboard.modules.editnilai', ['datanilai' => $datanilai]);
+   }
+   public function update(Request $request)
     {
-        //
+        // dd($request);
+      
+        DB::table('nilai')
+            ->where('id_penilaian','=', $request->id_penilaian)
+            ->where('kompetensi','=', $request->kompetensi)
+            
+        ->update([
+        
+            // 'id_penilaian' => $request->id_penilaian,
+            // 'kompetensi' => $request->input->kompetensi,
+            'nilai' => $request->nilai
+
+        ]);
+
+        return back();
+           
+    } 
+    //METHOD PRINT NILAI
+    public function print($id)
+    {
+     
+        $data_penilaian = DB::table('view_penilaian')
+                     ->where('nis', $id)
+                     ->select()
+                     ->get();
+                    //  dd($data_presensi);
+ 
+        return view('dashboard.modules.laporan_penilaian', ['data_penilaian' => $data_penilaian]);
     }
-}
+   }
+    
+   
+   
+   

@@ -62,6 +62,9 @@ Route::get('/getKompetensi', [PenilaianController::class, 'getKompetensi'])->nam
 Route::post('/simpan_nilai',[PenilaianController::class,'simpan']);
 Route::get('/nilai/edit/{id}',[PenilaianController::class,'edit']);
 Route::post('/nilai/edit/update',[PenilaianController::class,'update']);
+Route::get('/search_penilaian',[PenilaianController::class,'cari']);
+Route::get('/cetak_penilaian/{id}', [PenilaianController::class, 'print']);
+
 //Routes Fitur Presensi Siswa
 Route::get('/presensi', [PresensisiswaController::class, 'index']);
 Route::get('/get-kompetensi', [PresensisiswaController::class, 'getPp'])->name('getPp');
