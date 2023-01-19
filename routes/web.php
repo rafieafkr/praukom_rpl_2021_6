@@ -67,6 +67,9 @@ Route::get('/get-kompetensi', [PresensisiswaController::class, 'getPp'])->name('
 Route::post('/simpan',[PresensisiswaController::class,'simpan']);
 Route::get('/edit/{id}',[PresensisiswaController::class,'edit']);
 Route::put('/update_presensi',[PresensisiswaController::class,'update']);
+Route::get('/search',[PresensisiswaController::class,'cari']);
+Route::get('/cetak_presensi/{id}', [PresensisiswaController::class, 'print']);
+
 
 Route::get('/hubin', [StaffhubinController::class, 'index'])->name('hubin');
 Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun']);
