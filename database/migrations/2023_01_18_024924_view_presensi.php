@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW OR REPLACE view_presensi AS 
+        CREATE OR REPLACE VIEW view_presensi AS 
         SELECT 
                 siswa.nama_siswa, 
                 siswa.nis, 
@@ -26,7 +26,7 @@ return new class extends Migration
                 presensi_siswa.jam_keluar,
                 presensi_siswa.keterangan,
                 presensi_siswa.kegiatan,
-                presensi_siswa.status,
+                presensi_siswa.status_hadir,
                 presensi_siswa.id_presensi
 
         FROM presensi_siswa

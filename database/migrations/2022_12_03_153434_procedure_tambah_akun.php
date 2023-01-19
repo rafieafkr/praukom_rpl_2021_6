@@ -20,7 +20,7 @@ return new class extends Migration
             DECLARE idakun INT;
             DECLARE idguru INT;
             INSERT INTO akun (level_user,email,password,username) VALUES (nLevel_user, nEmail, nPassword, nUsername);
-            SELECT id_akun INTO idakun FROM akun WHERE username=nUsername;
+            SELECT id INTO idakun FROM akun WHERE username=nUsername;
             IF(nLevel_user=1) THEN
               INSERT INTO guru (id_akun,nip_guru,nama_guru) VALUES (idakun, nIdentitas, nNama);
               SELECT id_guru INTO idguru FROM guru WHERE id_akun=idakun;

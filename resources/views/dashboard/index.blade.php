@@ -5,7 +5,7 @@
 @section('container')
   <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
-    {{ auth()->user()->username }}</div>
+    {{ auth()->user()->username }}
   </div>
   <div class="flex flex-wrap gap-4 lg:grid lg:grid-cols-4 lg:grid-rows-3">
     {{-- Profile --}}
@@ -22,24 +22,36 @@
         </div>
         <div class="mt-[20px] md:ml-5">
           <p class="text-lg font-light md:text-2xl">{{ Auth::user()->username }}</p>
-          @if (Auth::user()->level_user == 1)
-            <p class="text-lg font-light md:text-2xl">Super Admin</p>
-          @elseif (Auth::user()->level_user == 2)
-            <p class="text-lg font-light md:text-2xl">Staff Hubin</p>
-          @elseif (Auth::user()->level_user == 3)
-            <p class="text-lg font-light md:text-2xl">Kepala Program</p>
-          @elseif (Auth::user()->level_user == 4)
-            <p class="text-lg font-light md:text-2xl">Wali Kelas</p>
-          @elseif (Auth::user()->level_user == 5)
-            <p class="text-lg font-light md:text-2xl">Pembimbing Sekolah</p>
-          @elseif (Auth::user()->level_user == 6)
-            <p class="text-lg font-light md:text-2xl">Pembimbing Perusahaan</p>
-          @elseif (Auth::user()->level_user == 7)
-            <p class="text-lg font-light md:text-2xl">Siswa</p>
-          @endif
+          @switch(Auth::user()->level_user)
+            @case(1)
+              <p class="text-lg font-light md:text-2xl">Staff Hubin</p>
+            @break
+
+            @case(2)
+              <p class="text-lg font-light md:text-2xl">Kepala Program</p>
+            @break
+
+            @case(3)
+              <p class="text-lg font-light md:text-2xl">Wali Kelas</p>
+            @break
+
+            @case(4)
+              <p class="text-lg font-light md:text-2xl">Pembimbing Sekolah</p>
+            @break
+
+            @case(5)
+              <p class="text-lg font-light md:text-2xl">Pembimbing Perusahaan</p>
+            @break
+
+            @case(6)
+              <p class="text-lg font-light md:text-2xl">Siswa</p>
+            @break
+
+            @default
+          @endswitch
           <a href="#" class="hidden h-20 md:inline">
-            <button class="mt-5 rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">
-              <label for="my-modal-3">
+            <button class="mt-5 cursor-pointer rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">
+              <label for="my-modal-3" class="cursor-pointer">
                 Lihat Profil
               </label>
             </button>
@@ -64,16 +76,13 @@
           <p class="text-lg font-semibold uppercase tracking-widest">Surat Pengajuan</p>
         </div>
         <div>
-          <a href="/suratpengajuan">
+          <a href="{{ route('pengajuan.index') }}">
             <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
           </a>
         </div>
       </div>
       {{-- div 2 --}}
       <div>
-        <a href="{{ route('pengajuan.index') }}">
-          <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-        </a>
         <x-heroicon-o-document-text class="w-[130px] text-[#7893a3] md:w-[140px]" />
       </div>
     </div>
@@ -108,7 +117,7 @@
           <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Level User</p>
         </div>
         <div>
-          <a href="#">
+          <a href="{{ route('leveluser.index') }}">
             <button
               class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
           </a>
@@ -116,10 +125,6 @@
       </div>
       {{-- div 2 --}}
       <div>
-        <a href="{{ route('leveluser.index') }}">
-          <button
-            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
-        </a>
         <x-heroicon-o-user-group class="w-[130px] text-[#a5ccd9] md:w-[140px]" />
       </div>
     </div>
@@ -296,7 +301,6 @@
     <div class="w-[60em] rounded-2xl bg-transparent">
 
       <form action="" enctype="multipart/form-data">
-
         <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
           <label for="my-modal-3"
             class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
@@ -333,21 +337,33 @@
             <div class="mb-4 h-min w-full">
               <label class="text-md font-normal" for="">LEVEL</label>
               <br>
-              @if (Auth::user()->level_user == 1)
-                <span class="text-center text-lg">Super Admin</span>
-              @elseif (Auth::user()->level_user == 2)
-                <span class="text-center text-lg">Staff Hubin</span>
-              @elseif (Auth::user()->level_user == 3)
-                <span class="text-center text-lg">Kepala Program</span>
-              @elseif (Auth::user()->level_user == 4)
-                <span class="text-center text-lg">Wali Kelas</span>
-              @elseif (Auth::user()->level_user == 5)
-                <span class="text-center text-lg">Pembimbing Sekolah</span>
-              @elseif (Auth::user()->level_user == 6)
-                <span class="text-center text-lg">Pembimbing Perusahaan</span>
-              @elseif (Auth::user()->level_user == 7)
-                <span class="text-center text-lg">Siswa</span>
-              @endif
+              @switch(Auth::user()->level_user)
+                @case(1)
+                  <p class="text-lg font-light md:text-2xl">Staff Hubin</p>
+                @break
+
+                @case(2)
+                  <p class="text-lg font-light md:text-2xl">Kepala Program</p>
+                @break
+
+                @case(3)
+                  <p class="text-lg font-light md:text-2xl">Wali Kelas</p>
+                @break
+
+                @case(4)
+                  <p class="text-lg font-light md:text-2xl">Pembimbing Sekolah</p>
+                @break
+
+                @case(5)
+                  <p class="text-lg font-light md:text-2xl">Pembimbing Perusahaan</p>
+                @break
+
+                @case(6)
+                  <p class="text-lg font-light md:text-2xl">Siswa</p>
+                @break
+
+                @default
+              @endswitch
             </div>
             <div class="mb-4 h-min w-full">
               <label class="text-md font-normal" for="">E-MAIL</label>

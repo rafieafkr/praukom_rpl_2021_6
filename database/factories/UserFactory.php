@@ -3,11 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\akun>
  */
 class UserFactory extends Factory
 {
@@ -16,10 +17,17 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    
     public function definition()
     {
         return [
-            
-        ];
+          User::hydrate(DB::select('CALL procedure_tambah_akun(?, ?, ?, ?, ?, ?)', [
+            rand(1, 6),
+            fake()->email(),
+            Hash::make('password'),
+            fake()->userName(),
+            fake()->name(),
+            rand(1000000000, 9999999999)
+          ]))];
     }
 }

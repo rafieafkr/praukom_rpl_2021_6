@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('nip_guru',20)->nullable(false);
             $table->string('nama_guru',70)->nullable(false);
 
-            $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

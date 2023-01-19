@@ -9,6 +9,7 @@ use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PrakerinController;
 use App\Http\Controllers\PembimbingsekolahController;
 use App\Http\Controllers\KepalaprogramController;
+use App\Http\Controllers\PresensisiswaController;
 
 /*
 |--------------------------------------------------------------------------

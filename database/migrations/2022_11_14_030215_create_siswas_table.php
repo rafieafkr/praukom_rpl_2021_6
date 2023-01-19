@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('tempat_lahir')->length(60)->nullable(true);
             $table->date('tanggal_lahir')->nullable(true);
 
-            $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('jurusan')->references('id_jurusan')->on('jurusan')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->cascadeOnDelete()->cascadeOnUpdate();
         });

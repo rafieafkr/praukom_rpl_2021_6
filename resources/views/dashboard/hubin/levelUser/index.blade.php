@@ -81,12 +81,11 @@
           <td class="p-4">{{ $user->email }}</td>
           <td class="p-4">{{ $user->nama_level }}</td>
           <td class="p-2">
-            <a href="{{ route('leveluser.edit', ['akun' => $user->id_akun]) }}"
+            <a href="{{ route('leveluser.edit', ['akun' => $user->id]) }}"
               class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500">
               <button>Edit</button>
             </a>
-            <form method="post" action="{{ route('leveluser.destroy', ['akun' => $user->id_akun]) }}"
-              class="inline-block">
+            <form method="post" action="{{ route('leveluser.destroy', ['akun' => $user->id]) }}" class="inline-block">
               @csrf
               @method('delete')
               <button

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->engine = 'innodb';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->tinyInteger('id_prakerin')->length(4)->autoIncrement();
+            $table->integer('id_prakerin')->autoIncrement();
             $table->string('nis')->length(15)->nullable(false);
             $table->string('nik_pp')->length(17)->nullable(false);
             $table->tinyInteger('id_ps')->length(4)->nullable();

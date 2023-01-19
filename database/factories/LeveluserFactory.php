@@ -19,12 +19,8 @@ class LeveluserFactory extends Factory
     public function definition()
     {
         return [
-<<<<<<< HEAD
             // "nama_level" => fake()->jobTitle(),
             // "keterangan" => '',
-=======
-            
->>>>>>> origin/kinoy
         ];
     }
 }
