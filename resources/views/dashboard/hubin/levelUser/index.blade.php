@@ -52,6 +52,22 @@
     @endif
   </div>
 
+  {{-- Search --}}
+  <div class="@if (request('cari')) flex flex-row items-center justify-end gap-2 @endif form-control w-full">
+    @if (request('cari'))
+      <a href="{{ route('leveluser.index') }}" class="inline-block">
+        <x-heroicon-o-x-mark class="inline-block w-8" />
+      </a>
+    @endif
+    <form action="{{ route('leveluser.index') }}" class="flex justify-end gap-1" method="GET">
+      <input type="text" name="cari" placeholder="Cari akun" value="{{ request('cari') }}"
+        class="input-bordered input inline-block max-w-xs" />
+      <button type="submit" class="btn-square btn">
+        <x-heroicon-m-magnifying-glass class="w-8" />
+      </button>
+    </form>
+  </div>
+
   {{-- tabel daftar akun --}}
   <div class="mt-5 flex h-12 w-full justify-center rounded-t-lg bg-[#0A3A58] text-center align-middle text-white">
     <span class="leading-[3rem]">Daftar Akun</span>

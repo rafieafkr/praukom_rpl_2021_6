@@ -8,8 +8,6 @@ use App\Models\Nilai;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Psy\Command\WhereamiCommand;
 
 class PenilaianController extends Controller
 {
@@ -31,26 +29,25 @@ class PenilaianController extends Controller
             ->get();
         
         //get data view
-        $dataview = DB::table('view_penilaian')
-            // ->join('pembimbing_perusahaan', 'pembimbing_perusahaan.nik_pp', '=', 'penilaian.nik_pp')
-            // ->join('nilai', 'nilai.id_penilaian', '=', 'penilaian.id_penilaian')
-            // ->join('kompetensi', 'kompetensi.id_kompetensi', '=', 'nilai.kompetensi')
-            // ->join('siswa', 'siswa.nis', '=', 'penilaian.nis')
-            // 'pembimbing_perusahaan.nama_pp', 'penilaian.*', 'siswa.nama_siswa','nilai.nilai','kompetensi.nama_kompetensi'
-            ->select()
+        $dataview = DB::table('penilaian')
+            ->join('pembimbing_perusahaan', 'pembimbing_perusahaan.nik_pp', '=', 'penilaian.nik_pp')
+            ->join('nilai', 'nilai.id_penilaian', '=', 'penilaian.id_penilaian')
+            ->join('kompetensi', 'kompetensi.id_kompetensi', '=', 'nilai.kompetensi')
+            ->join('siswa', 'siswa.nis', '=', 'penilaian.nis')
+            ->select('pembimbing_perusahaan.nama_pp', 'penilaian.*', 'siswa.nama_siswa','nilai.nilai','kompetensi.nama_kompetensi')
             ->get();
 
         //get data form
-        $nilaisiswa = DB::table('view_penilaian')
-            // ->join('prakerin', 'prakerin.nis', '=', 'penilaian.nis')
-            // ->join('siswa', 'siswa.nis', '=', 'penilaian.nis')
-            // 'penilaian.*', 'prakerin.*','siswa.nama_siswa'
-            ->select()
+        $nilaisiswa = DB::table('penilaian')
+            ->join('prakerin', 'prakerin.nis', '=', 'penilaian.nis')
+            ->join('siswa', 'siswa.nis', '=', 'penilaian.nis')
+            ->select('penilaian.*', 'prakerin.*','siswa.nama_siswa')
             ->get();
             // dd($nilaisiswa);
-            return view('dashboard.modules.penilaian',compact('jurusan'),['nilaisiswa'=>$nilaisiswa,
-                                                                         'dataview'=>$dataview
-                                                                        ]);
+            return view('dashboard.modules.penilaian',compact('jurusan'),[
+              'nilaisiswa'=>$nilaisiswa,
+              'dataview'=>$dataview
+            ]);
 
     }
 
@@ -80,28 +77,15 @@ class PenilaianController extends Controller
     {
         //insert tabel nilai
         try {
-            $datanilai = [
-                'id_penilaian' => $request->input('id_penilaian'),
-                'kompetensi' => $request->input('kompetensi'),
-                'nilai'      => $request->input('nilai')
-            
-              
-            ];
-            // dd($datanilai);
-            //insert data ke database
-            // $insert = $this->nilai->create($datanilai);
-            $insert = Nilai::create($datanilai);
-            if ($insert) {
-                //redirect('gudang','refresh');
-                return redirect('penilaian');
-            } else {
-                return "input data gagal";
-            }
-        } catch (\Exception $e) {
-            return $e->getMessage();
-            return "yaaah error nih, sorry ya";
+          Nilai::create([
+            "id_penilaian" => $request->id_penilaian,
+            "kompetensi" => $request->kompetensi,
+            "nilai" => $request->nilai,
+          ]);
+        } catch (\Exception) {
+          return back()->withErrors('Input nilai gagal.');
         }
-        
+        return back()->withSucces('Nilai tersimpan.');
     }
 
     public function cari(Request $request)
@@ -137,7 +121,6 @@ class PenilaianController extends Controller
        //UPDATE 
    public function edit($id)
    {
-    // dd($nilai);
        $datanilai = DB::table('nilai')
                     ->join('kompetensi', 'kompetensi.id_kompetensi', '=', 'nilai.kompetensi')
                     ->select('kompetensi.nama_kompetensi', 'nilai.*')

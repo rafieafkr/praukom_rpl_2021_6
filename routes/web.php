@@ -10,6 +10,7 @@ use App\Http\Controllers\PrakerinController;
 use App\Http\Controllers\PembimbingsekolahController;
 use App\Http\Controllers\KepalaprogramController;
 use App\Http\Controllers\PresensisiswaController;
+use App\Http\Controllers\PenilaianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,17 +24,15 @@ use App\Http\Controllers\PresensisiswaController;
 */
 
 Route::get('/', function() {
-  return redirect('/hubin');
+  return redirect('/login');
 });
 
 // Route::get('/login', [loginController::class, 'index']);
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-Route::get('/dashboard', [StaffhubinController::class, 'index']);
-
-// ->middleware('hubin')
+Route::get('/dashboard', [StaffhubinController::class, 'index'])->middleware('auth');
 
 // Route Modul Monitoring
 Route::get('/monitoring', [PembimbingsekolahController::class, 'monitoring']);
@@ -74,12 +73,16 @@ Route::put('/update_presensi',[PresensisiswaController::class,'update']);
 Route::get('/search',[PresensisiswaController::class,'cari']);
 Route::get('/cetak_presensi/{id}', [PresensisiswaController::class, 'print']);
 
+// home untuk hubin
+Route::get('/hubin', [StaffhubinController::class, 'index'])->name('hubin')->middleware('auth');
 
-Route::get('/hubin', [StaffhubinController::class, 'index'])->name('hubin');
-Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun']);
+// Fitur tambah akun
+Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun'])->middleware('auth');
 
-Route::resource('/siswa/pengajuan', PengajuanController::class);
+// Fitur tambah pengajuan
+Route::resource('/siswa/pengajuan', PengajuanController::class)->middleware('auth');
 
+// tabel list siswa
 Route::get('/hubin/listsiswa', function() {
   return view('dashboard.hubin.list_siswa');
 })->name('hubin.listsiswa');

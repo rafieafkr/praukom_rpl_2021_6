@@ -21,12 +21,20 @@ class AkunController extends Controller
      */
     public function index()
     {
-        return view('dashboard.hubin.leveluser.index', [
-          "users" => ViewLihatAkun::orderBy('level_user', 'asc')
-                                    ->paginate(15)
-                                    ->withQueryString(),
-          "level_users" => DB::table('level_user')->get()
-        ]);
+      $user = ViewLihatAkun::orderBy('level_user', 'asc')
+                              ->paginate(15)
+                              ->withQueryString();
+      if(request('cari')) {
+        $user = ViewLihatAkun::where('email', 'LIKE', '%' . request('cari') . '%')
+                        ->orderBy('level_user', 'asc')
+                        ->paginate(15)
+                        ->withQueryString();
+      }
+
+      return view('dashboard.hubin.leveluser.index', [
+        "users" => $user,
+        "level_users" => DB::table('level_user')->get()
+      ]);
     }
 
     /**

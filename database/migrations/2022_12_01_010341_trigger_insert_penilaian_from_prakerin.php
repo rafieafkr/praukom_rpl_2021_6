@@ -19,10 +19,9 @@ return new class extends Migration
             AFTER INSERT ON prakerin 
             FOR EACH ROW 
             BEGIN 
-            INSERT INTO penilaian VALUES (
-                 '',
-             NEW.nis,
-             NEW.nik_pp
+            INSERT INTO penilaian (nis, nik_pp) VALUES (
+              NEW.nis,
+              NEW.nik_pp
             );
             END
         ");

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ViewLihatAkun extends Model
+class ViewLihatPengajuan extends Model
 {
     use HasFactory;
-    protected $table = 'view_lihat_akun';
+    protected $table = 'view_lihat_pengajuan';
 
     public function scopeCari($query, $keyword)
     {

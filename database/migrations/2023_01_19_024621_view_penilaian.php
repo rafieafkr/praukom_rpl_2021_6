@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         DB::unprepared("
-        CREATE VIEW view_penilaian  AS 
+        CREATE OR REPLACE VIEW view_penilaian  AS 
         SELECT 
                 siswa.nama_siswa, 
                 siswa.nis, 
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        DB::unprepared('DROP VIEW view_penilaian');
     }
 };

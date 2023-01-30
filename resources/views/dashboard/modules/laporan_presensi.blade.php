@@ -38,7 +38,6 @@
             {{ $d->keterangan }}
           </div>
         </td>
-        <td class="w-[6em] border border-black px-1">{{ $d->status }}</td>
 
       </tr>
     @endforeach
@@ -49,4 +48,3 @@
 </body>
 
 </html>
->>>>>>> 97fb61506287a0aca02bb0c8a40953809c15223b

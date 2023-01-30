@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengajuan;
 use App\Http\Requests\StorePengajuanRequest;
 use App\Http\Requests\UpdatePengajuanRequest;
+use App\Models\ViewLihatPengajuan;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Storage;
@@ -40,10 +41,11 @@ class PengajuanController extends Controller
     
     public function index()
     {                       
-      $pengajuan = DB::table('pengajuan')
-                    ->join('perusahaan', 'pengajuan.id_perusahaan', '=', 'perusahaan.id_perusahaan')
-                    ->select('pengajuan.id_pengajuan', 'pengajuan.nis', 'perusahaan.nama_perusahaan', 'pengajuan.status_pengajuan', 'pengajuan.bukti_terima')
-                    ->get();
+      $pengajuan = ViewLihatPengajuan::get();
+
+      if (request('cari')) {
+        $pengajuan = ViewLihatPengajuan::where('nama_perusahaan', 'LIKE', '%'.request('cari').'%')->get();
+      }
                     
       return view('dashboard.siswa.pengajuan.index', [
         'pengajuans' => $pengajuan,
