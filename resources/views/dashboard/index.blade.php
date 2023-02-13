@@ -1,12 +1,28 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard Hubin - SIMAK')
+@section('title', 'Dashboard Hubin | SIMAK')
 
 @section('container')
 <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
-    {{ auth()->user()->username }}</div>
-<div class="flex flex-wrap gap-4 lg:grid lg:grid-cols-4 lg:grid-rows-3">
+    @if (
+    Auth::user()->level_user == 1 ||
+    Auth::user()->level_user == 2 ||
+    Auth::user()->level_user == 3 ||
+    Auth::user()->level_user == 4
+    )
+    {{ Auth::user()->guru->nama_guru }}
+    @elseif (
+    Auth::user()->level_user == 5
+    )
+    {{ Auth::user()->pembimbingperusahaan->nama_pp }}
+    @else (
+    Auth::user()->level_user == 6
+    )
+    {{ Auth::user()->siswa->nama_siswa }}
+    @endif
+</div>
+<div class="flex flex-wrap gap-4 lg:grid lg:grid-cols-4 lg:grid-rows-5">
     {{-- Profile --}}
     <div
         class="col-span-2 row-span-2 h-[327px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-10">
@@ -20,25 +36,28 @@
                 <x-heroicon-o-user-circle class="w-[110px] text-[#7893a3] md:w-[150px]" />
             </div>
             <div class="mt-[20px] md:ml-5">
-                <p class="text-lg font-light md:text-2xl">{{Auth::user()->username }}</p>
-                @if (Auth::user()->level_user == 1)
-                <p class="text-lg font-light md:text-2xl">Super Admin</p>
-                @elseif (Auth::user()->level_user == 2)
-                <p class="text-lg font-light md:text-2xl">Staff Hubin</p>
-                @elseif (Auth::user()->level_user == 3)
-                <p class="text-lg font-light md:text-2xl">Kepala Program</p>
-                @elseif (Auth::user()->level_user == 4)
-                <p class="text-lg font-light md:text-2xl">Wali Kelas</p>
-                @elseif (Auth::user()->level_user == 5)
-                <p class="text-lg font-light md:text-2xl">Pembimbing Sekolah</p>
-                @elseif (Auth::user()->level_user == 6)
-                <p class="text-lg font-light md:text-2xl">Pembimbing Perusahaan</p>
-                @elseif (Auth::user()->level_user == 7)
-                <p class="text-lg font-light md:text-2xl">Siswa</p>
-                @endif
+                <p class="text-lg font-light md:text-2xl">
+                    @if (
+                    Auth::user()->level_user == 1 ||
+                    Auth::user()->level_user == 2 ||
+                    Auth::user()->level_user == 3 ||
+                    Auth::user()->level_user == 4
+                    )
+                    {{ Auth::user()->guru->nama_guru }}
+                    @elseif (
+                    Auth::user()->level_user == 5
+                    )
+                    {{ Auth::user()->pembimbingperusahaan->nama_pp }}
+                    @else (
+                    Auth::user()->level_user == 6
+                    )
+                    {{ Auth::user()->siswa->nama_siswa }}
+                    @endif
+                </p>
+                <p class="text-lg font-light md:text-2xl">{{ Auth::user()->leveluser->nama_level }}</p>
                 <a href="#" class="hidden h-20 md:inline">
-                    <button class="mt-5 rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">
-                        <label for="my-modal-3">
+                    <button class="mt-5 cursor-pointer rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">
+                        <label for="my-modal-3" class="cursor-pointer">
                             Lihat Profil
                         </label>
                     </button>
@@ -53,6 +72,13 @@
             </a>
         </div>
     </div>
+
+    @if (
+    Auth::user()->level_user == 1 ||
+    Auth::user()->level_user == 2 ||
+    Auth::user()->level_user == 3 ||
+    Auth::user()->level_user == 6
+    )
 
     {{-- Surat pengajuan --}}
     <div
@@ -73,6 +99,13 @@
             <x-heroicon-o-document-text class="w-[130px] text-[#7893a3] md:w-[140px]" />
         </div>
     </div>
+
+    @endif
+
+    @if (
+    Auth::user()->level_user == 1 ||
+    Auth::user()->level_user == 6
+    )
 
     {{-- Nilai sertifikat --}}
     <div
@@ -95,47 +128,9 @@
         </div>
     </div>
 
-    {{-- level user --}}
-    <div
-        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#dff6ff] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-        {{-- div 1 --}}
-        <div class="flex w-1/2 flex-col justify-between">
-            <div>
-                <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Level User</p>
-            </div>
-            <div>
-                <a href="#">
-                    <button
-                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
-                </a>
-            </div>
-        </div>
-        {{-- div 2 --}}
-        <div>
-            <x-heroicon-o-user-group class="w-[130px] text-[#a5ccd9] md:w-[140px]" />
-        </div>
-    </div>
+    @endif
 
-    {{-- Pembimbing Sekolah --}}
-    <div
-        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#dff6ff] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-        {{-- div 1 --}}
-        <div class="flex w-1/2 flex-col justify-between">
-            <div>
-                <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Pembimbing Sekolah</p>
-            </div>
-            <div>
-                <a href="/pilihpembimbingsekolah">
-                    <button
-                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
-                </a>
-            </div>
-        </div>
-        {{-- div 2 --}}
-        <div>
-            <x-heroicon-s-user-minus class="w-[130px] text-[#a5ccd9] md:w-[140px]" />
-        </div>
-    </div>
+    @if (Auth::user()->level_user == 1)
 
     {{-- sertifikat --}}
     <div
@@ -158,8 +153,60 @@
         </div>
     </div>
 
-    {{-- Wali Kelas --}}
+    @endif
+
+    @if (Auth::user()->level_user == 1)
+
+    {{-- level user --}}
     <div
+        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#dff6ff] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+        {{-- div 1 --}}
+        <div class="flex w-1/2 flex-col justify-between">
+            <div>
+                <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Level User</p>
+            </div>
+            <div>
+                <a href="#">
+                    <button
+                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
+                </a>
+            </div>
+        </div>
+        {{-- div 2 --}}
+        <div>
+            <x-heroicon-o-user-group class="w-[130px] text-[#a5ccd9] md:w-[140px]" />
+        </div>
+    </div>
+
+    @endif
+
+    @if (Auth::user()->level_user == 2)
+
+    {{-- Pembimbing Sekolah --}}
+    <div
+        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#dff6ff] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+        {{-- div 1 --}}
+        <div class="flex w-1/2 flex-col justify-between">
+            <div>
+                <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Pembimbing Sekolah</p>
+            </div>
+            <div>
+                <a href="/pilihpembimbingsekolah">
+                    <button
+                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
+                </a>
+            </div>
+        </div>
+        {{-- div 2 --}}
+        <div>
+            <x-heroicon-s-user-minus class="w-[130px] text-[#a5ccd9] md:w-[140px]" />
+        </div>
+    </div>
+
+    @endif
+
+    {{-- Wali Kelas --}}
+    <!-- <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
         {{-- div 1 --}}
         <div class="flex w-1/2 flex-col justify-between">
@@ -176,10 +223,10 @@
         <div>
             <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]" />
         </div>
-    </div>
+    </div> -->
 
     {{-- Kepala Program --}}
-    <div
+    <!-- <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
         {{-- div 1 --}}
         <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
@@ -196,7 +243,14 @@
         <div>
             <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]" />
         </div>
-    </div>
+    </div> -->
+
+    @if (
+    Auth::user()->level_user == 3 ||
+    Auth::user()->level_user == 4 ||
+    Auth::user()->level_user == 5 ||
+    Auth::user()->level_user == 6
+    )
 
     {{-- Presensi Siswa --}}
     <div
@@ -207,7 +261,7 @@
                 <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Presensi Siswa</p>
             </div>
             <div>
-                <a href="#">
+                <a href="/presensisiswa">
                     <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
                 </a>
             </div>
@@ -217,6 +271,10 @@
             <x-heroicon-o-clock class="w-[130px] text-[#73d4c2] md:w-[140px]" />
         </div>
     </div>
+
+    @endif
+
+    @if (Auth::user()->level_user == 5 )
 
     {{-- Penilaian --}}
     <div
@@ -239,6 +297,13 @@
         </div>
     </div>
 
+    @endif
+
+    @if (
+    Auth::user()->level_user == 2 ||
+    Auth::user()->level_user == 4
+    )
+
     {{-- Monitoring --}}
     <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#ad68a6] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -260,6 +325,93 @@
         </div>
     </div>
 
+    @endif
+
+    @if (
+    Auth::user()->level_user == 1
+    )
+
+    {{-- View Perusahaan Aktif --}}
+
+    <div class="h-[155px] col-span-3 text-white">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Perusahaan Aktif</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">Nama Perusahaan</td>
+                <td class="bg-white text-black">Kontak</td>
+                <td class="bg-white text-black">Alamat</td>
+                <td class="bg-white text-black">Jumlah Murid</td>
+            </tr>
+
+            <?php $i=1; ?>
+
+            @foreach ($view_perusahaan_aktif as $key)
+            <tr class="text-center">
+                <td class="table-auto bg-white text-black">{{$i++}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
+                @if ($key->kontak_perusahaan !== null)
+                <td class="table-auto bg-white text-black">{{$key->kontak_perusahaan}}</td>
+                @else
+                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
+                @endif
+                <td class="table-auto bg-white text-black">{{$key->alamat_perusahaan}}</td>
+                <td class="table-auto bg-white text-black">{{$key->jml_murid}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    @endif
+
+    @if (
+    Auth::user()->level_user == 6
+    )
+
+    {{-- View Perusahaan Aktif --}}
+
+    <div class="h-[155px] col-span-4 text-white">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Perusahaan Aktif</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">Nama Perusahaan</td>
+                <td class="bg-white text-black">Kontak</td>
+                <td class="bg-white text-black">Alamat</td>
+                <td class="bg-white text-black">Jumlah Murid</td>
+            </tr>
+
+            <?php $i=1; ?>
+
+            @foreach ($view_perusahaan_aktif as $key)
+            <tr class="text-center">
+                <td class="table-auto bg-white text-black">{{$i++}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
+                @if ($key->kontak_perusahaan !== null)
+                <td class="table-auto bg-white text-black">{{$key->kontak_perusahaan}}</td>
+                @else
+                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
+                @endif
+                <td class="table-auto bg-white text-black">{{$key->alamat_perusahaan}}</td>
+                <td class="table-auto bg-white text-black">{{$key->jml_murid}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    @endif
+
+    @if (
+    Auth::user()->level_user == 1 ||
+    Auth::user()->level_user == 2 ||
+    Auth::user()->level_user == 3 ||
+    Auth::user()->level_user == 4
+    )
+
     {{-- Data Prakerin --}}
     <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -269,7 +421,7 @@
                 <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Data Prakerin</p>
             </div>
             <div>
-                <a href="#">
+                <a href="/dataprakerin">
                     <button
                         class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
                 </a>
@@ -280,84 +432,250 @@
             <x-heroicon-s-document-text class="w-[130px] text-[#abacc9] md:w-[140px]" />
         </div>
     </div>
+
+    @endif
+
+    @if (
+    Auth::user()->level_user == 5
+    )
+
+    {{-- View Siswa Yang Dibimbing --}}
+
+    <div class="h-[155px] col-span-4 text-white">
+        <input type="text" name="ambilnikpp" value="{{ Auth::user()->pembimbingperusahaan->nik_pp }}">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Siswa Yang Dibimbing</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">NIS</td>
+                <td class="bg-white text-black">Nama Siswa</td>
+                <td class="bg-white text-black">Nama Pembimbing Sekolah</td>
+                <td class="bg-white text-black">Nama Kepala Program</td>
+                <td class="bg-white text-black">Nama Perusahaan</td>
+            </tr>
+
+            <?php $i=1; ?>
+
+            @foreach ($view_pp_siswa as $key)
+            <tr class="text-center">
+                <td class="table-auto bg-white text-black">{{$i++}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nis}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_siswa}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_ps}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_kaprog}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    @endif
+
 </div>
+
+@if (
+Auth::user()->level_user == 1 ||
+Auth::user()->level_user == 2 ||
+Auth::user()->level_user == 3 ||
+Auth::user()->level_user == 4
+)
 
 {{-- pop up profile --}}
-<input type="checkbox" id="my-modal-3" class="modal-toggle" />
+<input id="my-modal-3" type="checkbox" class="modal-toggle" />
 <div class="modal">
-    <div class="w-[60em] bg-transparent rounded-2xl">
-
-        <form action="" enctype="multipart/form-data">
-
-            <div class="card card-side bg-base-100 shadow-xl w-[24em] md:w-[40em] m-auto">
-                <label for="my-modal-3"
-                    class="btn btn-sm btn-circle absolute bg-[#eb2424] hover:bg-red-500 border border-[#000000] right-2 top-2">✕</label>
-                <div class="bg-[#d9d9d9] w-[15em] rounded-l-2xl pb-3">
-                    <div class="w-full ml-3 font-normal uppercase text-xl mb-3 text-[#173A6F]">
-                        <p>Profile</p>
-                    </div>
-                    <div class="flex space-x-2">
-                        <label tabindex="0" class="avatar m-auto mt-[0.3em]">
-                            <div class="w-[10em] rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
-                            </div>
-                        </label>
-                    </div>
-                    <div class="w-fit m-auto mt-3 text-center">
-                        <label class="font-normal text-center m-auto" for="image-profile">
-                            <p class="font-normal text-center m-auto text-[#173A6F]">GANTI FOTO</p>
-                        </label>
-                        <input type="file" name="image-profile" id="image-profile"
-                            class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
-                    </div>
+    <div class="w-[60em] rounded-2xl bg-transparent">
+        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+            <label for="my-modal-3"
+                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                    <p>Profile</p>
                 </div>
-                <div class=" card-body w-[20em] pb-3">
-                    <div class="w-full h-min m-auto mb-4">
-                        <label class="font-normal text-md" for="">NAMA</label>
-                        <br>
-                        <span class="text-lg text-center">{{ Auth::user()->username }}</span>
-                    </div>
-                    <div class="w-full h-min mb-4">
-                        <label class="font-normal text-md" for="">NIK</label>
-                        <br>
-                        <span class="text-lg text-center">dsccsa</span>
-                    </div>
-                    <div class="w-full h-min mb-4">
-                        <label class="font-normal text-md" for="">LEVEL</label>
-                        <br>
-                        @if (Auth::user()->level_user == 1)
-                        <span class="text-lg text-center">Super Admin</span>
-                        @elseif (Auth::user()->level_user == 2)
-                        <span class="text-lg text-center">Staff Hubin</span>
-                        @elseif (Auth::user()->level_user == 3)
-                        <span class="text-lg text-center">Kepala Program</span>
-                        @elseif (Auth::user()->level_user == 4)
-                        <span class="text-lg text-center">Wali Kelas</span>
-                        @elseif (Auth::user()->level_user == 5)
-                        <span class="text-lg text-center">Pembimbing Sekolah</span>
-                        @elseif (Auth::user()->level_user == 6)
-                        <span class="text-lg text-center">Pembimbing Perusahaan</span>
-                        @elseif (Auth::user()->level_user == 7)
-                        <span class="text-lg text-center">Siswa</span>
-                        @endif
-                    </div>
-                    <div class="w-full h-min mb-4">
-                        <label class="font-normal text-md" for="">E-MAIL</label>
-                        <br>
-                        <span class="text-lg text-center">{{ Auth::user()->email }}</span>
-                    </div>
-                    <div class="w-full h-min mb-4">
-                        <label class="font-normal text-md" for="">KONTAK</label>
-                        <br>
-                        <span class="text-lg text-center">dsdsds</span>
-                    </div>
-                    <div class="modal-action">
+                <div class="flex space-x-2">
+                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                        <div class="w-[10em] rounded-full">
+                            <img src="https://placeimg.com/80/80/people" />
+                        </div>
+                    </label>
+                </div>
+                <div class="m-auto mt-3 w-fit text-center">
+                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+                        <input type="text" class="hidden" value="{{Auth::user()->id}}" />
+                        <input type="file" name="foto" id="foto"
+                            class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
                         <button type="submit"
-                            class="btn bg-[#256D85] rounded-lg px-5 py-3 text-center shadow-md hover:bg-emerald-700 font-light text-white">Simpan</button>
-                    </div>
+                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Simpan
+                            Foto</button>
+                    </form>
                 </div>
             </div>
-        </form>
+            <div class="card-body w-[20em] pb-3">
+                @auth
+                <div class="m-auto mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NAMA</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->guru->nama_guru }}</span>
+                </div>
+                @endauth
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NIP</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->guru->nip_guru }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">LEVEL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">E-MAIL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">KONTAK</label>
+                    <br>
+                    @auth
+                    @if (!isset(Auth::user()->guru->kontak_guru->kontak))
+                    <span class="text-center text-lg">-</span>
+                    @else
+                    <span class="text-center text-lg">{{ Auth::user()->guru->kontak_guru->kontak }}</span>
+                    @endif
+                    @endauth
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@endif
+
+@if (
+Auth::user()->level_user == 5
+)
+
+{{-- pop up profile --}}
+<input id="my-modal-3" type="checkbox" class="modal-toggle" />
+<div class="modal">
+    <div class="w-[60em] rounded-2xl bg-transparent">
+        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+            <label for="my-modal-3"
+                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                    <p>Profile</p>
+                </div>
+                <div class="flex space-x-2">
+                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                        <div class="w-[10em] rounded-full">
+                            <img src="https://placeimg.com/80/80/people" />
+                        </div>
+                    </label>
+                </div>
+                <div class="m-auto mt-3 w-fit text-center">
+                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+                        <input type="text" class="hidden" value="{{Auth::user()->id}}" />
+                        <input type="file" name="foto" id="foto"
+                            class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
+                        <button type="submit"
+                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Simpan
+                            Foto</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body w-[20em] pb-3">
+                @auth
+                <div class="m-auto mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NAMA</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->pembimbingperusahaan->nama_pp }}</span>
+                </div>
+                @endauth
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NIK</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->pembimbingperusahaan->nik_pp }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">LEVEL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">E-MAIL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endif
+
+@if (
+Auth::user()->level_user == 6
+)
+
+{{-- pop up profile --}}
+<input id="my-modal-3" type="checkbox" class="modal-toggle" />
+<div class="modal">
+    <div class="w-[60em] rounded-2xl bg-transparent">
+        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+            <label for="my-modal-3"
+                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                    <p>Profile</p>
+                </div>
+                <div class="flex space-x-2">
+                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                        <div class="w-[10em] rounded-full">
+                            <img src="https://placeimg.com/80/80/people" />
+                        </div>
+                    </label>
+                </div>
+                <div class="m-auto mt-3 w-fit text-center">
+                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+                        <input type="text" class="hidden" value="{{Auth::user()->id}}" />
+                        <input type="file" name="foto" id="foto"
+                            class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
+                        <button type="submit"
+                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Simpan
+                            Foto</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card-body w-[20em] pb-3">
+                @auth
+                <div class="m-auto mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NAMA</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->siswa->nama_siswa }}</span>
+                </div>
+                @endauth
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NIS</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->siswa->nis }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">LEVEL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">E-MAIL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endif
+
 @endsection

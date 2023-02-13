@@ -23,4 +23,9 @@ class Kepalaprogram extends Model
     {
         return $this->belongsTo(Pengajuan::class, 'id_kaprog', 'id_kaprog');
     }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
+    }
 }

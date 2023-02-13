@@ -3,6 +3,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,7 +25,8 @@ class User extends Authenticatable
         'level_user',
         'email',
         'username',
-        'password'
+        'password',
+        'foto'
     ];
 
     /**
@@ -48,7 +50,22 @@ class User extends Authenticatable
 
     public function leveluser()
     {
-        return $this->belongsTo(Leveluser::class, 'level_user', 'id_level');
+        return $this->hasOne(Leveluser::class, 'id_level', 'level_user');
+    }
+
+    public function guru()
+    {
+        return $this->hasOne(Guru::class, 'id_akun', 'id');
+    }
+
+    public function pembimbingperusahaan()
+    {
+        return $this->hasOne(Pembimbingperusahaan::class, 'id_akun', 'id');
+    }
+
+    public function siswa()
+    {
+        return $this->hasOne(Siswa::class, 'id_akun', 'id');
     }
 
     // public function staffhubin()

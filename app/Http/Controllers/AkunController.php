@@ -45,7 +45,7 @@ class AkunController extends Controller
      * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
-    public function show(Akun $Akun)
+    public function show()
     {
         //
     }
@@ -56,7 +56,7 @@ class AkunController extends Controller
      * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
-    public function edit(Akun $Akun)
+    public function edit()
     {
         //
     }
@@ -68,7 +68,7 @@ class AkunController extends Controller
      * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAkunRequest $request, Akun $Akun)
+    public function update(UpdateAkunRequest $request, )
     {
         //
     }
@@ -79,7 +79,7 @@ class AkunController extends Controller
      * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Akun $Akun)
+    public function destroy()
     {
         //
     }

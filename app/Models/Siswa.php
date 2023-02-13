@@ -23,4 +23,9 @@ class Siswa extends Model
     {
         return $this->belongsTo(Pengajuan::class, 'nis', 'nis');
     }
+
+    public function akun()
+    {
+        return $this->belongsTo(Akun::class, 'id_akun','id');
+    }
 }

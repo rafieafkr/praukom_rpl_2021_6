@@ -20,10 +20,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
+            $table->engine = 'innodb';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_sertifikat')->length(4)->autoIncrement();
             $table->tinyInteger('id_penilaian')->length(4)->nullable(false);
     
-            $table->foreign('id_penilaian')->references('id_penilaian')->on('penilaian')->cascadeOnDelete();
+            $table->foreign('id_penilaian')->references('id_penilaian')->on('penilaian')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

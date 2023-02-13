@@ -7,7 +7,9 @@ use App\Models\Pembimbingsekolah;
 use App\Http\Requests\StorePembimbingsekolahRequest;
 use App\Http\Requests\UpdatePembimbingsekolahRequest;
 use App\Models\Monitoring;
+use App\Models\Prakerin;
 use App\Models\Presensisiswa;
+use App\Models\Viewprakerin;
 use Illuminate\Support\Facades\Request;
 
 class PembimbingsekolahController extends Controller
@@ -18,21 +20,55 @@ class PembimbingsekolahController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    protected $Ps;
     protected $presensi;
     protected $monitoring;
+    protected $prakerin;
+    protected $viewprakerin;
     
     public function __construct()
     {
-        $this->Ps = Pembimbingsekolah::all();
         $this->presensi = Presensisiswa::all();
         $this->monitoring = Monitoring::all();
+        $this->prakerin = Prakerin::all();
+        $this->viewprakerin = Viewprakerin::all();
     }
+    
     public function presensi()
     {
         return view('presensi.index',
         [
             'presensi' => $this->presensi
+        ]);
+    }
+
+    public function dataprakerin()
+    {
+        return view('prakerin.index',
+        [
+            'prakerin' => $this->viewprakerin
+        ]);
+    }
+
+    public function cariprakerin(Request $request)
+	{
+		$cariprakerin = Viewprakerin::where('nis','like',"%".request('show')."%")
+        ->get();
+
+        // dd($caripengajuan);
+ 
+		return view('prakerin.index',[
+            'prakerin' => $cariprakerin
+        ]);
+	}
+
+    public function detailprakerin($id_prakerin)
+    {
+        $detail = $this->prakerin->find($id_prakerin);
+
+        // dd($detail);
+
+        return view('prakerin.detail', [
+            'edit' => $detail
         ]);
     }
 
@@ -54,9 +90,10 @@ class PembimbingsekolahController extends Controller
         $edit = DB::table('monitoring')
                 ->where('id_monitoring', $id_monitoring)
                 ->select()
-                ->get();;
+                ->get();
         return view('monitoring.edit', ['edit' => $edit]);
     }
+
     public function updatemonitoring(Request $request)
     {
         $data = [
@@ -78,31 +115,11 @@ class PembimbingsekolahController extends Controller
     }
     public function destroymonitoring($id_monitoring = null)
     {
-        $hapus = $this->Monitoring
+        $hapus = $this->monitoring
                             ->where('id_monitoring',$id_monitoring)
                             ->delete();
             if($hapus){
                 return redirect('monitoring');
             }
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pembimbingsekolah  $pembimbingsekolah
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pembimbingsekolah $pembimbingsekolah)
-    {
-        //
     }
 }

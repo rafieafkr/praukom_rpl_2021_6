@@ -5,93 +5,203 @@
 @section('container')
 <div class="flex w-full">
     <div class="flex-warp mr-auto">
-        <a href="/suratpengajuan"><button class="btn">Kembali</button></a>
+        <a href="/suratpengajuan"
+            class="hidden cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:inline-block">Kembali</a>
     </div>
 </div>
 
-<div class="modal-box m-auto">
-    <h1 class="text-center mb-4">DETAIL SURAT PENGAJUAN</h1>
-    <div class="w-full flex">
-        <div class="w-1/2 flex-warp mb-2">
-            <input type="text" class="hidden" name="id_pengajuan" value="{{ $edit->id_pengajuan }}">
-            <label class="font-bold" for="nis"> NIS </label>
+<div class="mb-3 flex w-full justify-center align-middle">
+    <p class="font-light text-black uppercase" style="font-size: 32px">Verifikasi Surat Pengajuan</p>
+</div>
+<div class="w-full flex-col gap-5 lg:grid lg:grid-cols-2">
+    {{-- div 1 --}}
+    <div class='w-full'>
+        {{-- nis --}}
+        <label class="text-black">
+            NIS
             <br>
-            <p>{{$edit->nis}}</p>
-        </div>
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="nis"> Siswa </label>
+            <input disabled value="{{$edit->nis}}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- perusahaan --}}
+        <label class="text-black">
+            Perusahaan
             <br>
-            <p>{{$edit->siswa[0]->nama_siswa}}</p>
+            <input disabled value="{{$edit->perusahaan[0]->nama_perusahaan}}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- alamat perusahaan --}}
+        <label class="text-black">
+            Alamat Perusahaan
+            <br>
+            <input disabled value="{{ $edit->perusahaan[0]->alamat_perusahaan }}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- telp perusahaan --}}
+        <label class="text-black">
+            Telepon Perusahaan
+            <br>
+            <input disabled value="{{ $edit->perusahaan[0]->kontak_perusahaan }}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- status pengajuan --}}
+        <label class="text-black">
+            Status Pengajuan
+            <br>
+            @switch($edit->status_pengajuan)
+            @case('1')
+            <span class="rounded-full bg-yellow-300 px-3 py-1 mt-2">
+                <x-heroicon-o-clock class="inline-block w-5 text-black" />
+                Menunggu konfirmasi Wali Kelas
+            </span>
+            @break
+
+            @case('2')
+            <span class="rounded-full bg-red-500 px-3 py-1 mt-2 text-white">
+                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
+                Ditolak Wali Kelas
+            </span>
+            @break
+
+            @case('3')
+            <span class="rounded-full bg-yellow-300 px-3 py-1 mt-2">
+                <x-heroicon-o-clock class="inline-block w-5 text-black" />
+                Menunggu konfirmasi Kepala Program
+            </span>
+            @break
+
+            @case('4')
+            <span class="rounded-full bg-red-500 px-3 py-1 mt-2 text-white">
+                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
+                Ditolak Kepala Program
+            </span>
+            @break
+
+            @case('5')
+            <span class="rounded-full bg-yellow-300 px-3 py-1 mt-2">
+                <x-heroicon-o-clock class="inline-block w-5 text-black" />
+                Menunggu konfirmasi Hubin
+            </span>
+            @break
+
+            @case('6')
+            <span class="rounded-full bg-red-500 px-3 py-1 mt-2 text-white">
+                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
+                Ditolak Hubin
+            </span>
+            @break
+
+            @default
+            <span class="rounded-full bg-green-500 px-3 py-1 mt-2 text-white">
+                <x-heroicon-m-check-badge class="inline-block w-5 text-white" />
+                Surat Pengajuan sudah sah
+            </span>
+            @endswitch
+        </label>
+        <br><br>
+
+        {{-- Tolak / Terima --}}
+        <div class="">
+            <label class="text-black">
+                <div class="flex">
+                    <div class="flex-warp">
+                        <form action="tolakpengajuan/{{$edit->id_pengajuan}}" method="POST">
+                            @csrf
+                            <input type="text" name="id_pengajuan" class="hidden" value="{{$edit->id_pengajuan}}">
+                            @switch(Auth::user()->level_user)
+
+                            @case (3)
+                            <input type="text" name="status_pengajuan" class="hidden" value="2">
+                            @break
+
+                            @case (2)
+                            <input type="text" name="status_pengajuan" class="hidden" value="4">
+                            @break
+
+                            @case (1)
+                            <input type="text" name="status_pengajuan" class="hidden" value="6">
+                            @break
+
+                            @endswitch
+                            <button type="submit"
+                                class="cursor-pointer rounded-lg px-6 py-3 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-red-500 active:bg-slate-300 lg:inline-block bg-red-500 mr-2">Tolak</button>
+                        </form>
+                    </div>
+                    <div class="flex-warp">
+                        <form action="terimapengajuan/{{$edit->id_pengajuan}}" method="POST">
+                            @csrf
+                            <input type="text" name="id_pengajuan" class="hidden" value="{{$edit->id_pengajuan}}">
+                            @switch(Auth::user()->level_user)
+
+                            @case (3)
+                            <input type="text" name="status_pengajuan" class="hidden" value="3">
+                            @break
+
+                            @case (2)
+                            <input type="text" name="status_pengajuan" class="hidden" value="5">
+                            @break
+
+                            @case (1)
+                            <input type="text" name="status_pengajuan" class="hidden" value="7">
+                            @break
+
+                            @endswitch
+                            <button type="submit"
+                                class="cursor-pointer rounded-lg px-6 py-3 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block bg-green-500">Terima</button>
+                        </form>
+                    </div>
+                </div>
+            </label>
         </div>
     </div>
-    <div class="w-full flex">
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="id_kaprog"> Wali Kelas </label>
+
+    {{-- div 2 --}}
+    <div class='w-full'>
+        {{-- kaprog --}}
+        <label class="text-black">
+            Kepala Program
             <br>
-            <p>{{$edit->walikelas[0]->nama_walas}} - {{$edit->walikelas[0]->nip_guru}}</p>
-        </div>
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="id_walas"> Kepala Program </label>
+            <input disabled value="{{$edit->kepalaprogram[0]->guru->nama_guru}}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- walas --}}
+        <label class="text-black">
+            Wali Kelas
             <br>
-            <p>{{$edit->kepalaprogram[0]->nama_kaprog}} - {{$edit->kepalaprogram[0]->nip_guru}}</p>
-        </div>
-    </div>
-    <div class="flex w-full">
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="id_ps"> Pembimbing Sekolah </label>
+            <input disabled value="{{$edit->walikelas[0]->guru->nama_guru}}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- staff hubin --}}
+        <label class="text-black">
+            Staff Hubin
             <br>
-            <p>{{$edit->pembimbingsekolah[0]->nama_ps}} - {{$edit->pembimbingsekolah[0]->nip_guru}}</p>
-        </div>
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="id_staff"> Staff Hubin </label>
-            <br>
-            <p>{{$edit->staffhubin[0]->nama_staff}} - {{$edit->staffhubin[0]->nip_guru}}</p>
-        </div>
-    </div>
-    <div class="flex w-full">
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="id_perusahaan"> Perusahaan </label>
-            <br>
-            <p>{{$edit->perusahaan[0]->nama_perusahaan}}</p>
-        </div>
-        <div class="w-1/2 flex-warp mb-2">
-            <label class="font-bold" for="id_perusahaan"> Status Pengajuan </label>
-            <br>
-            @if ($edit->status_pengajuan == null)
-            <td class="table-auto text-red-500">Belum Ada</td>
-            @elseif ($edit->status_pengajuan == 1)
-            <td class="table-auto text-yellow-500">Terverifikasi<br>Wali Kelas</td>
-            @elseif ($edit->status_pengajuan == 2)
-            <td class="table-auto text-green-500">Terverifikasi<br>Kepala Program</td>
-            @elseif ($edit->status_pengajuan == 5)
-            <td class="table-auto text-red-500">Verifikasi Ditolak<br>Kepala Program</td>
+            <input disabled value="{{$edit->staffhubin[0]->guru->nama_guru}}"
+                class="disabled:bg-white disabled:border-none w-full input bg-white" />
+        </label>
+        <br><br>
+        {{-- bukti terima --}}
+        <label class="text-black">
+            <span class="mb-1 block">Bukti Terima</span>
+            @if ($edit->bukti_terima !== null)
+            <span class="rounded-full bg-green-500 px-3 py-1 text-white">
+                <x-heroicon-m-check-badge class="inline-block w-5 text-white" />
+                Terlampir
+            </span>
+            @else
+            <span class="rounded-full bg-red-500 px-3 py-1 text-white">
+                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
+                Tidak ada
+            </span>
             @endif
-        </div>
-    </div>
-    <div class="w-full flex flex-wrap">
-        <div class="flex flex-wrap w-full mt-2">
-            <label class="font-bold" for="bukti_terima">Keterangan</label>
             <br>
-            <textarea name="bukti_terima" id="bukti_terima"
-                class="w-full h-[10em] shadow-inner rounded-md border border-gray-400 bg-transparent"
-                required>{{$edit->bukti_terima}}</textarea>
-        </div>
-    </div>
-    <div class="w-full flex mt-3">
-        <form action="tolakpengajuan/{{$edit->id_pengajuan}}" method="POST">
-            @csrf
-            <input type="text" name="id_pengajuan" class="hidden" value="{{$edit->id_pengajuan}}">
-            <input type="text" name="status_pengajuan" class="hidden" value="5">
-            <input type="text" name="bukti_terima" class="hidden" value="PENGAJUAN DITOLAK OLEH KEPALA PROGRAM">
-            <button type="submit" class="btn bg-red-500 mr-2">Tolak</button>
-        </form>
-        <form action="terimapengajuan/{{$edit->id_pengajuan}}" method="POST">
-            @csrf
-            <input type="text" name="id_pengajuan" class="hidden" value="{{$edit->id_pengajuan}}">
-            <input type="text" name="status_pengajuan" class="hidden" value="2">
-            <input type="text" name="bukti_terima" class="hidden" value="PENGAJUAN DITERIMA OLEH KEPALA PROGRAM">
-            <button type="submit" class="btn bg-green-500">Terima</button>
-        </form>
+        </label>
+        <br><br>
     </div>
 </div>
 @endsection

@@ -24,10 +24,13 @@ return new class extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->engine = 'innodb';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            $table->engine = 'innodb';
             $table->string('nis',15)->nullable(false);
             $table->string('kontak',17)->nullable(false);
 
-            $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete();
+            $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User as Akun;
 
 class AkunSeeder extends Seeder
 {
@@ -14,6 +15,6 @@ class AkunSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(1)->create();
+        Akun::factory(30)->create();
     }
 }

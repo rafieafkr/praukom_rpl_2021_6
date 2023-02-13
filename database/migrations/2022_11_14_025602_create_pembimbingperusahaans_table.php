@@ -20,14 +20,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create($this->table, function (Blueprint $table) {
+            $table->engine = 'innodb';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
             $table->string('nik_pp')->length(20)->nullable(false)->primary();
-            $table->tinyInteger('id_akun')->length(4)->nullable(false);
+            $table->integer('id_akun')->nullable(false);
             $table->string('nama_pp')->length(60)->nullable(false);
             $table->string('foto_pp')->length(255)->nullable();
 
-            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete();
-            // $table->foreign('id_akun')->references('id_akun')->on('akun')->cascadeOnDelete();
-
+            $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 

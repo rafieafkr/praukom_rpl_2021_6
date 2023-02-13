@@ -24,6 +24,8 @@ return new class extends Migration
     {
         Schema::create($this->table, function (Blueprint $table) {
             $table->engine = 'innodb';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_level')->autoIncrement();
             $table->string('nama_level',30)->nullable(false);
             $table->text('keterangan')->nullable();
