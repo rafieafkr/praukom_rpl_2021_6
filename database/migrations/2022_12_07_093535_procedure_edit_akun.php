@@ -17,6 +17,16 @@ return new class extends Migration
       DB::unprepared('
         CREATE OR REPLACE PROCEDURE procedure_edit_akun (nId_akun INT, nLevel_user INT)
         BEGIN
+          DECLARE kodeError CHAR;
+
+          BEGIN
+            GET DIAGNOSTICS CONDITION 1
+            kodeError = RETURNED_SQLSTATE;
+          END;
+
+          START TRANSACTION;
+          SAVEPOINT satu;
+
           IF(nLevel_user < 5) THEN 
             SELECT akun.*, guru.* FROM akun INNER JOIN guru ON akun.id = guru.id_akun WHERE akun.id=nId_akun;
 
@@ -26,6 +36,10 @@ return new class extends Migration
             ELSEIF(nLevel_user = 6) THEN 
             SELECT akun.*, siswa.id_akun, siswa.nis, siswa.nama_siswa FROM akun INNER JOIN siswa ON akun.id = siswa.id_akun WHERE akun.id=nId_akun;
           END IF;
+          
+          IF kodeError != "00000" THEN ROLLBACK TO satu;
+          END IF;
+          COMMIT;
         END;
       ');
     }

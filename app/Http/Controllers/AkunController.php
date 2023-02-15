@@ -107,10 +107,10 @@ class AkunController extends Controller
     public function edit(Akun $akun)
     {
       $user = DB::select('CALL procedure_edit_akun (?, ?)', [
-        $akun->id_akun,
+        $akun->id,
         $akun->level_user
       ]);
-      // dd($user);
+      // dd($akun);
 
       return view('dashboard.hubin.leveluser.edit', [
         'user' => $user,
@@ -127,7 +127,7 @@ class AkunController extends Controller
     public function update(UpdateAkunRequest $request, Akun $akun)
     {
         if ($request->level_user !== $akun->level_user) {
-          $id_guru = DB::table('guru')->select('id_guru')->where('id_akun', '=', $akun->id_akun)->get();
+          $id_guru = DB::table('guru')->select('id_guru')->where('id_akun', '=', $akun->id)->get();
           switch ($akun->level_user) {
             case '1':
               DB::table('staff_hubin')->where('id_guru', '=', $id_guru[0]->id_guru)->delete();
@@ -142,10 +142,10 @@ class AkunController extends Controller
               DB::table('pembimbing_sekolah')->where('id_guru', '=', $id_guru[0]->id_guru)->delete();
               break;
             case '5':
-              DB::table('pembimbing_perusahaan')->where('id_akun', '=', $akun->id_akun)->delete();
+              DB::table('pembimbing_perusahaan')->where('id_akun', '=', $akun->id)->delete();
               break;
             default:
-              DB::table('siswa')->where('id_akun', '=', $akun->id_akun)->delete();
+              DB::table('siswa')->where('id_akun', '=', $akun->id)->delete();
               break;
           }
         }
@@ -157,11 +157,10 @@ class AkunController extends Controller
           "nama" => ['required', 'max:70'],
           "identitas" => ['required', 'max:20'],
         ]);
-
         try {
         // execute procedure
         Akun::hydrate(DB::select('CALL procedure_update_akun(?, ?, ?, ?, ?, ?)', [
-          $akun->id_akun,
+          $akun->id,
           $validated['level_user'],
           $validated['email'],
           $validated['username'],
@@ -184,7 +183,7 @@ class AkunController extends Controller
      */
     public function destroy(Akun $akun)
     {
-        Akun::destroy($akun->id_akun);
+        Akun::destroy($akun->id);
         return back()->withSuccess('Akun berhasil dihapus');
     }
 }

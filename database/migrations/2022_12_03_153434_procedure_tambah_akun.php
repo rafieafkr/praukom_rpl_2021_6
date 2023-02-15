@@ -19,8 +19,18 @@ return new class extends Migration
           BEGIN
             DECLARE idakun INT;
             DECLARE idguru INT;
+            DECLARE kodeError CHAR;
+
+            BEGIN
+              GET DIAGNOSTICS CONDITION 1
+              kodeError = RETURNED_SQLSTATE;
+            END;
+
+            START TRANSACTION;
+            SAVEPOINT satu;
             INSERT INTO akun (level_user,email,password,username) VALUES (nLevel_user, nEmail, nPassword, nUsername);
             SELECT id INTO idakun FROM akun WHERE username=nUsername;
+
             IF(nLevel_user=1) THEN
               INSERT INTO guru (id_akun,nip_guru,nama_guru) VALUES (idakun, nIdentitas, nNama);
               SELECT id_guru INTO idguru FROM guru WHERE id_akun=idakun;
@@ -42,6 +52,10 @@ return new class extends Migration
             ELSE
               INSERT INTO siswa (nis,id_akun,nama_siswa) VALUES (nIdentitas,idakun,nNama);
             END IF;
+            
+            IF kodeError != "00000" THEN ROLLBACK TO satu;
+            END IF;
+            COMMIT;
           END;
         ');
     }

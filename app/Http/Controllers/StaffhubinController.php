@@ -17,7 +17,6 @@ class StaffhubinController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $level_user;
-    protected $ambilLevel;
     
     public function __construct()
     {

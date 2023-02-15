@@ -105,9 +105,10 @@ class PengajuanController extends Controller
           $validated['bukti_terima']
         ]);
 
-        } catch(Exception) {
+        } catch(Exception $err) {
           // reload page apabila gagal kirim pengajuan
-          return back()->withErrors('Pengajuan gagal dikirim');
+          // return back()->withErrors('Pengajuan gagal dikirim');
+          return $err->getMessage();
         }
       // redirect ke siswa/pengajuan apabila sukses kirim pengajuan
       return redirect(route('pengajuan.index'))->withSuccess('Pengajuan berhasil dikirim');
