@@ -21,15 +21,20 @@
         </h1>
     </center>
     <div class="overflow-x-auto mx-20 mt-20">
-        <div class="float-left">
+       <div class="float-left mt-20">
             <label for="my-modal-3" class="btn bg-blue-500 mb-2">Isi Presensi</label>
+            <form action="/search" method="GET">
+                <div class="flex flex-row items-center justify-end gap-2 form-control w-full">
+                    <input type="text" name="cari" placeholder="Cari Siswa .." value="" class="input input-bordered inline-block max-w-xs">
+                <button type="submit" class="btn inline-block"><x-heroicon-m-magnifying-glass class="w-8" /></button>
+
+                @if(request('cari'))
+                <a href="/presensi"><x-heroicon-o-x-mark class="inline-block w-8" /></a>
+                @endif
+
+                </div>
+            </form>
         </div>
-        <div class="float-right bg-red-200 w-[20em]">
-        <form action="/search" method="GET">
-            <input type="text" name="cari" placeholder="Cari Siswa .." value="" class="input input-bordered inline-block max-w-xs">
-            <input type="submit" value="CARI" class="btn inline-block">
-        </form>
-    </div>
     </div>
     <!-- form search -->
    
