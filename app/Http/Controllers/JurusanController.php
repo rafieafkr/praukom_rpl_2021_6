@@ -3,84 +3,126 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jurusan;
-use App\Http\Requests\StoreJurusanRequest;
-use App\Http\Requests\UpdateJurusanRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class JurusanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $jurusan;
+    public function __construct()
+    {
+        $this->jurusan = new Jurusan();
+    }
     public function index()
     {
-        //
-    }
+        $dataview = DB::table('view_jurusan_kompetensi')
+            ->select()
+            ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $datakaprog = DB::table('view_kaprog')
+            ->select()
+            ->get();
+        
+        return view('dashboard.modules.jurusan',[
+                'dataview'=>$dataview,
+                'datakaprog'=>$datakaprog
+              ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreJurusanRequest  $request
+     * @param  \App\Http\Requests\StorePenilaianRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreJurusanRequest $request)
+    public function simpan(Request $request)
     {
-        //
+        // dd($request);
+        //insert tabel nilai
+          Jurusan::create([
+            "nama_jurusan" => $request->nama_jurusan,
+            "kepala_jurusan" => $request->kepala_jurusan,
+            "akronim" => $request->akronim,
+          ]);
+          return redirect('jurusan');
+
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Jurusan $jurusan)
+    public function hapus($id_jurusan)
     {
-        //
+        
+        $hapus = DB::table('jurusan')
+                        ->where('id_jurusan',$id_jurusan)
+                        ->delete();
+      
+        if($hapus){
+            return back();
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Jurusan $jurusan)
-    {
-        //
-    }
+    public function cari(Request $request)
+	{
+        $dataview = DB::table('view_jurusan_kompetensi')
+        ->select()
+        ->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateJurusanRequest  $request
-     * @param  \App\Models\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateJurusanRequest $request, Jurusan $jurusan)
-    {
-        //
-    }
+        $datakaprog = DB::table('view_kaprog')
+        ->select()
+        ->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Jurusan  $jurusan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Jurusan $jurusan)
+		$cari = $request->cari;
+ 
+    		// mengambil data dari table pegawai sesuai pencarian data
+		$dataview = DB::table('view_jurusan_kompetensi')
+		->where('nama_jurusan','like',"%".$cari."%")
+        ->orWhere('akronim','like',"%".$cari."%")
+		->paginate();
+ 
+    		// mengirim data pegawai ke view index
+		return view('dashboard.modules.jurusan',['dataview' => $dataview,
+                                                 'datakaprog' => $datakaprog            
+                                                ]);
+ 
+	}
+  
+       //UPDATE 
+   public function edit($id)
+   {
+
+       $datajurusan = DB::table('view_jurusan_kompetensi')
+                    ->where('id_jurusan', $id)
+                    ->select()
+                    ->get();
+                    // dd($datajurusan);
+       $datakaprog = DB::table('view_kaprog')
+                    ->select()
+                    ->get();
+
+       return view('dashboard.modules.editjurusan', ['datajurusan' => $datajurusan,
+                                                    'datakaprog' => $datakaprog]);
+   }
+   public function update(Request $request)
     {
-        //
-    }
-}
+        // dd($request);
+      
+        DB::table('jurusan')
+            ->where('id_jurusan','=', $request->id_jurusan)
+
+        ->update([
+        
+            'nama_jurusan' => $request->nama_jurusan,
+            'akronim' => $request->akronim,
+            'kepala_jurusan' => $request->kepala_jurusan
+
+        ]);
+
+        return redirect('jurusan');
+           
+    } 
+   }
+    
+   
+   
+   
