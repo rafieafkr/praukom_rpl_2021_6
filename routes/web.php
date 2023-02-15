@@ -58,11 +58,15 @@ Route::get('/presensisiswa', [PembimbingsekolahController::class, 'index']);
 //Routes Fitur Penilaian Siswa
 Route::get('/penilaian', [PenilaianController::class, 'index']);
 Route::get('/getKompetensi', [PenilaianController::class, 'getKompetensi'])->name('getKompetensi');
-Route::post('/simpan_nilai',[PenilaianController::class,'simpan']);
-Route::get('/nilai/edit/{id}',[PenilaianController::class,'edit']);
-Route::post('/nilai/edit/update',[PenilaianController::class,'update']);
-Route::get('/search_penilaian',[PenilaianController::class,'cari']);
-Route::get('/cetak_penilaian/{id}', [PenilaianController::class, 'print']);
+Route::post('/simpan_nilai',[PenilaianController::class,'simpanKompetensi']);
+Route::post('/simpan_sikap',[PenilaianController::class,'simpanSikap']);
+Route::get('/nilai/edit/{id}',[PenilaianController::class,'editKompetensi']);
+Route::get('/sikap/edit/{id}',[PenilaianController::class,'editSikap']);
+Route::post('/nilai/edit/update',[PenilaianController::class,'updateKompetensi']);
+Route::post('/sikap/edit/update',[PenilaianController::class,'updateSikap']);
+Route::get('/search_penilaian',[PenilaianController::class,'cariTableKompetensi']);
+Route::get('/search_penilaian_sikap',[PenilaianController::class,'cariTableSikap']);
+Route::get('/cetak_penilaian/{id}', [PenilaianController::class, 'print']);;
 
 //Routes Fitur Presensi Siswa
 Route::get('/presensi', [PresensisiswaController::class, 'index']);
