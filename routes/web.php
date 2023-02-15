@@ -77,6 +77,22 @@ Route::put('/update_presensi',[PresensisiswaController::class,'update']);
 Route::get('/search',[PresensisiswaController::class,'cari']);
 Route::get('/cetak_presensi/{id}', [PresensisiswaController::class, 'print']);
 
+//Route Fitur Jurusan
+Route::get('/jurusan', [JurusanController::class, 'index']);
+Route::post('/tambah_jurusan', [JurusanController::class, 'simpan']);
+Route::get('/search_jurusan',[JurusanController::class,'cari']);
+Route::delete('/hapus_jurusan/{id}',[JurusanController::class,'hapus']);
+Route::get('/jurusan/edit/{id}',[JurusanController::class,'edit']);
+Route::post('/jurusan/update',[JurusanController::class,'update']);
+
+//Route Fitur Kompetensi
+Route::get('/kompetensi', [KompetensiController::class, 'index']);
+Route::post('/tambah_kompetensi', [KompetensiController::class, 'simpan']);
+Route::get('/search_kompetensi',[KompetensiController::class,'cari']);
+Route::delete('/hapus_kompetensi/{id}',[KompetensiController::class,'hapus']);
+Route::get('/kompetensi/edit/{id}',[KompetensiController::class,'edit']);
+Route::post('/kompetensi/update',[KompetensiController::class,'update']);
+
 // home untuk hubin
 Route::get('/hubin', [StaffhubinController::class, 'index'])->name('hubin')->middleware('auth');
 
