@@ -29,6 +29,7 @@ class MainController extends Controller
         $this->levelUser = Leveluser::all();
         // $this->ambilnikpp = Auth::user()->pembimbingperusahaan->nik_pp;
     }
+
     public function index(Request $request)
     {   
         return view('dashboard.index', [
@@ -40,5 +41,28 @@ class MainController extends Controller
             // ->orderBy('id_prakerin', 'desc')
             // ->paginate(5)
         ]);
+    }
+
+    public function uploadfoto(Request $request)
+    {
+        
+        $validate = $request->validate([
+            'foto' => 'mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+
+        if($request->file('foto')) {
+            $request->file('foto')->store('foto_profile', 'public');
+        }
+        
+        $data = DB::table('akun')
+        -> where('id', '=', Auth::user()->id)
+        -> update([
+            'foto' => $request->file('foto')
+        ]);
+
+        if ($data) 
+        {
+            return redirect('/dashboard');
+        }
     }
 }

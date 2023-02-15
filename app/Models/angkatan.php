@@ -13,4 +13,9 @@ class Angkatan extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['angkatan'];
+    
+    public function kelas()
+    {
+        return $this->hasOne(Kelas::class, 'id_angkatan', 'id_angkatan');
+    }
 }

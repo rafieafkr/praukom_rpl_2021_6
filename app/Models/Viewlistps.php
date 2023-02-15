@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Viewlistps extends Model
 {
     use HasFactory;
-    protected $table = 'view_pilihps';
+    protected $table = 'list_ps';
 }

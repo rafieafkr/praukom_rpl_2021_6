@@ -2,93 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prakerin;
-use App\Http\Requests\StorePrakerinRequest;
-use App\Http\Requests\UpdatePrakerinRequest;
 use Illuminate\Support\Facades\DB;
+use App\Models\Monitoring;
+use App\Models\Prakerin;
+use App\Models\Presensisiswa;
+use App\Models\Viewprakerin;
+use Illuminate\Support\Facades\Request;
 
 class PrakerinController extends Controller
 {
-    // Mendefinisikan $Prakerin & Middleware.
+    protected $prakerin;
+    protected $viewprakerin;
+    
     public function __construct()
     {
-        $this->Prakerin = new Prakerin;
-        // $this->middleware('auth:web',[]);
-    }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        
+        $this->prakerin = Prakerin::all();
+        $this->viewprakerin = Viewprakerin::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function dataprakerin()
     {
-        //
+        return view('prakerin.index',
+        [
+            'prakerin' => $this->viewprakerin
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePrakerinRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePrakerinRequest $request)
-    {
-        //
-    }
+    public function cariprakerin(Request $request)
+	{
+		$cariprakerin = Viewprakerin::where('nis','like',"%".request('show')."%")
+        ->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Prakerin  $prakerin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Prakerin $prakerin)
-    {
-        //
-    }
+        // dd($caripengajuan);
+ 
+		return view('prakerin.index',[
+            'prakerin' => $cariprakerin
+        ]);
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Prakerin  $prakerin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Prakerin $prakerin)
+    public function detailprakerin($id_prakerin)
     {
-        //
-    }
+        $detail = $this->prakerin->find($id_prakerin);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePrakerinRequest  $request
-     * @param  \App\Models\Prakerin  $prakerin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePrakerinRequest $request, Prakerin $prakerin)
-    {
-        //
-    }
+        // dd($detail);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Prakerin  $prakerin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Prakerin $prakerin)
-    {
-        //
+        return view('prakerin.detail', [
+            'edit' => $detail
+        ]);
     }
 }

@@ -485,69 +485,72 @@ Auth::user()->level_user == 4
 {{-- pop up profile --}}
 <input id="my-modal-3" type="checkbox" class="modal-toggle" />
 <div class="modal">
-    <div class="w-[60em] rounded-2xl bg-transparent">
-        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
-            <label for="my-modal-3"
-                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
-            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
-                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
-                    <p>Profile</p>
-                </div>
-                <div class="flex space-x-2">
-                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
-                        <div class="w-[10em] rounded-full">
-                            <img src="https://placeimg.com/80/80/people" />
-                        </div>
-                    </label>
-                </div>
-                <div class="m-auto mt-3 w-fit text-center">
-                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="w-[60em] rounded-2xl bg-transparent">
+            <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+                <label for="my-modal-3"
+                    class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+                <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                    <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                        <p>Profile</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                            <div class="w-[10em] rounded-full">
+                                <img src="https://placeimg.com/80/80/people" />
+                            </div>
+                        </label>
+                    </div>
+                    <div class="m-auto mt-5 w-fit text-center h-[3em]">
                         <input type="text" class="hidden" value="{{Auth::user()->id}}" />
-                        <input type="file" name="foto" id="foto"
+                        <input type="file" name="foto" id="foto" accept="image/*"
                             class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
-                        <button type="submit"
-                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Simpan
-                            Foto</button>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body w-[20em] pb-3">
-                @auth
-                <div class="m-auto mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">NAMA</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->guru->nama_guru }}</span>
-                </div>
-                @endauth
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">NIP</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->guru->nip_guru }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">LEVEL</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">E-MAIL</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">KONTAK</label>
-                    <br>
+                <div class="card-body w-[20em] pb-3">
                     @auth
-                    @if (!isset(Auth::user()->guru->kontak_guru->kontak))
-                    <span class="text-center text-lg">-</span>
-                    @else
-                    <span class="text-center text-lg">{{ Auth::user()->guru->kontak_guru->kontak }}</span>
-                    @endif
+                    <div class="m-auto mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">NAMA</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->guru->nama_guru }}</span>
+                    </div>
                     @endauth
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">NIP</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->guru->nip_guru }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">LEVEL</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">E-MAIL</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">KONTAK</label>
+                        <br>
+                        @auth
+                        @if (!isset(Auth::user()->guru->kontak_guru->kontak))
+                        <span class="text-center text-lg">-</span>
+                        @else
+                        <span class="text-center text-lg">{{ Auth::user()->guru->kontak_guru->kontak }}</span>
+                        @endif
+                        @endauth
+                    </div>
+                    <div class="mb-4 h-min w-full text-right">
+                        <button type="submit" class="rounded-md bg-[#ffffff] w-fit px-2 py-1 text-[#4C77A9]">Simpan
+                            Foto
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 @endif
@@ -559,58 +562,60 @@ Auth::user()->level_user == 5
 {{-- pop up profile --}}
 <input id="my-modal-3" type="checkbox" class="modal-toggle" />
 <div class="modal">
-    <div class="w-[60em] rounded-2xl bg-transparent">
-        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
-            <label for="my-modal-3"
-                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
-            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
-                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
-                    <p>Profile</p>
-                </div>
-                <div class="flex space-x-2">
-                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
-                        <div class="w-[10em] rounded-full">
-                            <img src="https://placeimg.com/80/80/people" />
-                        </div>
-                    </label>
-                </div>
-                <div class="m-auto mt-3 w-fit text-center">
-                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        <div class="w-[60em] rounded-2xl bg-transparent">
+            <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+                <label for="my-modal-3"
+                    class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+                <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                    <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                        <p>Profile</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                            <div class="w-[10em] rounded-full">
+                                <img src="https://placeimg.com/80/80/people" />
+                            </div>
+                        </label>
+                    </div>
+                    <div class="m-auto mt-5 w-fit text-center h-[3em]">
                         <input type="text" class="hidden" value="{{Auth::user()->id}}" />
                         <input type="file" name="foto" id="foto"
                             class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
-                        <button type="submit"
-                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Simpan
-                            Foto</button>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body w-[20em] pb-3">
-                @auth
-                <div class="m-auto mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">NAMA</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->pembimbingperusahaan->nama_pp }}</span>
-                </div>
-                @endauth
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">NIK</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->pembimbingperusahaan->nik_pp }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">LEVEL</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">E-MAIL</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                <div class="card-body w-[20em] pb-3">
+                    @auth
+                    <div class="m-auto mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">NAMA</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->pembimbingperusahaan->nama_pp }}</span>
+                    </div>
+                    @endauth
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">NIK</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->pembimbingperusahaan->nik_pp }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">LEVEL</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">E-MAIL</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full text-right">
+                        <button type="submit" class="rounded-md bg-[#ffffff] w-fit px-2 py-1 text-[#4C77A9]">Simpan
+                            Foto
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 @endif
@@ -622,58 +627,77 @@ Auth::user()->level_user == 6
 {{-- pop up profile --}}
 <input id="my-modal-3" type="checkbox" class="modal-toggle" />
 <div class="modal">
-    <div class="w-[60em] rounded-2xl bg-transparent">
-        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
-            <label for="my-modal-3"
-                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
-            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
-                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
-                    <p>Profile</p>
-                </div>
-                <div class="flex space-x-2">
-                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
-                        <div class="w-[10em] rounded-full">
-                            <img src="https://placeimg.com/80/80/people" />
-                        </div>
-                    </label>
-                </div>
-                <div class="m-auto mt-3 w-fit text-center">
-                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        <div class="w-[60em] rounded-2xl bg-transparent">
+            <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+                <label for="my-modal-3"
+                    class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+                <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                    <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                        <p>Profile</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                            <div class="w-[10em] rounded-full">
+                                <img src="https://placeimg.com/80/80/people" />
+                            </div>
+                        </label>
+                    </div>
+                    <div class="m-auto mt-5 w-fit text-center h-[3em]">
                         <input type="text" class="hidden" value="{{Auth::user()->id}}" />
                         <input type="file" name="foto" id="foto"
                             class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
-                        <button type="submit"
-                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Simpan
-                            Foto</button>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body w-[20em] pb-3">
-                @auth
-                <div class="m-auto mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">NAMA</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->siswa->nama_siswa }}</span>
-                </div>
-                @endauth
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">NIS</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->siswa->nis }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">LEVEL</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
-                </div>
-                <div class="mb-4 h-min w-full">
-                    <label class="text-md font-normal" for="">E-MAIL</label>
-                    <br>
-                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                <div class="card-body w-[20em] pb-3">
+                    @auth
+                    <div class="m-auto mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">NAMA</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->siswa->nama_siswa }}</span>
+                    </div>
+                    @endauth
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">NIS</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->siswa->nis }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">ANGKATAN</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->angkatan->tahun }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">JURUSAN</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->jurusan->nama_jurusan }}
+                            ({{ Auth::user()->siswa->kelas->jurusan->akronim }})</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">KELAS</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->tingkat_kelas }}
+                            {{ Auth::user()->siswa->kelas->nama_kelas }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">LEVEL</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full">
+                        <label class="text-md font-normal" for="">E-MAIL</label>
+                        <br>
+                        <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                    </div>
+                    <div class="mb-4 h-min w-full text-right">
+                        <button type="submit" class="rounded-md bg-[#ffffff] w-fit px-2 py-1 text-[#4C77A9]">Simpan
+                            Foto
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 @endif

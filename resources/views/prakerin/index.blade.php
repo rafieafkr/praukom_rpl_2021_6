@@ -37,6 +37,7 @@
             <td class="bg-white text-black">NIS</td>
             <td class="bg-white text-black">Nama Siswa</td>
             <td class="bg-white text-black">Perusahaan</td>
+            <td class="bg-white text-black">Angkatan</td>
             <td class="bg-white text-black">Aksi</td>
         </tr>
         <?php 
@@ -48,6 +49,7 @@
             <td class="bg-white text-black">{{$p->nis}}</td>
             <td class="bg-white text-black">{{$p->nama_siswa}}</td>
             <td class="bg-white text-black">{{$p->nama_perusahaan}}</td>
+            <td class="bg-white text-black">2022</td>
             <td class="bg-white text-black">
                 <div class='flex m-auto w-full items-center text-center'>
                     <div class="flex-warp mr-auto items-center text-center w-1/2">
@@ -56,6 +58,7 @@
                                 <x-heroicon-m-eye class="w-[1.5em]" />
                             </button></a>
                     </div>
+                    @if (Auth::user()->level_user == 1)
                     <div class="flex-warp ml-auto items-center text-center w-1/2">
                         <form action="/dataprakerin/hapus/{{$p->id_prakerin}}" method="POST">
                             @csrf
@@ -66,6 +69,7 @@
                             </button>
                         </form>
                     </div>
+                    @endif
                 </div>
             </td>
         </tr>

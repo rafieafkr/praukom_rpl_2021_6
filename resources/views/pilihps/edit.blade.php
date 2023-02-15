@@ -29,7 +29,7 @@
                         class="text-black my-2 w-full h-8 border border-md border-black rounded-md text-center bg-white">
                         <option value="">Pilih Pembimbing</option>
 
-                        @foreach ($pembimbing_sekolah as $ps)
+                        @foreach ($ps as $ps)
 
                         <option value="{{ $ps -> id_ps }}">{{ $ps -> nama_ps }} - {{ $ps -> nip_guru }}</option>
 
