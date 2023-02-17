@@ -27,12 +27,14 @@ return new class extends Migration
 
             START TRANSACTION;
             SAVEPOINT satu;
+
             INSERT INTO perusahaan (nama_perusahaan, alamat_perusahaan) VALUES (nPerusahaan, nAlamat_perusahaan);
 
             SELECT MAX(id_perusahaan) INTO idperusahaan FROM perusahaan WHERE nama_perusahaan=nPerusahaan AND alamat_perusahaan=nAlamat_perusahaan;
             INSERT INTO kontak_perusahaan (id_perusahaan, kontak_perusahaan) VALUES (idperusahaan, nTelepon_perusahaan);
             
             INSERT INTO pengajuan (nis, id_perusahaan, id_kaprog, id_walas, id_staff, bukti_terima) VALUES (nNIS, idperusahaan, nKaprog, nWalas, nStaff_hubin, nBukti_terima);
+
             COMMIT;
             IF kodeError != "00000" THEN ROLLBACK TO satu;
             END IF;

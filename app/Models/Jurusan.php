@@ -13,4 +13,9 @@ class Jurusan extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['kepala_jurusan','nama_jurusan','akronim'];
+
+    public function kelas()
+    {
+        return $this->hasOne(Kelas::class, 'id_jurusan', 'id_jurusan');
+    }
 }

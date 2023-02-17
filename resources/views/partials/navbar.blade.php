@@ -1,35 +1,10 @@
 <nav class="flex w-full justify-between bg-white pl-6">
   <div class="py-4">
-    <a href="/dashboard" class="font-semibold tracking-widest">SIMAK</a>
+    <a href="/dashboard" class="font-semibold tracking-widest text-black">SIMAK</a>
   </div>
   <div class="dropdown-end dropdown flex items-center gap-2">
-    @switch(Auth::user()->level_user)
-      @case(1)
-        <span class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">Staff Hubin</span>
-      @break
-
-      @case(2)
-        <span class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">Kepala Program</span>
-      @break
-
-      @case(3)
-        <span class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">Wali Kelas</span>
-      @break
-
-      @case(4)
-        <span class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">Pembimbing Sekolah</span>
-      @break
-
-      @case(5)
-        <span class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">Pembimbing Perusahaan</span>
-      @break
-
-      @case(6)
-        <span class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">Siswa</span>
-      @break
-
-      @default
-    @endswitch
+    <span
+      class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">{{ Auth::user()->leveluser->nama_level }}</span>
     <label tabindex="0" class="btn-ghost btn-circle avatar btn mt-[0.3em] mr-[1em]">
       <div class="w-10 rounded-full">
         <img src="https://placeimg.com/80/80/people" />

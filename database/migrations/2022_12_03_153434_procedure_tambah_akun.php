@@ -30,6 +30,8 @@ return new class extends Migration
             SAVEPOINT satu;
             INSERT INTO akun (level_user,email,password,username) VALUES (nLevel_user, nEmail, nPassword, nUsername);
             SELECT id INTO idakun FROM akun WHERE username=nUsername;
+            INSERT INTO akun (level_user,email,password,username) VALUES (nLevel_user, nEmail, nPassword, nUsername);
+            SELECT id INTO idakun FROM akun WHERE username=nUsername;
 
             IF(nLevel_user=1) THEN
               INSERT INTO guru (id_akun,nip_guru,nama_guru) VALUES (idakun, nIdentitas, nNama);

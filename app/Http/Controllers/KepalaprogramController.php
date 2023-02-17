@@ -110,7 +110,7 @@ class KepalaprogramController extends Controller
     public function hapussuratpengajuan(Request $request, $id_pengajuan)
     {
         $hapus = DB::table('pengajuan')
-                        ->where('id_pengajuan', $request->id_pengajuan)
+                        ->where('id_pengajuan', $request->$id_pengajuan)
                         ->delete();
 
         if($hapus){

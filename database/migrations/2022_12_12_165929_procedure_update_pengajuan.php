@@ -26,6 +26,7 @@ return new class extends Migration
 
             START TRANSACTION;
             SAVEPOINT satu;
+
             UPDATE perusahaan SET nama_perusahaan = nPerusahaan, alamat_perusahaan = nAlamat_perusahaan
             WHERE id_perusahaan = nId_perusahaan;
 
@@ -33,10 +34,11 @@ return new class extends Migration
             WHERE id_perusahaan = nId_perusahaan;
             
             UPDATE pengajuan SET nis = nNIS, id_kaprog = nKaprog, id_walas = nWalas, id_staff = nStaff_hubin, bukti_terima = nBukti_terima WHERE id_pengajuan = nId_pengajuan;
-            COMMIT;
+            
             IF kodeError != "00000" THEN ROLLBACK TO satu;
             END IF;
             COMMIT;
+
           END;
         ');
     }

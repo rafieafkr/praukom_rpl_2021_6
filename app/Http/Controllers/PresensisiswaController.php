@@ -30,12 +30,19 @@ class PresensisiswaController extends Controller
 
       //get data form
       $dataview = DB::table('view_presensi')
-          ->select()
-          ->get();
+          ->paginate(5);
       
+      $statuspresensi = DB::table('presensi_siswa')
+          ->where('status_hadir', '=','0')
+          ->orWhere('status_hadir', '=','1')
+          ->orWhere('status_hadir', '=','2')
+          ->get(); 
+      
+
       return view('dashboard.modules.presensi',compact('prakerin'),[
         'dataview'=>$dataview,
-        'prakerin'=>$prakerin
+        'prakerin'=>$prakerin,
+        'status' =>$statuspresensi
       ]);
     }
 
@@ -147,16 +154,55 @@ class PresensisiswaController extends Controller
         }
     } 
 
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Presensisiswa  $presensisiswa
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Presensisiswa $presensisiswa)
+    public function terimapresensi(Request $request, $id_presensi)
     {
-        //
+        $terimapresensi = [
+            'status_hadir' => $request->status_hadir
+        ];
+        $upd = DB::table('presensi_siswa')
+        -> where('id_presensi', $id_presensi)
+        -> update($terimapresensi);
+        if ($upd) {
+            return back();
+        } else {
+            return back();
+        }
+        
     }
+
+    public function tolakpresensi(Request $request, $id_presensi)
+    {
+        $terimapresensi = [
+            'status_hadir' => $request->status_hadir
+        ];
+        $upd = DB::table('presensi_siswa')
+        -> where('id_presensi', $id_presensi)
+        -> update($terimapresensi);
+        if ($upd) {
+            return back();
+        } else {
+            return back();
+        }
+
+}
+
+    public function filter_presensi(Request $request)
+      {
+        // menangkap data pencarian
+        $prakerin = DB::table('prakerin')
+        ->select()
+        ->get();
+        $filterpresensi = $request->filter;
+
+        // mengambil data dari table presensi_siswa sesuai pencarian data
+        $dataview = DB::table('view_presensi')
+        ->where('status_hadir',$filterpresensi)
+        ->paginate();
+
+        return view('dashboard.modules.presensi',[
+          'dataview' => $dataview,
+          'prakerin' => $prakerin
+          ]);
+      }
+
 }

@@ -28,4 +28,9 @@ class Pembimbingsekolah extends Model
     {
         return $this->belongsTo(Pengajuan::class, 'id_ps', 'id_ps');
     }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
+    }
 }

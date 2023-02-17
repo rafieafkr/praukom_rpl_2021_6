@@ -11,7 +11,7 @@
     </div>
     <div class="m-auto h-[20em] w-[23em] items-center">
       <div class="m-auto h-[20em] w-[20em] items-center rounded-xl bg-white">
-        <div class="m-auto mr-3 h-[20em] w-[20em] items-center bg-[url('../img/simak.png')] bg-cover"></div>
+        <div class="m-auto mr-3 h-[20em] w-[20em] items-center bg-[url('../img/simak3.png')] bg-cover"></div>
       </div>
     </div>
     <div class="absolute bottom-0 right-0 left-0 mb-auto -ml-3 w-full items-end text-right text-xs opacity-20">
@@ -33,10 +33,10 @@
         <div class="m-auto mb-9 w-full text-center text-3xl">
           <p class="mb-2 font-light"><label for="email">E-Mail</label></p>
           <input id="email" autofocus type="text" name="email"
-            class="h-[2.5em] w-3/4 border-b-4 border-[#000000] bg-[#1F1F1F] text-center text-xl md:w-[20em]"
+            class="@error('email') is-invalid @enderror h-[2.5em] w-3/4 border-b-4 border-[#000000] bg-[#1F1F1F] text-center text-xl md:w-[20em]"
             placeholder="Masukan E-Mail........" value="{{ old('email') }}" required>
           @error('email')
-            <div class="text-sm text-red-600">
+            <div class="invalid-feedback text-sm text-red-600">
               {{ $message }} !
             </div>
           @enderror

@@ -19,8 +19,18 @@ class Siswa extends Model
         return $this->belongsTo(Prakerin::class, 'nis', 'nis');
     }
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas', 'id_kelas');
+    }
+
     public function pengajuan()
     {
         return $this->belongsTo(Pengajuan::class, 'nis', 'nis');
+    }
+
+    public function akun()
+    {
+        return $this->belongsTo(Akun::class, 'id_akun','id');
     }
 }

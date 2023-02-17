@@ -11,5 +11,10 @@ class Kontakguru extends Model
     protected $table = 'kontak_guru';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nip_guru','kontak'];
+    protected $fillable = ['id_guru','kontak_guru'];
+
+    public function guru()
+    {
+        return $this->hasMany(Guru::class, 'id_guru', 'id_guru');
+    }
 }

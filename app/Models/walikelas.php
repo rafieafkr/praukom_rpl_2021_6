@@ -18,4 +18,9 @@ class Walikelas extends Model
     {
         return $this->belongsTo(Prakerin::class, 'id_walas', 'id_walas');
     }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
+    }
 }

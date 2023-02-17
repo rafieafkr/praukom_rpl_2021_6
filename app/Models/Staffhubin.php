@@ -14,8 +14,8 @@ class Staffhubin extends Model
     public $timestamps = false;
     protected $fillable = ['nip_guru','id_akun','nama_staff'];
 
-    // public function user()
-    // {
-    //     return $this->belongsToMany(User::class, 'id_akun');
-    // }
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru','id_guru');
+    }
 }

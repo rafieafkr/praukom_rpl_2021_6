@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\akun>
  */
-class UserFactory extends Factory
+class AkunFactory extends Factory
 {
     /**
      * Define the model's default state.

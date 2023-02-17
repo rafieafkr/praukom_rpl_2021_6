@@ -16,21 +16,26 @@ class Prakerin extends Model
 
     public function kepalaprogram()
     {
-        return $this->hasMany(Kepalaprogram::class, 'id_kaprog', 'id_kaprog');
+        return $this->hasOne(Kepalaprogram::class, 'id_kaprog', 'id_kaprog');
     }
 
     public function perusahaan()
     {
-        return $this->hasMany(Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
+        return $this->hasOne(Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
     }
 
     public function pembimbingsekolah()
     {
-        return $this->hasMany(Pembimbingsekolah::class, 'id_ps', 'id_ps');
+        return $this->hasOne(Pembimbingsekolah::class, 'id_ps', 'id_ps');
+    }
+
+    public function pembimbingperusahaan()
+    {
+        return $this->hasOne(Pembimbingperusahaan::class, 'nik_pp', 'nik_pp');
     }
 
     public function siswa()
     {
-        return $this->hasMany(Siswa::class, 'nis', 'nis');
+        return $this->hasOne(Siswa::class, 'nis', 'nis');
     }
 }

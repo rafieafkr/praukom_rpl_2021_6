@@ -93,10 +93,6 @@ class AkunController extends Controller
      * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
-    public function show(Akun $akun)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -181,6 +177,7 @@ class AkunController extends Controller
      * @param  \App\Models\Akun  $Akun
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Akun $akun)
     {
         Akun::destroy($akun->id);

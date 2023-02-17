@@ -13,4 +13,14 @@ class Pembimbingperusahaan extends Model
     protected $softDelete = false;
     public $timestamps = false;
     protected $fillable = ['nik_pp','id_akun','nama_pp'];
+
+    public function akun()
+    {
+        return $this->belongsTo(User::class, 'id_akun', 'id');
+    }
+
+    public function prakerin()
+    {
+        return $this->belongsTo(Prakerin::class, 'nik_pp', 'nik_pp');
+    }
 }

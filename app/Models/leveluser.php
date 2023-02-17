@@ -15,6 +15,6 @@ class Leveluser extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'id_level', 'id_level');
+        return $this->belongsTo(User::class, 'level_user', 'id_level');
     }
 }

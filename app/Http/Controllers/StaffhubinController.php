@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Staffhubin;
 use App\Models\User;
 use App\Http\Requests\StoreStaffhubinRequest;
 use App\Http\Requests\UpdateStaffhubinRequest;
 use App\Models\Leveluser;
+use App\Models\Viewperusahaanaktif;
+use App\Models\Viewprakerin;
 use Illuminate\Support\Facades\Auth;
 
 class StaffhubinController extends Controller
@@ -16,25 +21,18 @@ class StaffhubinController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
     protected $level_user;
+=======
+>>>>>>> origin/kinoy
     
     public function __construct()
     {
-        $this->level_user = Leveluser::all();
-    }
-    public function index()
-    {   
-        // $hubin = Staffhubin::all();
-        // $user = User::all();
-        // $level_user = Leveluser::all();
 
-        // return response()->json($hubin);
-        // $this->authorize('hubin');
-    
+    }
+    public function index(Request $request)
+    {   
         
-        return view('dashboard.index', [
-            'level_user' => $this->level_user
-        ]);
     }
 
     /**
@@ -42,9 +40,47 @@ class StaffhubinController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function gantifoto(Request $request, $id)
     {
-        //
+        // $this->validate($request, [
+        //     'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
+        // ]);
+
+        // $image_path = $request->file('foto')->store('foto_profile');
+
+        // $foto = [
+        //     'foto' => $image_path
+        // ];
+
+        // $upd = DB::table('akun')
+        // -> where('id', $request->id)
+        // -> update($foto);
+        // if ($upd) {
+        //     dd($upd);
+        // } else {
+    
+        // }
+
+        // session()->flash('success', 'Image Upload successfully');
+
+        // return redirect()->route('/dashboard');
+        
+        // return $request->file('foto')->store('foto_profile');
+
+        // $foto = [
+        //     'foto' => $request->foto
+        // ];
+
+        // dd($foto);
+        
+        // $upd = DB::table('akun')
+        // -> where('id', $request->id)
+        // -> update($foto);
+        // if ($upd) {
+        //     return redirect('/dashboard');
+        // } else {
+    
+        // }
     }
 
     /**
