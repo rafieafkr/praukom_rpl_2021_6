@@ -149,10 +149,18 @@
           <span class="rounded-full bg-green-500 px-3 py-1 text-white">Bukti penerimaan sudah ada</span>
         @else
           <span class="rounded-full bg-red-500 px-3 py-1 text-white">Bukti penerimaan belum ada</span>
+          <br>
         @endif
-        <br>
-        <input type="file" name="bukti_terima" class="file-input-bordered file-input mt-2 w-full" />
+        <input id="input-img" type="file" name="bukti_terima" class="file-input-bordered file-input mt-2 w-full"
+          onchange="showImg()" />
       </label>
+      @if ($pengajuan[0]->bukti_terima)
+        <div id="div-bukti-terima">
+          <br>
+          <img id="bukti-terima" class="w-2/3" src="{{ asset('storage/' . $pengajuan[0]->bukti_terima) }}"
+            alt="bukti-terima">
+        </div>
+      @endif
       <br><br>
       <a href="{{ route('pengajuan.index') }}"
         class="mr-2 cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:hidden">
@@ -163,4 +171,28 @@
         type="submit">Simpan</button>
     </div>
   </form>
+
+  <script>
+    function showImg() {
+      const inputImg = document.getElementById('input-img')
+      const img = document.getElementById('bukti-terima')
+      const divImg = document.getElementById('div-bukti-terima')
+      console.log(divImg);
+
+      const file = inputImg.files[0]
+      const ext = file.name.split('.').pop()
+
+      if (ext == 'jpg' || ext == 'jpeg' || ext == 'png') {
+        divImg.style.display = 'block'
+        const fReader = new FileReader()
+
+        fReader.readAsDataURL(file)
+        fReader.onload = (fReaderEvent) => {
+          img.src = fReaderEvent.target.result
+        }
+      } else {
+        divImg.style.display = 'none'
+      }
+    }
+  </script>
 @endsection

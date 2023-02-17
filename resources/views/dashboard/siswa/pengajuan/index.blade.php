@@ -6,15 +6,17 @@
   <?php $i = 1; ?>
 
   <!-- button buka modal tambah pengajuan -->
-  <label for="modal-tambah-pengajuan"
-    class="mr-3 cursor-pointer rounded-lg border-none bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
-    Tambah
-  </label>
+  <div class="flex flex-row-reverse gap-3 lg:flex-none lg:flex-row lg:gap-0">
+    <label for="modal-tambah-pengajuan"
+      class="cursor-pointer rounded-lg border-none bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:mr-3">
+      Tambah
+    </label>
 
-  <a href="/hubin"
-    class="cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
-    Kembali
-  </a>
+    <a href="/hubin"
+      class="cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
+      Kembali
+    </a>
+  </div>
 
   {{-- session flash message --}}
   <div class="mt-5 w-fit">
@@ -77,313 +79,252 @@
   <br>
   @forelse ($pengajuans as $pengajuan)
     <div class="mb-5 min-w-full overflow-x-auto">
-      <div class="grid w-full grid-cols-3 grid-rows-1 gap-4 rounded-lg bg-white p-5">
-        {{-- nomor --}}
-        <div class="w-4">
-          {{ $loop->iteration }}.
-        </div>
-
+      {{-- nomor --}}
+      <div class="w-full rounded-t-lg bg-white p-5">
+        <span class="font-semibold">Surat Pengajuan {{ $loop->iteration }}</span>
+      </div>
+      <div class="flex w-full flex-row gap-5 bg-white px-5">
         {{-- div 1 --}}
-        <div class="flex w-1/2 flex-col gap-5">
+        <div class="flex w-full flex-col gap-5 bg-white lg:w-1/2">
           <div>
-            <p class="text-[16px] font-semibold">Nama</p>
-            <span class="text-sm text-gray-500">{{ $pengajuan->nama_siswa }}</span>
+            <p class="text-[14px] font-semibold lg:text-[16px]">Nama</p>
+            <span class="text-[12px] text-gray-500 lg:text-[15px]">{{ $pengajuan->nama_siswa }}</span>
           </div>
           <div>
-            <p class="text-[16px] font-semibold">Perusahaan</p>
-            <span class="text-sm text-gray-500">{{ $pengajuan->nama_perusahaan }}</span>
+            <p class="text-[14px] font-semibold lg:text-[16px]">Perusahaan</p>
+            <span class="text-[12px] text-gray-500 lg:text-sm">{{ $pengajuan->nama_perusahaan }}</span>
           </div>
           <div>
-            <p class="text-[16px] font-semibold">Alamat Perusahaan</p>
-            <span class="text-sm text-gray-500">{{ $pengajuan->alamat_perusahaan }}</span>
+            <p class="text-[14px] font-semibold lg:text-[16px]">Alamat Perusahaan</p>
+            <span class="text-[12px] text-gray-500 lg:text-sm">{{ $pengajuan->alamat_perusahaan }}</span>
           </div>
           <div>
-            <p class="text-[16px] font-semibold">Kontak Perusahaan</p>
-            <span class="text-sm text-gray-500">{{ $pengajuan->kontak_perusahaan }}</span>
+            <p class="text-[14px] font-semibold lg:text-[16px]">Kontak Perusahaan</p>
+            <span class="text-[12px] text-gray-500 lg:text-sm">{{ $pengajuan->kontak_perusahaan }}</span>
           </div>
         </div>
 
         {{-- div 2 --}}
-        <div class="flex w-1/2 flex-col gap-5">
+        <div class="flex flex-col gap-5 bg-white lg:w-1/2">
           <div>
-            <p class="mb-2 text-[16px] font-semibold">Pembimbing Sekolah</p>
+            <p class="mb-2 text-[14px] font-semibold lg:text-[16px]">Pembimbing Sekolah</p>
             @if ($pengajuan->pembmbing_sekolah)
-              <span class="text-sm text-gray-500">{{ $pengajuan->pembimbing_sekolah }}</span>
+              <span class="text-[12px] text-gray-500 lg:text-sm">{{ $pengajuan->pembimbing_sekolah }}</span>
             @else
-              <div class="w-fit rounded-md bg-yellow-500 px-3 py-1 text-white lg:rounded-full">
-                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
-                Pembimbing Sekolah belum ditentukan Kepala Program
+              <div class="w-fit rounded-md bg-yellow-300 px-3 py-1 text-black lg:rounded-full">
+                <x-heroicon-o-x-circle class="inline-block w-5 text-black" />
+                <span class="text-[12px] lg:text-sm">Pembimbing Sekolah belum ditentukan Kepala Program</span>
               </div>
             @endif
           </div>
           <div>
-            <p class="mb-2 text-[16px] font-semibold">Bukti Penerimaan</p>
-            @if ($pengajuan->bukti_terima)
-              <span class="rounded-full bg-green-500 px-3 py-1 text-white">
-                <x-heroicon-m-check-badge class="inline-block w-5 text-white" />
-                Terlampir
-              </span>
-            @else
-              <span class="rounded-full bg-red-500 px-3 py-1 text-white">
-                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
-                Tidak ada
-              </span>
-            @endif
-          </div>
-        </div>
-
-        {{-- div 3 --}}
-        <div class="flex-end flex flex-row">
-          <a href="{{ route('pengajuan.edit', ['pengajuan' => $pengajuan->id_pengajuan]) }}"
-            class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500">
-            <button>Edit</button>
-          </a>
-        </div>
-      </div>
-      {{-- <table class="table w-full border-collapse rounded-b-lg bg-white p-5 text-center">
-      <tr>
-        <th class="p-4">No</th>
-        <th class="p-4">NIS</th>
-        <th class="p-4">Perusahaan</th>
-        <th class="p-4">Bukti Penerimaan</th>
-        <th class="p-4">Status Pengajuan</th>
-        <th class="p-4">Aksi</th>
-      </tr>
-
-      @forelse ($pengajuans as $pengajuan)
-        <tr>
-          <td class="sticky left-0 z-10 p-4">{{ $loop->iteration }}</td>
-          <td class="p-4">{{ $pengajuan->nis }}</td>
-          <td class="p-4">{{ $pengajuan->nama_perusahaan }}</td>
-          <td class="p-4">
-            @if ($pengajuan->bukti_terima !== null)
-              <span class="rounded-full bg-green-500 px-3 py-1 text-white">
-                <x-heroicon-m-check-badge class="inline-block w-5 text-white" />
-                Terlampir
-              </span>
-            @else
-              <span class="rounded-full bg-red-500 px-3 py-1 text-white">
-                <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
-                Tidak ada
-              </span>
-            @endif
-          </td>
-          <td class="p-4">
+            <p class="mb-2 text-[14px] font-semibold lg:text-[16px]">Status Pengajuan</p>
             @switch($pengajuan->status_pengajuan)
               @case('1')
-                <span class="rounded-full bg-yellow-300 px-3 py-1">
+                <div class="w-fit rounded-md bg-yellow-300 px-3 py-1 lg:rounded-full">
                   <x-heroicon-o-clock class="inline-block w-5 text-black" />
-                  Menunggu konfirmasi Wali Kelas
-                </span>
+                  <span class="text-[12px] lg:text-sm">Menunggu konfirmasi Wali Kelas</span>
+                </div>
               @break
 
               @case('2')
-                <span class="rounded-full bg-red-500 px-3 py-1 text-white">
+                <div class="w-fit rounded-md bg-red-500 px-3 py-1 text-white lg:rounded-full">
                   <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
-                  Ditolak Wali Kelas
-                </span>
+                  <span class="text-[12px] lg:text-sm">Ditolak Wali Kelas</span>
+                </div>
               @break
 
               @case('3')
-                <span class="rounded-full bg-yellow-300 px-3 py-1">
+                <div class="w-fit rounded-md bg-yellow-300 px-3 py-1 lg:rounded-full">
                   <x-heroicon-o-clock class="inline-block w-5 text-black" />
-                  Menunggu konfirmasi Kepala Program
-                </span>
+                  <span class="text-[12px] lg:text-sm">Menunggu konfirmasi Kepala Program</span>
+                </div>
               @break
 
               @case('4')
-                <span class="rounded-full bg-red-500 px-3 py-1 text-white">
+                <div class="w-fit rounded-md bg-red-500 px-3 py-1 text-white lg:rounded-full">
                   <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
-                  Ditolak Kepala Program
-                </span>
+                  <span class="text-[12px] lg:text-sm">Ditolak Kepala Program</span>
+                </div>
               @break
 
               @case('5')
-                <span class="rounded-full bg-yellow-300 px-3 py-1">
+                <div class="w-fit rounded-md bg-yellow-300 px-3 py-1 lg:rounded-full">
                   <x-heroicon-o-clock class="inline-block w-5 text-black" />
-                  Menunggu konfirmasi Hubin
-                </span>
+                  <span class="text-[12px] lg:text-sm">Menunggu konfirmasi Hubin</span>
+                </div>
               @break
 
               @case('6')
-                <span class="rounded-full bg-red-500 px-3 py-1 text-white">
+                <div class="w-fit rounded-md bg-red-500 px-3 py-1 text-white lg:rounded-full">
                   <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
-                  Ditolak Hubin
-                </span>
+                  class="text-[12px] lg:text-sm" <span>Ditolak Hubin</span>
+                </div>
               @break
 
               @default
-                <span class="rounded-full bg-green-500 px-3 py-1 text-white">
+                <div class="rounded-md bg-green-500 px-3 py-1 text-white lg:rounded-full">
                   <x-heroicon-m-check-badge class="inline-block w-5 text-white" />
-                  Surat Pengajuan sudah sah
-                </span>
+                  <span class="text-[12px] lg:text-sm">Surat Pengajuan sudah sah</span>
+                </div>
             @endswitch
-          </td>
-          <td class="p-2">
-            <a href="{{ route('pengajuan.edit', ['pengajuan' => $pengajuan->id_pengajuan]) }}"
-              class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500">
-              <button>Edit</button>
-            </a>
-            <form method="post" action="{{ route('pengajuan.destroy', ['pengajuan' => $pengajuan->id_pengajuan]) }}"
-              class="inline-block">
-              @csrf
-              @method('delete')
-              <button
-                class="rounded-lg bg-red-500 px-5 py-2 text-white shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-red-700"
-                onclick="return confirm('Apakah yakin ingin menghapus pengajuan \n{{ $pengajuan->nama_perusahaan }}?')">Hapus</button>
-            </form>
-          </td>
-        </tr>
-        @empty
-          <tr>
-            <td colspan="6" class="text-center text-lg">
-              <label for="modal-tambah-pengajuan">
-                <span class="cursor-pointer text-blue-500 underline">
-                  Data tidak ditemukan
-                </span>
-              </label>
-            </td>
-          </tr>
-          {{ $i++ }}
-        @endforelse
-      </table> --}}
-    </div>
-  @empty
-    <div class="text-center text-lg">
-      <label for="modal-tambah-pengajuan">
-        <span class="cursor-pointer text-blue-500 underline">
-          Data tidak ditemukan
-        </span>
-      </label>
-    </div>
-  @endforelse
+          </div>
+        </div>
 
-  <!-- Modal tambah pengajuan -->
-  <input id="modal-tambah-pengajuan" type="checkbox" class="modal-toggle" />
-  <label for="modal-tambah-pengajuan" class="modal cursor-pointer">
-    <label class="modal-box relative" for="">
-      <div class="mb-3 flex h-12 w-full justify-center text-center align-middle text-lg">
-        <span class="leading-[3rem]">Isi Surat Pengajuan</span>
       </div>
-      <form action="{{ route('pengajuan.store') }}" method="post" class="flex-col lg:grid lg:grid-cols-2 lg:gap-5"
-        enctype="multipart/form-data">
-        @csrf
-        {{-- div 1 --}}
-        <div class="w-full lg:w-[512px]">
-          {{-- nis --}}
-          <label>
-            NIS
-            <br>
-            <input type="text" name="nis" placeholder="Isi NIS anda" class="input-bordered input w-full"
-              value="{{ old('nis') }}" />
-          </label>
-          <br><br>
-          {{-- perusahaan --}}
-          <label>
-            Perusahaan
-            <br>
-            <input type="text" name="perusahaan" placeholder="Isi nama perusahaan" class="input-bordered input w-full"
-              value="{{ old('email') }}" />
-          </label>
-          <br><br>
-          {{-- alamat perusahaan --}}
-          <label>
-            Alamat Perusahaan
-            <br>
-            <input type="text" name="alamat_perusahaan" placeholder="Isi alamat perusahaan"
-              class="input-bordered input w-full" value="{{ old('alamat_perusahaan') }}" />
-          </label>
-          <br><br>
-          {{-- telp perusahaan --}}
-          <label>
-            Telepon Perusahaan
-            <br>
-            <input type="tel" name="telepon_perusahaan" placeholder="Isi telepon perusahaan"
-              class="input-bordered input w-full" value="{{ old('telepon_perusahaan') }}" />
-          </label>
-          <br><br>
+      {{-- div tombol edit dan hapus --}}
+      <div class="flex w-full flex-row justify-end rounded-b-lg bg-white p-5 lg:justify-start">
+        <a href="{{ route('pengajuan.edit', ['pengajuan' => $pengajuan->id_pengajuan]) }}"
+          class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500">
+          <button>Edit</button>
+        </a>
+        <form method="post" action="{{ route('pengajuan.destroy', ['pengajuan' => $pengajuan->id_pengajuan]) }}"
+          class="inline-block">
+          @csrf
+          @method('delete')
           <button
-            class="hidden rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:inline-block"
-            type="submit">Tambah</button>
-        </div>
-        {{-- div 2 --}}
-        <div class="w-full lg:w-[512px]">
-          {{-- kaprog --}}
-          <label>
-            Kepala Program
-            <br>
-            <select name="kaprog" class="select-bordered select w-full">
-              <option value="" disabled selected>Pilih Kepala Program</option>
-              @foreach ($kaprogs as $kaprog)
-                <option value="{{ $kaprog->id_kaprog }}">{{ $kaprog->nama_guru }}</option>
-              @endforeach
-            </select>
-          </label>
-          <br><br>
-          {{-- walas --}}
-          <label>
-            Wali Kelas
-            <br>
-            <select name="walas" class="select-bordered select w-full">
-              <option value="" disabled selected>Pilih Kepala Program</option>
-              @foreach ($walass as $walas)
-                <option value="{{ $walas->id_walas }}">{{ $walas->nama_guru }}</option>
-              @endforeach
-            </select>
-          </label>
-          <br><br>
-          {{-- staff hubin --}}
-          <label>
-            Staff Hubin
-            <br>
-            <select name="staff_hubin" class="select-bordered select w-full">
-              <option value="" disabled selected>Pilih Kepala Program</option>
-              @foreach ($staff_hubins as $staff_hubin)
-                <option value="{{ $staff_hubin->id_staff }}">{{ $staff_hubin->nama_guru }}</option>
-              @endforeach
-            </select>
-          </label>
-          <br><br>
-          {{-- bukti terima --}}
-          <label>
-            Bukti Terima
-            <br>
-            <input id="bukti_terima" type="file" name="bukti_terima" class="file-input-bordered file-input w-full"
-              value="{{ old('bukti_terima') }}" onchange="showImg()" />
-          </label>
-          <br><br>
-          <img id="img-show" alt="bukti terima" style="display: none;">
-          <br><br>
-          <button
-            class="rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:hidden"
-            type="submit">Tambah</button>
-        </div>
+            class="rounded-lg bg-red-500 px-5 py-2 text-white shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-red-700"
+            onclick="return confirm('Apakah yakin ingin menghapus pengajuan \n{{ $pengajuan->nama_perusahaan }}?')">Hapus</button>
+        </form>
+      </div>
+    </div>
+    <br>
+    @empty
+      <div class="text-center text-lg">
+        <label for="modal-tambah-pengajuan">
+          <span class="cursor-pointer text-blue-500 underline">
+            Data tidak ditemukan
+          </span>
+        </label>
+      </div>
+    @endforelse
 
-      </form>
+    <!-- Modal tambah pengajuan -->
+    <input id="modal-tambah-pengajuan" type="checkbox" class="modal-toggle" />
+    <label for="modal-tambah-pengajuan" class="modal cursor-pointer">
+      <label class="modal-box relative" for="">
+        <div class="mb-3 flex h-12 w-full justify-center text-center align-middle text-lg">
+          <span class="leading-[3rem]">Isi Surat Pengajuan</span>
+        </div>
+        <form action="{{ route('pengajuan.store') }}" method="post" class="flex-col lg:grid lg:grid-cols-2 lg:gap-5"
+          enctype="multipart/form-data">
+          @csrf
+          {{-- div 1 --}}
+          <div class="w-full lg:w-[512px]">
+            {{-- nis --}}
+            <label>
+              NIS
+              <br>
+              <input type="text" name="nis" placeholder="Isi NIS anda" class="input-bordered input w-full"
+                value="{{ old('nis') }}" />
+            </label>
+            <br><br>
+            {{-- perusahaan --}}
+            <label>
+              Perusahaan
+              <br>
+              <input type="text" name="perusahaan" placeholder="Isi nama perusahaan"
+                class="input-bordered input w-full" value="{{ old('email') }}" />
+            </label>
+            <br><br>
+            {{-- alamat perusahaan --}}
+            <label>
+              Alamat Perusahaan
+              <br>
+              <input type="text" name="alamat_perusahaan" placeholder="Isi alamat perusahaan"
+                class="input-bordered input w-full" value="{{ old('alamat_perusahaan') }}" />
+            </label>
+            <br><br>
+            {{-- telp perusahaan --}}
+            <label>
+              Telepon Perusahaan
+              <br>
+              <input type="tel" name="telepon_perusahaan" placeholder="Isi telepon perusahaan"
+                class="input-bordered input w-full" value="{{ old('telepon_perusahaan') }}" />
+            </label>
+            <br><br>
+            <button
+              class="hidden rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:inline-block"
+              type="submit">Tambah</button>
+          </div>
+          {{-- div 2 --}}
+          <div class="w-full lg:w-[512px]">
+            {{-- kaprog --}}
+            <label>
+              Kepala Program
+              <br>
+              <select name="kaprog" class="select-bordered select w-full">
+                <option value="" disabled selected>Pilih Kepala Program</option>
+                @foreach ($kaprogs as $kaprog)
+                  <option value="{{ $kaprog->id_kaprog }}">{{ $kaprog->nama_guru }}</option>
+                @endforeach
+              </select>
+            </label>
+            <br><br>
+            {{-- walas --}}
+            <label>
+              Wali Kelas
+              <br>
+              <select name="walas" class="select-bordered select w-full">
+                <option value="" disabled selected>Pilih Kepala Program</option>
+                @foreach ($walass as $walas)
+                  <option value="{{ $walas->id_walas }}">{{ $walas->nama_guru }}</option>
+                @endforeach
+              </select>
+            </label>
+            <br><br>
+            {{-- staff hubin --}}
+            <label>
+              Staff Hubin
+              <br>
+              <select name="staff_hubin" class="select-bordered select w-full">
+                <option value="" disabled selected>Pilih Kepala Program</option>
+                @foreach ($staff_hubins as $staff_hubin)
+                  <option value="{{ $staff_hubin->id_staff }}">{{ $staff_hubin->nama_guru }}</option>
+                @endforeach
+              </select>
+            </label>
+            <br><br>
+            {{-- bukti terima --}}
+            <label>
+              Bukti Terima
+              <br>
+              <input id="bukti_terima" type="file" name="bukti_terima" class="file-input-bordered file-input w-full"
+                value="{{ old('bukti_terima') }}" onchange="showImg()" />
+            </label>
+            <br><br>
+            <img id="img-show" alt="bukti terima" style="display: none;">
+            <br><br>
+            <button
+              class="rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:hidden"
+              type="submit">Tambah</button>
+          </div>
+
+        </form>
+      </label>
     </label>
-  </label>
 
-  <script>
-    function showImg() {
-      const img = document.getElementById('bukti_terima')
-      const imgShow = document.getElementById('img-show')
+    <script>
+      function showImg() {
+        const img = document.getElementById('bukti_terima')
+        const imgShow = document.getElementById('img-show')
 
-      // ambil ekstensi file
-      const fileName = img.files[0]
-      const ext = fileName.name.split('.').pop()
+        // ambil ekstensi file
+        const fileName = img.files[0]
+        const ext = fileName.name.split('.').pop()
 
-      // kalau ekstensi berformat gambar maka munculkan
-      if (ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
-        const fReader = new FileReader()
-        fReader.readAsDataURL(fileName)
-        fReader.onload = (fReaderEvent) => {
-          imgShow.src = fReaderEvent.target.result
-          imgShow.style.display = 'inline-block'
+        // kalau ekstensi berformat gambar maka munculkan
+        if (ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
+          const fReader = new FileReader()
+          fReader.readAsDataURL(fileName)
+          fReader.onload = (fReaderEvent) => {
+            imgShow.src = fReaderEvent.target.result
+            imgShow.style.display = 'inline-block'
+          }
+        } else {
+          // selain itu jangan tampilkan
+          imgShow.style.display = 'none'
         }
-      } else {
-        // selain itu jangan tampilkan
-        imgShow.style.display = 'none'
       }
-    }
-  </script>
-@endsection
+    </script>
+  @endsection
