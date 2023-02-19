@@ -14,28 +14,25 @@ return new class extends Migration
      */
     public function up()
     {
-        //
         DB::unprepared("
-        CREATE OR REPLACE VIEW view_presensi AS
+        CREATE OR REPLACE VIEW view_penilaian  AS 
         SELECT 
+                penilaian.id_penilaian,
                 siswa.nama_siswa, 
                 siswa.nis, 
                 pembimbing_perusahaan.nama_pp, 
-                presensi_siswa.tgl_kehadiran, 
-                presensi_siswa.jam_masuk,
-                presensi_siswa.jam_keluar,
-                presensi_siswa.keterangan,
-                presensi_siswa.kegiatan,
-                presensi_siswa.status_hadir,
-                presensi_siswa.id_presensi
+                nilai.nilai,
+                kompetensi.nama_kompetensi
 
-        FROM presensi_siswa
+        FROM penilaian
         
-        INNER JOIN siswa ON presensi_siswa.nis = siswa.nis
-        INNER JOIN pembimbing_perusahaan ON presensi_siswa.nik_pp = pembimbing_perusahaan.nik_pp
+        INNER JOIN siswa ON penilaian.nis = siswa.nis
+        INNER JOIN nilai ON penilaian.id_penilaian = nilai.id_penilaian
+        INNER JOIN pembimbing_perusahaan ON penilaian.nik_pp = pembimbing_perusahaan.nik_pp
+        INNER JOIN kompetensi ON nilai.kompetensi = kompetensi.id_kompetensi
+        
 
     ");
-
     }
 
     /**
@@ -45,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('view_presensi');
+        DB::unprepared('DROP VIEW view_penilaian');
     }
 };
