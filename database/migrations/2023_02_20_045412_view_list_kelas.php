@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW list_kelas AS
+        CREATE VIEW view_list_kelas AS
 
         SELECT 
             kelas.id_kelas, 
@@ -41,5 +41,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('view_list_kelas');
     }
 };

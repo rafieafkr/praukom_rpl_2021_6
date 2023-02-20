@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW list_kaprog AS
+        CREATE VIEW view_list_kaprog AS
 
         SELECT 
             kepala_program.id_kaprog, 
@@ -37,5 +37,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('view_list_kaprog');
     }
 };
