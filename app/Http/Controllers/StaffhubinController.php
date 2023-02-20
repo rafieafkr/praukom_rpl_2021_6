@@ -32,54 +32,6 @@ class StaffhubinController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function gantifoto(Request $request, $id)
-    {
-        // $this->validate($request, [
-        //     'foto' => 'image|mimes:jpg,png,jpeg|max:2048',
-        // ]);
-
-        // $image_path = $request->file('foto')->store('foto_profile');
-
-        // $foto = [
-        //     'foto' => $image_path
-        // ];
-
-        // $upd = DB::table('akun')
-        // -> where('id', $request->id)
-        // -> update($foto);
-        // if ($upd) {
-        //     dd($upd);
-        // } else {
-    
-        // }
-
-        // session()->flash('success', 'Image Upload successfully');
-
-        // return redirect()->route('/dashboard');
-        
-        // return $request->file('foto')->store('foto_profile');
-
-        // $foto = [
-        //     'foto' => $request->foto
-        // ];
-
-        // dd($foto);
-        
-        // $upd = DB::table('akun')
-        // -> where('id', $request->id)
-        // -> update($foto);
-        // if ($upd) {
-        //     return redirect('/dashboard');
-        // } else {
-    
-        // }
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreStaffhubinRequest  $request

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard Hubin | SIMAK')
+@section('title', 'Dashboard | SIMAK')
 
 @section('container')
 <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
@@ -67,8 +67,11 @@
         {{-- div 3 --}}
         <div class="relative mt-8 md:mt-10 md:block">
             <a href="#" class="absolute right-0 left-0 -bottom-16 md:hidden">
-                <button class="mt-3 w-full rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">Edit
-                    Profil</button>
+                <button class="mt-3 w-full rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">
+                    <label for="my-modal-3" class="cursor-pointer">
+                        Lihat Profil
+                    </label>
+                </button>
             </a>
         </div>
     </div>
@@ -336,7 +339,7 @@
     <div class="h-[155px] col-span-3 text-white">
         <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
             <tr class="text-white border-collapse">
-                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Perusahaan Aktif</td>
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Perusahaan Ter-Aktif</td>
             </tr>
             <tr>
                 <td class="bg-white text-black">No</td>
@@ -375,7 +378,7 @@
     <div class="h-[155px] col-span-4 text-white">
         <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
             <tr class="text-white border-collapse">
-                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Perusahaan Aktif</td>
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Perusahaan Ter-Aktif</td>
             </tr>
             <tr>
                 <td class="bg-white text-black">No</td>
@@ -435,44 +438,6 @@
 
     @endif
 
-    @if (
-    Auth::user()->level_user == 5
-    )
-
-    {{-- View Siswa Yang Dibimbing --}}
-
-    <div class="h-[155px] col-span-4 text-white">
-        <input type="text" name="ambilnikpp" value="{{ Auth::user()->pembimbingperusahaan->nik_pp }}">
-        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
-            <tr class="text-white border-collapse">
-                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Siswa Yang Dibimbing</td>
-            </tr>
-            <tr>
-                <td class="bg-white text-black">No</td>
-                <td class="bg-white text-black">NIS</td>
-                <td class="bg-white text-black">Nama Siswa</td>
-                <td class="bg-white text-black">Nama Pembimbing Sekolah</td>
-                <td class="bg-white text-black">Nama Kepala Program</td>
-                <td class="bg-white text-black">Nama Perusahaan</td>
-            </tr>
-
-            <?php $i=1; ?>
-
-            @foreach ($view_pp_siswa as $key)
-            <tr class="text-center">
-                <td class="table-auto bg-white text-black">{{$i++}}</td>
-                <td class="table-auto bg-white text-black">{{$key->nis}}</td>
-                <td class="table-auto bg-white text-black">{{$key->nama_siswa}}</td>
-                <td class="table-auto bg-white text-black">{{$key->nama_ps}}</td>
-                <td class="table-auto bg-white text-black">{{$key->nama_kaprog}}</td>
-                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-
-    @endif
-
 </div>
 
 @if (
@@ -498,7 +463,11 @@ Auth::user()->level_user == 4
                     <div class="flex space-x-2">
                         <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                             <div class="w-[10em] rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
+                                @if (Auth::user()->foto)
+                                <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                                @else
+                                <img src="{{ asset('foto_profile/profile.jpg') }}" />
+                                @endif
                             </div>
                         </label>
                     </div>
@@ -507,6 +476,16 @@ Auth::user()->level_user == 4
                         <input type="file" name="foto" id="foto" accept="image/*"
                             class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
                     </div>
+                    {{-- session flash message --}}
+                    @if (Session::has('error'))
+                    <div
+                        class="mb-5 w-[400px] rounded-lg bg-red-500 p-3 py-3 text-white shadow-[1px_2px_10px_rgba(0,0,1,0.3)]">
+                        <span class="leading-3">
+                            <x-heroicon-m-x-circle class="inline-block w-7" />
+                            {{ Session::get('error') }}
+                        </span>
+                    </div>
+                    @endif
                 </div>
                 <div class="card-body w-[20em] pb-3">
                     @auth
@@ -563,6 +542,7 @@ Auth::user()->level_user == 5
 <input id="my-modal-3" type="checkbox" class="modal-toggle" />
 <div class="modal">
     <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="w-[60em] rounded-2xl bg-transparent">
             <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
                 <label for="my-modal-3"
@@ -574,7 +554,11 @@ Auth::user()->level_user == 5
                     <div class="flex space-x-2">
                         <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                             <div class="w-[10em] rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
+                                @if (Auth::user()->foto)
+                                <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                                @else
+                                <img src="{{ asset('foto_profile/profile.jpg') }}" />
+                                @endif
                             </div>
                         </label>
                     </div>
@@ -628,6 +612,7 @@ Auth::user()->level_user == 6
 <input id="my-modal-3" type="checkbox" class="modal-toggle" />
 <div class="modal">
     <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="w-[60em] rounded-2xl bg-transparent">
             <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
                 <label for="my-modal-3"
@@ -639,7 +624,11 @@ Auth::user()->level_user == 6
                     <div class="flex space-x-2">
                         <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                             <div class="w-[10em] rounded-full">
-                                <img src="https://placeimg.com/80/80/people" />
+                                @if (Auth::user()->foto)
+                                <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                                @else
+                                <img src="{{ asset('foto_profile/profile.jpg') }}" />
+                                @endif
                             </div>
                         </label>
                     </div>
@@ -665,19 +654,38 @@ Auth::user()->level_user == 6
                     <div class="mb-4 h-min w-full">
                         <label class="text-md font-normal" for="">ANGKATAN</label>
                         <br>
+                        @auth
+                        @if (!isset(Auth::user()->siswa->kelas->angkatan))
+                        <span class="text-center text-lg">-</span>
+                        @else
                         <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->angkatan->tahun }}</span>
+                        @endif
+                        @endauth
                     </div>
                     <div class="mb-4 h-min w-full">
                         <label class="text-md font-normal" for="">JURUSAN</label>
                         <br>
-                        <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->jurusan->nama_jurusan }}
-                            ({{ Auth::user()->siswa->kelas->jurusan->akronim }})</span>
+                        @auth
+                        @if (!isset(Auth::user()->siswa->kelas->jurusan))
+                        <span class="text-center text-lg">-</span>
+                        @else
+                        <span class="text-center text-lg"><span
+                                class="text-center text-lg">{{ Auth::user()->siswa->kelas->jurusan->nama_jurusan }}
+                                ({{ Auth::user()->siswa->kelas->jurusan->akronim }})</span></span>
+                        @endif
+                        @endauth
                     </div>
                     <div class="mb-4 h-min w-full">
                         <label class="text-md font-normal" for="">KELAS</label>
                         <br>
+                        @auth
+                        @if (!isset(Auth::user()->siswa->kelas))
+                        <span class="text-center text-lg">-</span>
+                        @else
                         <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->tingkat_kelas }}
                             {{ Auth::user()->siswa->kelas->nama_kelas }}</span>
+                        @endif
+                        @endauth
                     </div>
                     <div class="mb-4 h-min w-full">
                         <label class="text-md font-normal" for="">LEVEL</label>

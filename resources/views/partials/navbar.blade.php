@@ -7,7 +7,11 @@
             class="rounded-full bg-[#06283D] px-3 py-1 text-sm font-light text-white">{{ Auth::user()->leveluser->nama_level }}</span>
         <label tabindex="0" class="btn-ghost btn-circle avatar btn mt-[0.3em] mr-[1em]">
             <div class="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" />
+                @if (Auth::user()->foto)
+                <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                @else
+                <img src="{{ asset('foto_profile/profile.jpg') }}" />
+                @endif
             </div>
         </label>
         <ul tabindex="0"
