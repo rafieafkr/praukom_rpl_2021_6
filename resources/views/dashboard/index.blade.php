@@ -16,9 +16,7 @@
     Auth::user()->level_user == 5
     )
     {{ Auth::user()->pembimbingperusahaan->nama_pp }}
-    @else (
-    Auth::user()->level_user == 6
-    )
+    @else
     {{ Auth::user()->siswa->nama_siswa }}
     @endif
 </div>
@@ -48,9 +46,7 @@
                     Auth::user()->level_user == 5
                     )
                     {{ Auth::user()->pembimbingperusahaan->nama_pp }}
-                    @else (
-                    Auth::user()->level_user == 6
-                    )
+                    @else
                     {{ Auth::user()->siswa->nama_siswa }}
                     @endif
                 </p>
@@ -475,17 +471,10 @@ Auth::user()->level_user == 4
                         <input type="text" class="hidden" value="{{Auth::user()->id}}" />
                         <input type="file" name="foto" id="foto" accept="image/*"
                             class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
+                        @if (Session::has('errors'))
+                        <p class="text-red-500 w-full text-center">{{ Session::get('errors') }}</p>
+                        @endif
                     </div>
-                    {{-- session flash message --}}
-                    @if (Session::has('error'))
-                    <div
-                        class="mb-5 w-[400px] rounded-lg bg-red-500 p-3 py-3 text-white shadow-[1px_2px_10px_rgba(0,0,1,0.3)]">
-                        <span class="leading-3">
-                            <x-heroicon-m-x-circle class="inline-block w-7" />
-                            {{ Session::get('error') }}
-                        </span>
-                    </div>
-                    @endif
                 </div>
                 <div class="card-body w-[20em] pb-3">
                     @auth

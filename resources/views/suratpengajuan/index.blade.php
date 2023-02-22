@@ -275,16 +275,6 @@
                                 <x-heroicon-m-eye class="w-[1.5em]" />
                             </button></a>
                     </div>
-                    <div class="flex-warp ml-auto items-center text-center w-1/2">
-                        <form action="/suratpengajuan/hapus/{{$sp1->id_pengajuan}}" method="POST">
-                            @csrf
-                            <input type="text" name="id_pengajuan" class="hidden" value="{{$sp1->id_pengajuan}}">
-                            <button type="submit"
-                                class="mr-2 rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black">
-                                <x-heroicon-o-trash class="w-[1.5em]" />
-                            </button>
-                        </form>
-                    </div>
                 </div>
             </td>
         </tr>
@@ -406,16 +396,6 @@
                                 class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
                                 <x-heroicon-m-eye class="w-[1.5em]" />
                             </button></a>
-                    </div>
-                    <div class="flex-warp ml-auto items-center text-center w-1/2">
-                        <form action="/suratpengajuan/hapus/{{$sp2s->id_pengajuan}}" method="POST">
-                            @csrf
-                            <input type="text" name="id_pengajuan" class="hidden" value="{{$sp2s->id_pengajuan}}">
-                            <button type="submit"
-                                class="mr-2 rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black">
-                                <x-heroicon-o-trash class="w-[1.5em]" />
-                            </button>
-                        </form>
                     </div>
                 </div>
             </td>

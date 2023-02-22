@@ -22,6 +22,7 @@ class MainController extends Controller
     public function __construct()
     {
         $this->levelUser = Leveluser::all();
+        $this->middleware('auth:web',[]);
     }
 
     public function index(Request $request)

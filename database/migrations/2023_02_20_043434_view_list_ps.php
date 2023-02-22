@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW list_ps AS
+        CREATE VIEW view_list_ps AS
 
         SELECT 
             pembimbing_sekolah.id_ps, 

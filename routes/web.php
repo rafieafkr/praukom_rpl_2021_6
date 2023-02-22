@@ -22,38 +22,70 @@ use App\Http\Controllers\PresensisiswaController;
 |
 */
 
-Route::get('/', function() {
-  return redirect('/hubin');
-});
+/////////////////////////////////////// Route Login ///////////////////////////////////////
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////// Route Dashboard /////////////////////////////////////
+
 Route::get('/dashboard', [MainController::class, 'index']);
 Route::post('/dashboard/gantifoto/{id}', [MainController::class, 'uploadfoto']);
 
-// ->middleware('hubin')
+///////////////////////////////////////////////////////////////////////////////////////////
 
-// Route Modul Monitoring
+
+
+////////////////////////////////// Route Modul Monitoring /////////////////////////////////
+
 Route::get('/monitoring', [MonitoringController::class, 'monitoring']);
 Route::get('/monitoring/edit/{id_monitoring}', [MonitoringController::class, 'editmonitoring']);
 Route::post('/monitoring/update', [MonitoringController::class, 'updatemonitoring']);
 Route::post('/monitoring/hapus', [MonitoringController::class, 'destroymonitoring']);
 
-// Route Modul Pilih Pembimbing Sekolah
-Route::get('/pilihpembimbingsekolah', [KepalaprogramController::class, 'indexps']);
-Route::get('/pilihpembimbingsekolah/show', [KepalaprogramController::class, 'carips']);
-Route::get('/pilihpembimbingsekolah/edit/{id_prakerin}', [KepalaprogramController::class, 'editps']);
-Route::post('/pilihpembimbingsekolah/edit/update', [KepalaprogramController::class, 'updateps']);
+///////////////////////////////////////////////////////////////////////////////////////////
 
-// Route Modul Surat Pengajuan
-Route::get('/suratpengajuan', [PengajuanController::class, 'indexsuratpengajuan']);
-Route::get('/suratpengajuan/show', [PengajuanController::class, 'carisuratpengajuan']);
-Route::get('/suratpengajuan/detail/{id_pengajuan}', [PengajuanController::class, 'detailsuratpengajuan']);
-Route::post('/suratpengajuan/detail/terimapengajuan/{id_pengajuan}', [PengajuanController::class, 'updateterima']);
-Route::post('/suratpengajuan/detail/tolakpengajuan/{id_pengajuan}', [PengajuanController::class, 'updatetolak']);
-Route::post('/suratpengajuan/hapus/{id_pengajuan}', [PengajuanController::class, 'hapussuratpengajuan']);
+
+
+////////////////////////// Route Modul Pilih Pembimbing Sekolah ///////////////////////////
+
+Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
+  Route::get('/pilihpembimbingsekolah', [KepalaprogramController::class, 'indexps']);
+  Route::get('/pilihpembimbingsekolah/show', [KepalaprogramController::class, 'carips']);
+  Route::get('/pilihpembimbingsekolah/edit/{id_prakerin}', [KepalaprogramController::class, 'editps']);
+  Route::post('/pilihpembimbingsekolah/edit/update', [KepalaprogramController::class, 'updateps']);
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////// Route Modul Surat Pengajuan ///////////////////////////////
+
+Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas']], function() {
+  Route::get('/suratpengajuan', [PengajuanController::class, 'indexsuratpengajuan'])->middleware('auth');
+  Route::get('/suratpengajuan/show', [PengajuanController::class, 'carisuratpengajuan'])->middleware('auth');
+  Route::get('/suratpengajuan/detail/{id_pengajuan}', [PengajuanController::class, 'detailsuratpengajuan'])->middleware('auth');
+  Route::post('/suratpengajuan/detail/terimapengajuan/{id_pengajuan}', [PengajuanController::class, 'updateterima'])->middleware('auth');
+  Route::post('/suratpengajuan/detail/tolakpengajuan/{id_pengajuan}', [PengajuanController::class, 'updatetolak'])->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
+  Route::post('/suratpengajuan/hapus/{id_pengajuan}', [PengajuanController::class, 'hapussuratpengajuan'])->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth','level:Siswa']], function() {
+  Route::get('/siswa/suratpengajuan', [PengajuanController::class, 'indexsuratpengajuan'])->middleware('auth');
+  Route::get('/siswa/suratpengajuan/{id_pengajuan}/edit', [PengajuanController::class, 'carisuratpengajuan'])->middleware('auth');
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 // Route Modul Presensi Siswa
 Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);

@@ -20,16 +20,15 @@ return new class extends Migration
 
         SELECT 
             COUNT(nis) AS jml_murid, 
-            list_perusahaan.*
+            view_list_perusahaan.*
 
-        FROM prakerin
+            FROM prakerin
 
-        RIGHT JOIN list_perusahaan ON prakerin.id_perusahaan = list_perusahaan.id_perusahaan
+            RIGHT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
 
-        GROUP BY id_perusahaan
+            GROUP BY id_perusahaan
 
-        ORDER BY jml_murid DESC;
-
+            ORDER BY jml_murid DESC;
         ");
     }
 

@@ -16,6 +16,7 @@ class PengajuanController extends Controller
     public function __construct()
     {
         $this->suratpengajuan = Pengajuan::all();
+        $this->middleware('auth:web',[]);
     }
 
     public function indexsuratpengajuan()
