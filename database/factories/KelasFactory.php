@@ -17,7 +17,11 @@ class KelasFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "id_walas" => 1,
+            "id_jurusan" => 1,
+            "id_angkatan" => 1,
+            "nama_kelas" => "",
+            "tingkat_kelas" => 12,
         ];
     }
 }

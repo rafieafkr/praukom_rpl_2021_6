@@ -38,6 +38,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('view_list_hubin');
+        // Schema::dropIfExists('view_list_hubin');
     }
 };

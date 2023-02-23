@@ -41,7 +41,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 ///////////////////////////////////// Route Dashboard /////////////////////////////////////
 
-Route::get('/dashboard', [MainController::class, 'index']);
+Route::get('/dashboard', [MainController::class, 'index'])->name('dashboard.index');
 Route::post('/dashboard/gantifoto/{id}', [MainController::class, 'uploadfoto']);
 
 ///////////////////////////////////////////////////////////////////////////////////////////

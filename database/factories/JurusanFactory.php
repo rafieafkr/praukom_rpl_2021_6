@@ -18,7 +18,9 @@ class JurusanFactory extends Factory
     public function definition()
     {
         return [
-            
+            "kepala_jurusan" => 1,
+            "nama_jurusan" => "Rekayasa Perangkat Lunak",
+            "akronim" => "RPL",
         ];
     }
 }

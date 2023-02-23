@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE OR REPLACE VIEW list_ps AS
+        CREATE OR REPLACE VIEW view_list_ps AS
 
         SELECT 
             pembimbing_sekolah.id_ps, 
@@ -27,7 +27,7 @@ return new class extends Migration
         FROM pembimbing_sekolah
 
         INNER JOIN guru ON pembimbing_sekolah.id_guru = guru.id_guru;
-");
+        ");
     }
 
     /**
@@ -38,6 +38,6 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('view_list_ps');
+        // Schema::dropIfExists('view_list_ps');
     }
 };

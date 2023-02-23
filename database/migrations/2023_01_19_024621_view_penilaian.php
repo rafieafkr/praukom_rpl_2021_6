@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::unprepared('DROP VIEW view_penilaian');
+        // DB::unprepared('DROP VIEW view_penilaian');
     }
 };

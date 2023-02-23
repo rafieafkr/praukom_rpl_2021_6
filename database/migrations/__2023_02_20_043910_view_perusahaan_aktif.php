@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE OR REPLACE VIEW view_perusahaan AS
+        CREATE OR REPLACE VIEW view_perusahaan_aktif AS
 
         SELECT 
             COUNT(nis) AS jml_murid, 
