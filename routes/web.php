@@ -22,38 +22,38 @@ use App\Http\Controllers\PresensisiswaController;
 |
 */
 
-/////////////////////////////////////// Route Login ///////////////////////////////////////
+/*------------------------------------- Route Login --------------------------------------*/
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/hack', [LoginController::class, 'hack']);
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 
-///////////////////////////////////// Route Dashboard /////////////////////////////////////
+/*----------------------------------- Route Dashboard ------------------------------------*/
 
 Route::get('/dashboard', [MainController::class, 'index']);
 Route::post('/dashboard/gantifoto/{id}', [MainController::class, 'uploadfoto']);
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 
-////////////////////////////////// Route Modul Monitoring /////////////////////////////////
+/*-------------------------------- Route Modul Monitoring --------------------------------*/
 
 Route::get('/monitoring', [MonitoringController::class, 'monitoring']);
 Route::get('/monitoring/edit/{id_monitoring}', [MonitoringController::class, 'editmonitoring']);
 Route::post('/monitoring/update', [MonitoringController::class, 'updatemonitoring']);
 Route::post('/monitoring/hapus', [MonitoringController::class, 'destroymonitoring']);
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 
-////////////////////////// Route Modul Pilih Pembimbing Sekolah ///////////////////////////
+/*------------------------ Route Modul Pilih Pembimbing Sekolah ---------------------------*/
 
 Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
   Route::get('/pilihpembimbingsekolah', [KepalaprogramController::class, 'indexps'])->middleware('auth');
@@ -62,11 +62,11 @@ Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
   Route::post('/pilihpembimbingsekolah/edit/update', [KepalaprogramController::class, 'updateps'])->middleware('auth');
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 
-/////////////////////////////// Route Modul Surat Pengajuan ///////////////////////////////
+/*----------------------------- Route Modul Surat Pengajuan ------------------------------*/
 
 Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas']], function() {
   Route::get('/suratpengajuan', [PengajuanController::class, 'indexsuratpengajuan'])->middleware('auth');
@@ -86,25 +86,25 @@ Route::group(['middleware' => ['auth','level:Siswa']], function() {
   Route::get('/siswa/suratpengajuan/{id_pengajuan}/edit', [PengajuanController::class, 'carisuratpengajuan'])->middleware('auth');
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 
-/////////////////////////////// Route Modul Presensi Siswa ////////////////////////////////
+/*----------------------------- Route Modul Presensi Siswa -------------------------------*/
 
 Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 
-//////////////////////////////// Route Modul Data Prakerin ////////////////////////////////
+/*------------------------------- Route Modul Data Prakerin ------------------------------*/
 
 Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin']);
 Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin']);
 Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin']);
 
-///////////////////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------------------*/
 
 
 

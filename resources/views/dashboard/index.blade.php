@@ -478,45 +478,6 @@
     @endif
 
     @if (
-    Auth::user()->level_user == 1
-    )
-
-    {{-- View Perusahaan Aktif --}}
-
-    <div class="h-[155px] col-span-3 text-white">
-        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
-            <tr class="text-white border-collapse">
-                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Perusahaan Ter-Aktif</td>
-            </tr>
-            <tr>
-                <td class="bg-white text-black">No</td>
-                <td class="bg-white text-black">Nama Perusahaan</td>
-                <td class="bg-white text-black">Kontak</td>
-                <td class="bg-white text-black">Alamat</td>
-                <td class="bg-white text-black">Jumlah Murid</td>
-            </tr>
-
-            <?php $i=1; ?>
-
-            @foreach ($view_perusahaan_aktif as $key)
-            <tr class="text-center">
-                <td class="table-auto bg-white text-black">{{$i++}}</td>
-                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
-                @if ($key->kontak_perusahaan !== null)
-                <td class="table-auto bg-white text-black">{{$key->kontak_perusahaan}}</td>
-                @else
-                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
-                @endif
-                <td class="table-auto bg-white text-black">{{$key->alamat_perusahaan}}</td>
-                <td class="table-auto bg-white text-black">{{$key->jml_murid}}</td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-
-    @endif
-
-    @if (
     Auth::user()->level_user == 2
     )
 
@@ -555,6 +516,42 @@
 
     @endif
 
+    @if (
+    Auth::user()->level_user == 5
+    )
+
+    {{-- View Murid yang dibimbing --}}
+
+    <div class="h-[155px] col-span-4 text-white">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Murid Yang Dibimbing</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">NIS</td>
+                <td class="bg-white text-black">Nama Siswa</td>
+                <td class="bg-white text-black">Perusahaan</td>
+                <td class="bg-white text-black">Kepala Program</td>
+            </tr>
+
+            <?php $i=1; ?>
+
+            @foreach ($view_pp_siswa as $key)
+            <tr class="text-center">
+                <td class="table-auto bg-white text-black">{{$i++}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nis}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_siswa}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_kaprog}}</td>
+            </tr>
+            @endforeach
+
+
+        </table>
+    </div>
+
+    @endif
 
     @if (
     Auth::user()->level_user == 2

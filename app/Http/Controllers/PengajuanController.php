@@ -6,6 +6,7 @@ use App\Models\Pengajuan;
 use App\Http\Requests\StorePengajuanRequest;
 use App\Http\Requests\UpdatePengajuanRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PengajuanController extends Controller
@@ -16,25 +17,34 @@ class PengajuanController extends Controller
     public function __construct()
     {
         $this->suratpengajuan = Pengajuan::all();
-        $this->middleware('auth:web',[]);
     }
 
     public function indexsuratpengajuan()
     {
-        return view('suratpengajuan.index',[
-            'title' => 'Surat Pengajuan',
-            'sp' => Pengajuan::where('status_pengajuan','=',3)
-            ->orWhere('status_pengajuan','=',4)
-            ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString(),
-            'sp2' => Pengajuan::where('status_pengajuan','=',1)
-            ->orWhere('status_pengajuan','=',2)
-            ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString(),
-            'sp3' => Pengajuan::where('status_pengajuan','=',5)
-            ->orWhere('status_pengajuan','=',6)
-            ->orWhere('status_pengajuan','=',7)
-            ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString()
-        ]);
-      
+        if (Auth::user()->level_user == 1):
+            return view('suratpengajuan.index', [
+                'sp3' => Pengajuan::where('status_pengajuan','=',5)
+                ->orWhere('status_pengajuan','=',6)
+                ->orWhere('status_pengajuan','=',7)
+                ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString()
+            ]);
+        endif;
+
+        if (Auth::user()->level_user == 2):
+            return view('suratpengajuan.index', [
+                'sp' => Pengajuan::where('status_pengajuan','=',3)
+                ->orWhere('status_pengajuan','=',4)
+                ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString(),
+            ]);
+        endif;
+        
+        if (Auth::user()->level_user == 3):
+            return view('suratpengajuan.index', [
+                'sp2' => Pengajuan::where('status_pengajuan','=',1)
+                ->orWhere('status_pengajuan','=',2)
+                ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString(),
+            ]);
+        endif;
     }
 
     public function carisuratpengajuan(Request $request)
@@ -43,13 +53,23 @@ class PengajuanController extends Controller
         ->get();
 
         // dd($caripengajuan);
- 
-		return view('suratpengajuan.index',[
-            'sp' => $caripengajuan,
-            'sp2' => $caripengajuan,
-            'sp3' => $caripengajuan
-        ]);
- 
+        if (Auth::user()->level_user == 1):
+            return view('suratpengajuan.index', [
+                'sp3' =>  $caripengajuan
+            ]);
+        endif;
+
+        if (Auth::user()->level_user == 2):
+            return view('suratpengajuan.index', [
+                'sp' =>  $caripengajuan
+            ]);
+        endif;
+        
+        if (Auth::user()->level_user == 3):
+            return view('suratpengajuan.index', [
+                'sp2' =>  $caripengajuan
+            ]);
+        endif;
 	}
 
     public function detailsuratpengajuan($id_pengajuan)
@@ -79,8 +99,6 @@ class PengajuanController extends Controller
         // dd($dataTerima);
         if ($upd) {
             return redirect('/suratpengajuan')->withSuccess('Pengajuan berhasil diverifikasi !');
-        } else {
-    
         }
     }
 
@@ -94,8 +112,6 @@ class PengajuanController extends Controller
         -> update($dataTolak);
         if ($upd) {
             return redirect('/suratpengajuan')->withAlert('Pengajuan berhasil ditolak !');
-        } else {
-   
         }
     }
 
