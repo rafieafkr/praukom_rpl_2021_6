@@ -3,7 +3,6 @@
 @section('title', 'Surat Pengajuan | SIMAK')
 
 @section('container')
-  <?php $i = 1; ?>
 
   <!-- button buka modal tambah pengajuan -->
   <div class="flex flex-row-reverse gap-3 lg:flex-none lg:flex-row lg:gap-0">
@@ -12,7 +11,7 @@
       Tambah
     </label>
 
-    <a href="/hubin"
+    <a href="{{ route('dashboard.index') }}"
       class="cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
       Kembali
     </a>
@@ -215,8 +214,8 @@
             <label>
               NIS
               <br>
-              <input type="text" name="nis" placeholder="Isi NIS anda" class="input-bordered input w-full"
-                value="{{ old('nis') }}" />
+              <input disabled type="text" name="nis" placeholder="Isi NIS anda"
+                class="input-bordered input w-full" value="{{ Auth::user()->siswa->nis }}" />
             </label>
             <br><br>
             {{-- perusahaan --}}

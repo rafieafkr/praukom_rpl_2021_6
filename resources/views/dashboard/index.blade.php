@@ -6,16 +6,13 @@
   <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
     @if (Auth::user()->level_user == 1 ||
-            Auth::user()->level_user == 2 ||
-            Auth::user()->level_user == 3 ||
-            Auth::user()->level_user == 4)
+        Auth::user()->level_user == 2 ||
+        Auth::user()->level_user == 3 ||
+        Auth::user()->level_user == 4)
       {{ Auth::user()->guru->nama_guru }}
     @elseif (Auth::user()->level_user == 5)
       {{ Auth::user()->pembimbingperusahaan->nama_pp }}
     @else
-      (
-      Auth::user()->level_user == 6
-      )
       {{ Auth::user()->siswa->nama_siswa }}
     @endif
   </div>
@@ -35,16 +32,13 @@
         <div class="mt-[20px] md:ml-5">
           <p class="text-lg font-light md:text-2xl">
             @if (Auth::user()->level_user == 1 ||
-                    Auth::user()->level_user == 2 ||
-                    Auth::user()->level_user == 3 ||
-                    Auth::user()->level_user == 4)
+                Auth::user()->level_user == 2 ||
+                Auth::user()->level_user == 3 ||
+                Auth::user()->level_user == 4)
               {{ Auth::user()->guru->nama_guru }}
             @elseif (Auth::user()->level_user == 5)
               {{ Auth::user()->pembimbingperusahaan->nama_pp }}
             @else
-              (
-              Auth::user()->level_user == 6
-              )
               {{ Auth::user()->siswa->nama_siswa }}
             @endif
           </p>
@@ -68,9 +62,9 @@
     </div>
 
     @if (Auth::user()->level_user == 1 ||
-            Auth::user()->level_user == 2 ||
-            Auth::user()->level_user == 3 ||
-            Auth::user()->level_user == 6)
+        Auth::user()->level_user == 2 ||
+        Auth::user()->level_user == 3 ||
+        Auth::user()->level_user == 6)
       {{-- Surat pengajuan --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -80,9 +74,15 @@
             <p class="text-lg font-semibold uppercase tracking-widest">Surat Pengajuan</p>
           </div>
           <div>
-            <a href="/suratpengajuan">
-              <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-            </a>
+            @if (Auth::user()->level_user == 1)
+              <a href="/suratpengajuan">
+                <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+              </a>
+            @elseif (Auth::user()->level_user == 6)
+              <a href="{{ route('pengajuan.index') }}">
+                <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+              </a>
+            @endif
           </div>
         </div>
         {{-- div 2 --}}
@@ -187,47 +187,47 @@
     {{-- Wali Kelas --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-          {{-- div 1 --}}
-          <div class="flex w-1/2 flex-col justify-between">
-              <div>
-                  <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
-              </div>
-              <div>
-                  <a href="#">
-                      <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                  </a>
-              </div>
-          </div>
-          {{-- div 2 --}}
-          <div>
-              <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-          </div>
-      </div> -->
+                                      {{-- div 1 --}}
+                                      <div class="flex w-1/2 flex-col justify-between">
+                                          <div>
+                                              <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
+                                          </div>
+                                          <div>
+                                              <a href="#">
+                                                  <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                                              </a>
+                                          </div>
+                                      </div>
+                                      {{-- div 2 --}}
+                                      <div>
+                                          <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+                                      </div>
+                                  </div> -->
 
     {{-- Kepala Program --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-          {{-- div 1 --}}
-          <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
-              <div>
-                  <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
-              </div>
-              <div>
-                  <a href="#">
-                      <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                  </a>
-              </div>
-          </div>
-          {{-- div 2 --}}
-          <div>
-              <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-          </div>
-      </div> -->
+                                      {{-- div 1 --}}
+                                      <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
+                                          <div>
+                                              <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
+                                          </div>
+                                          <div>
+                                              <a href="#">
+                                                  <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                                              </a>
+                                          </div>
+                                      </div>
+                                      {{-- div 2 --}}
+                                      <div>
+                                          <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+                                      </div>
+                                  </div> -->
 
     @if (Auth::user()->level_user == 3 ||
-            Auth::user()->level_user == 4 ||
-            Auth::user()->level_user == 5 ||
-            Auth::user()->level_user == 6)
+        Auth::user()->level_user == 4 ||
+        Auth::user()->level_user == 5 ||
+        Auth::user()->level_user == 6)
       {{-- Presensi Siswa --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#00b191] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -370,9 +370,9 @@
     @endif
 
     @if (Auth::user()->level_user == 1 ||
-            Auth::user()->level_user == 2 ||
-            Auth::user()->level_user == 3 ||
-            Auth::user()->level_user == 4)
+        Auth::user()->level_user == 2 ||
+        Auth::user()->level_user == 3 ||
+        Auth::user()->level_user == 4)
       {{-- Data Prakerin --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -434,9 +434,9 @@
   </div>
 
   @if (Auth::user()->level_user == 1 ||
-          Auth::user()->level_user == 2 ||
-          Auth::user()->level_user == 3 ||
-          Auth::user()->level_user == 4)
+      Auth::user()->level_user == 2 ||
+      Auth::user()->level_user == 3 ||
+      Auth::user()->level_user == 4)
 
     {{-- pop up profile --}}
     <input id="my-modal-3" type="checkbox" class="modal-toggle" />
@@ -454,7 +454,11 @@
               <div class="flex space-x-2">
                 <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                   <div class="w-[10em] rounded-full">
-                    <img src="https://placeimg.com/80/80/people" />
+                    @if (Auth::user()->foto)
+                      <img width="80px" src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                    @else
+                      <img width="80px" src="{{ asset('foto_profile/profile.jpg') }}" />
+                    @endif
                   </div>
                 </label>
               </div>
@@ -527,7 +531,11 @@
               <div class="flex space-x-2">
                 <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                   <div class="w-[10em] rounded-full">
-                    <img src="https://placeimg.com/80/80/people" />
+                    @if (Auth::user()->foto)
+                      <img width="80px" src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                    @else
+                      <img width="80px" src="{{ asset('foto_profile/profile.jpg') }}" />
+                    @endif
                   </div>
                 </label>
               </div>
@@ -588,7 +596,11 @@
               <div class="flex space-x-2">
                 <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                   <div class="w-[10em] rounded-full">
-                    <img src="https://placeimg.com/80/80/people" />
+                    @if (Auth::user()->foto)
+                      <img width="80px" src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                    @else
+                      <img width="80px" src="{{ asset('foto_profile/profile.jpg') }}" />
+                    @endif
                   </div>
                 </label>
               </div>
