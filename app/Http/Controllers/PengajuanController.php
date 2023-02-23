@@ -38,7 +38,8 @@ class PengajuanController extends Controller
                             ->select('staff_hubin.id_staff', 'guru.nama_guru')
                             ->get();
                             
-      $this->suratpengajuan = Pengajuan::all();                      
+      $this->suratpengajuan = Pengajuan::all();   
+      $this->middleware('auth:web',[]);                   
     }
     
     public function index()

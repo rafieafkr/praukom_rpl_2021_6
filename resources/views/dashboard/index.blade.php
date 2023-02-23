@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard Hubin | SIMAK')
+@section('title', 'Dashboard | SIMAK')
 
 @section('container')
   <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
     @if (Auth::user()->level_user == 1 ||
-        Auth::user()->level_user == 2 ||
-        Auth::user()->level_user == 3 ||
-        Auth::user()->level_user == 4)
+            Auth::user()->level_user == 2 ||
+            Auth::user()->level_user == 3 ||
+            Auth::user()->level_user == 4)
       {{ Auth::user()->guru->nama_guru }}
     @elseif (Auth::user()->level_user == 5)
       {{ Auth::user()->pembimbingperusahaan->nama_pp }}
@@ -32,9 +32,9 @@
         <div class="mt-[20px] md:ml-5">
           <p class="text-lg font-light md:text-2xl">
             @if (Auth::user()->level_user == 1 ||
-                Auth::user()->level_user == 2 ||
-                Auth::user()->level_user == 3 ||
-                Auth::user()->level_user == 4)
+                    Auth::user()->level_user == 2 ||
+                    Auth::user()->level_user == 3 ||
+                    Auth::user()->level_user == 4)
               {{ Auth::user()->guru->nama_guru }}
             @elseif (Auth::user()->level_user == 5)
               {{ Auth::user()->pembimbingperusahaan->nama_pp }}
@@ -55,16 +55,19 @@
       {{-- div 3 --}}
       <div class="relative mt-8 md:mt-10 md:block">
         <a href="#" class="absolute right-0 left-0 -bottom-16 md:hidden">
-          <button class="mt-3 w-full rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">Edit
-            Profil</button>
+          <button class="mt-3 w-full rounded-md bg-[#ffffff] px-3 py-1 align-bottom text-[#4C77A9]">
+            <label for="my-modal-3" class="cursor-pointer">
+              Lihat Profil
+            </label>
+          </button>
         </a>
       </div>
     </div>
 
     @if (Auth::user()->level_user == 1 ||
-        Auth::user()->level_user == 2 ||
-        Auth::user()->level_user == 3 ||
-        Auth::user()->level_user == 6)
+            Auth::user()->level_user == 2 ||
+            Auth::user()->level_user == 3 ||
+            Auth::user()->level_user == 6)
       {{-- Surat pengajuan --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -74,15 +77,9 @@
             <p class="text-lg font-semibold uppercase tracking-widest">Surat Pengajuan</p>
           </div>
           <div>
-            @if (Auth::user()->level_user == 1)
-              <a href="/suratpengajuan">
-                <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-              </a>
-            @elseif (Auth::user()->level_user == 6)
-              <a href="{{ route('pengajuan.index') }}">
-                <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-              </a>
-            @endif
+            <a href="/suratpengajuan">
+              <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+            </a>
           </div>
         </div>
         {{-- div 2 --}}
@@ -187,47 +184,47 @@
     {{-- Wali Kelas --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-                                      {{-- div 1 --}}
-                                      <div class="flex w-1/2 flex-col justify-between">
-                                          <div>
-                                              <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
-                                          </div>
-                                          <div>
-                                              <a href="#">
-                                                  <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                                              </a>
-                                          </div>
-                                      </div>
-                                      {{-- div 2 --}}
-                                      <div>
-                                          <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-                                      </div>
-                                  </div> -->
+          {{-- div 1 --}}
+          <div class="flex w-1/2 flex-col justify-between">
+              <div>
+                  <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
+              </div>
+              <div>
+                  <a href="#">
+                      <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                  </a>
+              </div>
+          </div>
+          {{-- div 2 --}}
+          <div>
+              <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+          </div>
+      </div> -->
 
     {{-- Kepala Program --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-                                      {{-- div 1 --}}
-                                      <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
-                                          <div>
-                                              <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
-                                          </div>
-                                          <div>
-                                              <a href="#">
-                                                  <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                                              </a>
-                                          </div>
-                                      </div>
-                                      {{-- div 2 --}}
-                                      <div>
-                                          <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-                                      </div>
-                                  </div> -->
+          {{-- div 1 --}}
+          <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
+              <div>
+                  <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
+              </div>
+              <div>
+                  <a href="#">
+                      <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                  </a>
+              </div>
+          </div>
+          {{-- div 2 --}}
+          <div>
+              <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+          </div>
+      </div> -->
 
     @if (Auth::user()->level_user == 3 ||
-        Auth::user()->level_user == 4 ||
-        Auth::user()->level_user == 5 ||
-        Auth::user()->level_user == 6)
+            Auth::user()->level_user == 4 ||
+            Auth::user()->level_user == 5 ||
+            Auth::user()->level_user == 6)
       {{-- Presensi Siswa --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#00b191] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -302,44 +299,7 @@
       <div class="col-span-3 h-[155px] text-white">
         <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
           <tr class="border-collapse text-white">
-            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Daftar Perusahaan Aktif</td>
-          </tr>
-          <tr>
-            <td class="bg-white text-black">No</td>
-            <td class="bg-white text-black">Nama Perusahaan</td>
-            <td class="bg-white text-black">Kontak</td>
-            <td class="bg-white text-black">Alamat</td>
-            <td class="bg-white text-black">Jumlah Murid</td>
-          </tr>
-
-          <?php $i = 1; ?>
-
-          @foreach ($view_perusahaan_aktif as $key)
-            <tr class="text-center">
-              <td class="table-auto bg-white text-black">{{ $i++ }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->nama_perusahaan }}</td>
-              @if ($key->kontak_perusahaan !== null)
-                <td class="table-auto bg-white text-black">{{ $key->kontak_perusahaan }}</td>
-              @else
-                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
-              @endif
-              <td class="table-auto bg-white text-black">{{ $key->alamat_perusahaan }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->jml_murid }}</td>
-            </tr>
-          @endforeach
-        </table>
-      </div>
-
-    @endif
-
-    @if (Auth::user()->level_user == 6)
-
-      {{-- View Perusahaan Aktif --}}
-
-      <div class="col-span-4 h-[155px] text-white">
-        <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
-          <tr class="border-collapse text-white">
-            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Daftar Perusahaan Aktif</td>
+            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Perusahaan Ter-Aktif</td>
           </tr>
           <tr>
             <td class="bg-white text-black">No</td>
@@ -370,9 +330,9 @@
     @endif
 
     @if (Auth::user()->level_user == 1 ||
-        Auth::user()->level_user == 2 ||
-        Auth::user()->level_user == 3 ||
-        Auth::user()->level_user == 4)
+            Auth::user()->level_user == 2 ||
+            Auth::user()->level_user == 3 ||
+            Auth::user()->level_user == 4)
       {{-- Data Prakerin --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -395,35 +355,36 @@
       </div>
     @endif
 
-    @if (Auth::user()->level_user == 5)
+    @if (Auth::user()->level_user == 6)
 
-      {{-- View Siswa Yang Dibimbing --}}
+      {{-- View Perusahaan Aktif --}}
 
       <div class="col-span-4 h-[155px] text-white">
-        <input type="text" name="ambilnikpp" value="{{ Auth::user()->pembimbingperusahaan->nik_pp }}">
         <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
           <tr class="border-collapse text-white">
-            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Daftar Siswa Yang Dibimbing</td>
+            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Perusahaan Ter-Aktif</td>
           </tr>
           <tr>
             <td class="bg-white text-black">No</td>
-            <td class="bg-white text-black">NIS</td>
-            <td class="bg-white text-black">Nama Siswa</td>
-            <td class="bg-white text-black">Nama Pembimbing Sekolah</td>
-            <td class="bg-white text-black">Nama Kepala Program</td>
             <td class="bg-white text-black">Nama Perusahaan</td>
+            <td class="bg-white text-black">Kontak</td>
+            <td class="bg-white text-black">Alamat</td>
+            <td class="bg-white text-black">Jumlah Murid</td>
           </tr>
 
           <?php $i = 1; ?>
 
-          @foreach ($view_pp_siswa as $key)
+          @foreach ($view_perusahaan_aktif as $key)
             <tr class="text-center">
               <td class="table-auto bg-white text-black">{{ $i++ }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->nis }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->nama_siswa }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->nama_ps }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->nama_kaprog }}</td>
               <td class="table-auto bg-white text-black">{{ $key->nama_perusahaan }}</td>
+              @if ($key->kontak_perusahaan !== null)
+                <td class="table-auto bg-white text-black">{{ $key->kontak_perusahaan }}</td>
+              @else
+                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
+              @endif
+              <td class="table-auto bg-white text-black">{{ $key->alamat_perusahaan }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->jml_murid }}</td>
             </tr>
           @endforeach
         </table>
@@ -431,12 +392,110 @@
 
     @endif
 
+    @if (Auth::user()->level_user == 1)
+
+      {{-- View Perusahaan Aktif --}}
+
+      <div class="col-span-3 h-[155px] text-white">
+        <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
+          <tr class="border-collapse text-white">
+            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Perusahaan Ter-Aktif</td>
+          </tr>
+          <tr>
+            <td class="bg-white text-black">No</td>
+            <td class="bg-white text-black">Nama Perusahaan</td>
+            <td class="bg-white text-black">Kontak</td>
+            <td class="bg-white text-black">Alamat</td>
+            <td class="bg-white text-black">Jumlah Murid</td>
+          </tr>
+
+          <?php $i = 1; ?>
+
+          @foreach ($view_perusahaan_aktif as $key)
+            <tr class="text-center">
+              <td class="table-auto bg-white text-black">{{ $i++ }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nama_perusahaan }}</td>
+              @if ($key->kontak_perusahaan !== null)
+                <td class="table-auto bg-white text-black">{{ $key->kontak_perusahaan }}</td>
+              @else
+                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
+              @endif
+              <td class="table-auto bg-white text-black">{{ $key->alamat_perusahaan }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->jml_murid }}</td>
+            </tr>
+          @endforeach
+        </table>
+      </div>
+
+    @endif
+
+    @if (Auth::user()->level_user == 2)
+
+      {{-- View Murid yang belum prakerin --}}
+
+      <div class="col-span-3 h-[155px] text-white">
+        <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
+          <tr class="border-collapse text-white">
+            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Daftar Murid
+              {{ Auth::user()->guru->kepalaprogram->jurusan->akronim }} Yang Belum Prakerin</td>
+          </tr>
+          <tr>
+            <td class="bg-white text-black">No</td>
+            <td class="bg-white text-black">NIS</td>
+            <td class="bg-white text-black">Nama Siswa</td>
+            <td class="bg-white text-black">Angkatan</td>
+            <td class="bg-white text-black">Kelas</td>
+          </tr>
+
+          <?php $i = 1; ?>
+
+          @foreach ($view_kaprog_siswa as $key)
+            <tr class="text-center">
+              <td class="table-auto bg-white text-black">{{ $i++ }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nis }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nama_siswa }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->tahun }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->tingkat_kelas }} {{ $key->akronim }}
+                {{ $key->nama_kelas }}</td>
+            </tr>
+          @endforeach
+
+
+        </table>
+      </div>
+
+    @endif
+
+
+    @if (Auth::user()->level_user == 2)
+      {{-- Kompetensi --}}
+      <div
+        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+        {{-- div 1 --}}
+        <div class="flex w-1/2 flex-col justify-between">
+          <div>
+            <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kompetensi</p>
+          </div>
+          <div>
+            <a href="/dataprakerin">
+              <button
+                class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
+            </a>
+          </div>
+        </div>
+        {{-- div 2 --}}
+        <div>
+          <x-heroicon-m-clipboard-document-list class="w-[130px] text-[#abacc9] md:w-[140px]" />
+        </div>
+      </div>
+    @endif
+
   </div>
 
   @if (Auth::user()->level_user == 1 ||
-      Auth::user()->level_user == 2 ||
-      Auth::user()->level_user == 3 ||
-      Auth::user()->level_user == 4)
+          Auth::user()->level_user == 2 ||
+          Auth::user()->level_user == 3 ||
+          Auth::user()->level_user == 4)
 
     {{-- pop up profile --}}
     <input id="my-modal-3" type="checkbox" class="modal-toggle" />
@@ -455,9 +514,9 @@
                 <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                   <div class="w-[10em] rounded-full">
                     @if (Auth::user()->foto)
-                      <img width="80px" src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                      <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
                     @else
-                      <img width="80px" src="{{ asset('foto_profile/profile.jpg') }}" />
+                      <img src="{{ asset('foto_profile/profile.jpg') }}" />
                     @endif
                   </div>
                 </label>
@@ -466,6 +525,9 @@
                 <input type="text" class="hidden" value="{{ Auth::user()->id }}" />
                 <input id="foto" type="file" name="foto" accept="image/*"
                   class="file-input-bordered file-input file-input-xs m-auto w-3/4 max-w-xs text-center" />
+                @if (Session::has('errors'))
+                  <p class="w-full text-center text-red-500">{{ Session::get('errors') }}</p>
+                @endif
               </div>
             </div>
             <div class="card-body w-[20em] pb-3">
@@ -516,10 +578,12 @@
   @endif
 
   @if (Auth::user()->level_user == 5)
+
     {{-- pop up profile --}}
     <input id="my-modal-3" type="checkbox" class="modal-toggle" />
     <div class="modal">
       <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="w-[60em] rounded-2xl bg-transparent">
           <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
             <label for="my-modal-3"
@@ -532,9 +596,9 @@
                 <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                   <div class="w-[10em] rounded-full">
                     @if (Auth::user()->foto)
-                      <img width="80px" src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                      <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
                     @else
-                      <img width="80px" src="{{ asset('foto_profile/profile.jpg') }}" />
+                      <img src="{{ asset('foto_profile/profile.jpg') }}" />
                     @endif
                   </div>
                 </label>
@@ -578,13 +642,16 @@
         </div>
       </form>
     </div>
+
   @endif
 
   @if (Auth::user()->level_user == 6)
+
     {{-- pop up profile --}}
     <input id="my-modal-3" type="checkbox" class="modal-toggle" />
     <div class="modal">
       <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+        @csrf
         <div class="w-[60em] rounded-2xl bg-transparent">
           <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
             <label for="my-modal-3"
@@ -597,9 +664,9 @@
                 <label tabindex="0" class="avatar m-auto mt-[0.3em]">
                   <div class="w-[10em] rounded-full">
                     @if (Auth::user()->foto)
-                      <img width="80px" src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                      <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
                     @else
-                      <img width="80px" src="{{ asset('foto_profile/profile.jpg') }}" />
+                      <img src="{{ asset('foto_profile/profile.jpg') }}" />
                     @endif
                   </div>
                 </label>
@@ -626,19 +693,39 @@
               <div class="mb-4 h-min w-full">
                 <label class="text-md font-normal" for="">ANGKATAN</label>
                 <br>
-                <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->angkatan->tahun }}</span>
+                @auth
+                  @if (!isset(Auth::user()->siswa->kelas->angkatan))
+                    <span class="text-center text-lg">-</span>
+                  @else
+                    <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->angkatan->tahun }}</span>
+                  @endif
+                @endauth
               </div>
               <div class="mb-4 h-min w-full">
                 <label class="text-md font-normal" for="">JURUSAN</label>
                 <br>
-                <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->jurusan->nama_jurusan }}
-                  ({{ Auth::user()->siswa->kelas->jurusan->akronim }})</span>
+                @auth
+                  @if (!isset(Auth::user()->siswa->kelas->jurusan))
+                    <span class="text-center text-lg">-</span>
+                  @else
+                    <span class="text-center text-lg"><span
+                        class="text-center text-lg">{{ Auth::user()->siswa->kelas->jurusan->nama_jurusan }}
+                        ({{ Auth::user()->siswa->kelas->jurusan->akronim }})
+                      </span></span>
+                  @endif
+                @endauth
               </div>
               <div class="mb-4 h-min w-full">
                 <label class="text-md font-normal" for="">KELAS</label>
                 <br>
-                <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->tingkat_kelas }}
-                  {{ Auth::user()->siswa->kelas->nama_kelas }}</span>
+                @auth
+                  @if (!isset(Auth::user()->siswa->kelas))
+                    <span class="text-center text-lg">-</span>
+                  @else
+                    <span class="text-center text-lg">{{ Auth::user()->siswa->kelas->tingkat_kelas }}
+                      {{ Auth::user()->siswa->kelas->nama_kelas }}</span>
+                  @endif
+                @endauth
               </div>
               <div class="mb-4 h-min w-full">
                 <label class="text-md font-normal" for="">LEVEL</label>
@@ -660,6 +747,7 @@
         </div>
       </form>
     </div>
+
   @endif
 
 @endsection

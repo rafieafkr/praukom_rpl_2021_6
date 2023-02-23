@@ -128,7 +128,7 @@
 
                             @endswitch
                             <button type="submit"
-                                class="cursor-pointer rounded-lg px-6 py-3 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-red-500 active:bg-slate-300 lg:inline-block bg-red-500 mr-2">Tolak</button>
+                                class="cursor-pointer rounded-lg px-5 py-2 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-red-500 active:bg-slate-300 lg:inline-block bg-red-500 mr-2">Tolak</button>
                         </form>
                     </div>
                     <div class="flex-warp">
@@ -151,7 +151,7 @@
 
                             @endswitch
                             <button type="submit"
-                                class="cursor-pointer rounded-lg px-6 py-3 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block bg-green-500">Terima</button>
+                                class="cursor-pointer rounded-lg px-5 py-2 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block bg-[#06283D]">Terima</button>
                         </form>
                     </div>
                 </div>
@@ -193,6 +193,9 @@
                 <x-heroicon-m-check-badge class="inline-block w-5 text-white" />
                 Terlampir
             </span>
+            <div class="mt-2">
+                <img src="{{ asset('storage/' . $edit->bukti_terima)}}" alt="bukti-terima" class="w-1/3">
+            </div>
             @else
             <span class="rounded-full bg-red-500 px-3 py-1 text-white">
                 <x-heroicon-m-x-circle class="inline-block w-5 text-white" />

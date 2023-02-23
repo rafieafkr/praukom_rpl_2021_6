@@ -16,18 +16,18 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE OR REPLACE VIEW view_list_jurusan AS
-
+        CREATE  OR REPLACE VIEW view_belum_prakerin AS
+        
         SELECT 
-            jurusan.id_jurusan, 
-            jurusan.nama_jurusan,
-            jurusan.akronim,
-            view_list_kaprog.nama_kaprog
+            prakerin.id_prakerin, 
+            view_list_siswa.*
 
-            FROM jurusan
+            FROM prakerin
 
-            INNER JOIN view_list_kaprog ON jurusan.kepala_jurusan = view_list_kaprog.id_kaprog;
-");
+            RIGHT JOIN view_list_siswa ON prakerin.nis = view_list_siswa.nis
+            
+            WHERE id_prakerin IS NULL;
+        ");
     }
 
     /**
@@ -38,6 +38,5 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('view_list_jurusan');
     }
 };

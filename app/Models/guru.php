@@ -16,22 +16,22 @@ class Guru extends Model
 
     public function kepalaprogram()
     {
-        return $this->hasMany(Kepalaprogram::class, 'id_guru', 'id_guru');
+        return $this->hasOne(Kepalaprogram::class, 'id_guru', 'id_guru');
     }
 
     public function pembimbingsekolah()
     {
-        return $this->hasMany(Pembimbingsekolah::class, 'id_guru', 'id_guru');
+        return $this->hasOne(Pembimbingsekolah::class, 'id_guru', 'id_guru');
     }
 
     public function walikelas()
     {
-        return $this->hasMany(Walikelas::class, 'id_guru', 'id_guru');
+        return $this->hasOne(Walikelas::class, 'id_guru', 'id_guru');
     }
 
     public function staffhubin()
     {
-        return $this->hasMany(Staffhubin::class, 'id_guru', 'id_guru');
+        return $this->hasOne(Staffhubin::class, 'id_guru', 'id_guru');
     }
 
     public function akun()

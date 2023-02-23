@@ -18,4 +18,9 @@ class Staffhubin extends Model
     {
         return $this->belongsTo(Guru::class, 'id_guru','id_guru');
     }
+
+    public function akun()
+    {
+        return $this->belongsTo(User::class, 'id_akun','id');
+    }
 }

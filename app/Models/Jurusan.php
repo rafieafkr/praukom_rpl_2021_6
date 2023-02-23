@@ -18,4 +18,9 @@ class Jurusan extends Model
     {
         return $this->hasOne(Kelas::class, 'id_jurusan', 'id_jurusan');
     }
+
+    public function kepalaprogram()
+    {
+        return $this->belongsTo(Kepalaprogram::class, 'kepala_jurusan', 'id_kaprog');
+    }
 }
