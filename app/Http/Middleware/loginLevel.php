@@ -20,6 +20,6 @@ class loginLevel
         {
             return $next($request);
         }
-        return redirect('/dashboard');
+        return redirect('/dashboard')->withAlert('Maaf, anda tidak bisa mengakses halaman tersebut');
     }
 }

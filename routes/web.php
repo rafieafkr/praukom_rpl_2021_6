@@ -27,6 +27,7 @@ use App\Http\Controllers\PresensisiswaController;
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/hack', [LoginController::class, 'hack']);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,10 +56,10 @@ Route::post('/monitoring/hapus', [MonitoringController::class, 'destroymonitorin
 ////////////////////////// Route Modul Pilih Pembimbing Sekolah ///////////////////////////
 
 Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
-  Route::get('/pilihpembimbingsekolah', [KepalaprogramController::class, 'indexps']);
-  Route::get('/pilihpembimbingsekolah/show', [KepalaprogramController::class, 'carips']);
-  Route::get('/pilihpembimbingsekolah/edit/{id_prakerin}', [KepalaprogramController::class, 'editps']);
-  Route::post('/pilihpembimbingsekolah/edit/update', [KepalaprogramController::class, 'updateps']);
+  Route::get('/pilihpembimbingsekolah', [KepalaprogramController::class, 'indexps'])->middleware('auth');
+  Route::get('/pilihpembimbingsekolah/show', [KepalaprogramController::class, 'carips'])->middleware('auth');
+  Route::get('/pilihpembimbingsekolah/edit/{id_prakerin}', [KepalaprogramController::class, 'editps'])->middleware('auth');
+  Route::post('/pilihpembimbingsekolah/edit/update', [KepalaprogramController::class, 'updateps'])->middleware('auth');
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +76,7 @@ Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kel
   Route::post('/suratpengajuan/detail/tolakpengajuan/{id_pengajuan}', [PengajuanController::class, 'updatetolak'])->middleware('auth');
 });
 
-Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
+Route::group(['middleware' => ['auth','level:Siswa']], function() {
   Route::post('/suratpengajuan/hapus/{id_pengajuan}', [PengajuanController::class, 'hapussuratpengajuan'])->middleware('auth');
 });
 

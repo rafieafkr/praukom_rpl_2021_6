@@ -62,7 +62,7 @@
             <td class="bg-white text-black">Perusahaan</td>
             <td class="bg-white text-black">Bukti Penerimaan</td>
             <td class="bg-white text-black">Status Pengajuan</td>
-            <td class="bg-white text-black">Aksi</td>
+            <td class="bg-white text-black">Verifikasi</td>
         </tr>
         <?php 
         $no = 1;
@@ -141,18 +141,8 @@
                     <div class="flex-warp mr-auto items-center text-center w-1/2">
                         <a href="/suratpengajuan/detail/{{$sp3s->id_pengajuan}}"><button
                                 class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
-                                <x-heroicon-m-eye class="w-[1.5em]" />
+                                <x-heroicon-m-pencil-square class="w-[1.5em]" />
                             </button></a>
-                    </div>
-                    <div class="flex-warp ml-auto items-center text-center w-1/2">
-                        <form action="/suratpengajuan/hapus/{{$sp3s->id_pengajuan}}" method="POST">
-                            @csrf
-                            <input type="text" name="id_pengajuan" class="hidden" value="{{$sp3s->id_pengajuan}}">
-                            <button type="submit"
-                                class="mr-2 rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black">
-                                <x-heroicon-o-trash class="w-[1.5em]" />
-                            </button>
-                        </form>
                     </div>
                 </div>
             </td>
@@ -193,7 +183,7 @@
             <td class="bg-white text-black">Perusahaan</td>
             <td class="bg-white text-black">Bukti Penerimaan</td>
             <td class="bg-white text-black">Status Pengajuan</td>
-            <td class="bg-white text-black">Aksi</td>
+            <td class="bg-white text-black">Verifikasi</td>
         </tr>
         <?php 
         $no = 1;
@@ -272,7 +262,7 @@
                     <div class="flex-warp mr-auto items-center text-center w-1/2">
                         <a href="/suratpengajuan/detail/{{$sp1->id_pengajuan}}"><button
                                 class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
-                                <x-heroicon-m-eye class="w-[1.5em]" />
+                                <x-heroicon-m-pencil-square class="w-[1.5em]" />
                             </button></a>
                     </div>
                 </div>
@@ -315,7 +305,7 @@
             <td class="bg-white text-black">Perusahaan</td>
             <td class="bg-white text-black">Bukti Penerimaan</td>
             <td class="bg-white text-black">Status Pengajuan</td>
-            <td class="bg-white text-black">Aksi</td>
+            <td class="bg-white text-black">Verifikasi</td>
         </tr>
         <?php 
         $no = 1;
@@ -394,7 +384,7 @@
                     <div class="flex-warp mr-auto items-center text-center w-1/2">
                         <a href="/suratpengajuan/detail/{{$sp2s->id_pengajuan}}"><button
                                 class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
-                                <x-heroicon-m-eye class="w-[1.5em]" />
+                                <x-heroicon-m-pencil-square class="w-[1.5em]" />
                             </button></a>
                     </div>
                 </div>
