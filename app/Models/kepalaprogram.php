@@ -9,10 +9,10 @@ class Kepalaprogram extends Model
 {
     use HasFactory;
     protected $table = 'kepala_program';
-    protected $id_kaprog = 'id_akun';
+    protected $primaryKey = 'id_kaprog';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nip_guru','id_akun','nama_kaprog'];
+    protected $fillable = ['id_guru'];
 
     public function prakerin()
     {
@@ -27,5 +27,10 @@ class Kepalaprogram extends Model
     public function guru()
     {
         return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
+    }
+
+    public function jurusan()
+    {
+        return $this->hasOne(Jurusan::class, 'kepala_jurusan', 'id_kaprog');
     }
 }

@@ -16,19 +16,17 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE OR REPLACE VIEW view_perusahaan_aktif AS
-
+        CREATE  OR REPLACE VIEW view_belum_prakerin AS
+        
         SELECT 
-            COUNT(nis) AS jml_murid, 
-            view_list_perusahaan.*
+            prakerin.id_prakerin, 
+            view_list_siswa.*
 
             FROM prakerin
 
-            RIGHT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
-
-            GROUP BY id_perusahaan
-
-            ORDER BY jml_murid DESC;
+            RIGHT JOIN view_list_siswa ON prakerin.nis = view_list_siswa.nis
+            
+            WHERE id_prakerin IS NULL;
         ");
     }
 
@@ -40,6 +38,5 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('view_perusahaan');
     }
 };

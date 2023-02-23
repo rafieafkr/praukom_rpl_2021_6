@@ -16,21 +16,21 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW view_list_siswa AS
+        CREATE OR REPLACE VIEW view_list_siswa AS
 
         SELECT 
             siswa.*, 
-            list_kelas.tingkat_kelas, 
-            list_kelas.nama_kelas, 
-            list_kelas.nama_walas, 
-            list_jurusan.nama_jurusan, 
-            list_jurusan.nama_kaprog
+            view_list_kelas.tingkat_kelas,
+            view_list_kelas.nama_kelas,
+            view_list_kelas.nama_walas,
+            view_list_kelas.tahun,
+            view_list_jurusan.*
             
             FROM siswa
 
-            LEFT JOIN list_kelas ON siswa.id_kelas = list_kelas.id_kelas
+            LEFT JOIN view_list_kelas ON siswa.id_kelas = view_list_kelas.id_kelas
 
-            LEFT JOIN list_jurusan ON siswa.jurusan = list_jurusan.id_jurusan;
+            LEFT JOIN view_list_jurusan ON siswa.jurusan = view_list_jurusan.id_jurusan;
 ");
     }
 

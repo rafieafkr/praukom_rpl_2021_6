@@ -16,16 +16,17 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW view_list_jurusan AS
+        CREATE OR REPLACE VIEW view_list_jurusan AS
 
         SELECT 
             jurusan.id_jurusan, 
-            jurusan.nama_jurusan, 
-            list_kaprog.nama_kaprog
+            jurusan.nama_jurusan,
+            jurusan.akronim,
+            view_list_kaprog.nama_kaprog
 
             FROM jurusan
 
-            INNER JOIN list_kaprog ON jurusan.kepala_jurusan = list_kaprog.id_kaprog;
+            INNER JOIN view_list_kaprog ON jurusan.kepala_jurusan = view_list_kaprog.id_kaprog;
 ");
     }
 

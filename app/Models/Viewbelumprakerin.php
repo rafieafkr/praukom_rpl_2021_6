@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Viewlistps extends Model
+class Viewbelumprakerin extends Model
 {
     use HasFactory;
-    protected $table = 'view_list_ps';
+    protected $table = 'view_belum_prakerin';
 }

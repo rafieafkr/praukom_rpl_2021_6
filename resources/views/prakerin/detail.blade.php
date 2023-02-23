@@ -62,6 +62,19 @@
                 class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
         </label>
         <br><br>
+        {{-- tanggal masuk & keluar --}}
+        <label class="text-black">
+            Tanggal Masuk & Tanggal Keluar
+            <br>
+            @if ($edit->tanggal_masuk == null)
+            <input disabled value="-"
+                class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
+            @else
+            <input disabled value="{{$edit->tanggal_masuk}} s/d {{$edit->tanggal_keluar}}"
+                class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
+            @endif
+        </label>
+        <br><br>
     </div>
 </div>
 </div>

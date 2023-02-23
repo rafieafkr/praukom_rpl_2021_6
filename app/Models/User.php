@@ -67,9 +67,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(Siswa::class, 'id_akun', 'id');
     }
-
-    // public function staffhubin()
-    // {
-    //     return $this->hasOne(Staffhubin::class);
-    // }
 }

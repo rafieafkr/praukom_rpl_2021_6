@@ -81,18 +81,30 @@ Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
 
 Route::group(['middleware' => ['auth','level:Siswa']], function() {
   Route::get('/siswa/suratpengajuan', [PengajuanController::class, 'indexsuratpengajuan'])->middleware('auth');
+  Route::resource('/siswa/pengajuan', PengajuanController::class)->middleware('auth');
   Route::get('/siswa/suratpengajuan/{id_pengajuan}/edit', [PengajuanController::class, 'carisuratpengajuan'])->middleware('auth');
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-// Route Modul Presensi Siswa
+
+/////////////////////////////// Route Modul Presensi Siswa ////////////////////////////////
+
 Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);
-// Route Modul Data Prakerin
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//////////////////////////////// Route Modul Data Prakerin ////////////////////////////////
+
 Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin']);
 Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin']);
 Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin']);
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 Route::get('/listsiswa', function() {
