@@ -102,6 +102,21 @@ class PengajuanController extends Controller
         }
     }
 
+    public function updatehubin(Request $request)
+    {
+        $dataTerima = [
+            'id_pengajuan' => $request->id_pengajuan,
+            'status_pengajuan' => $request->status_pengajuan
+        ];
+        $upd = DB::table('pengajuan')
+        -> where('id_pengajuan', $request->input('id_pengajuan'))
+        -> update($dataTerima);
+        // dd($dataTerima);
+        if ($upd) {
+            return redirect('/suratpengajuan')->withSuccess('Pengajuan berhasil diverifikasi !');
+        }
+    }
+
     public function updatetolak(Request $request)
     {
         $dataTolak = [
