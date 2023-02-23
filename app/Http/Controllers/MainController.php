@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Leveluser;
 use App\Models\Viewbelumprakerin;
+use App\Models\Viewprakerin;
 use App\Models\Viewperusahaanaktif;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -28,16 +29,50 @@ class MainController extends Controller
 
     public function index(Request $request)
     {   
-        return view('dashboard.index', [
-            'level_user' => $this->levelUser,
-            'view_perusahaan_aktif' => Viewperusahaanaktif::orderBy('jml_murid', 'desc')
-            ->paginate(5),
-            'view_kaprog_siswa' => Viewbelumprakerin::where('jurusan', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
-            // 'view_pp_siswa' => Viewprakerin::where('nik_pp',request('ambilnikpp'))
-            // ->orderBy('id_prakerin', 'desc')
-            // ->paginate(5)
+        // dd(Auth::user()->guru->kepalaprogram->jurusan->id_jurusan);
+        if (Auth::user()->level_user == 1):
+            return view('dashboard.index', [
+                'level_user' => $this->levelUser,
+                'view_perusahaan_aktif' => Viewperusahaanaktif::orderBy('jml_murid', 'desc')
+                ->paginate(5)
+            ]);
+        endif;
 
-        ]);
+        if (Auth::user()->level_user == 2):
+            return view('dashboard.index', [
+                'level_user' => $this->levelUser,
+                'view_kaprog_siswa' => Viewbelumprakerin::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
+            ]);
+        endif;
+        
+        if (Auth::user()->level_user == 3):
+            return view('dashboard.index', [
+                'level_user' => $this->levelUser
+            ]);
+        endif;
+
+        if (Auth::user()->level_user == 4):
+            return view('dashboard.index', [
+                'level_user' => $this->levelUser
+            ]);
+        endif;
+
+        if (Auth::user()->level_user == 5):
+            return view('dashboard.index', [
+                'level_user' => $this->levelUser,
+                'view_pp_siswa' => Viewprakerin::where('nik_pp','=', Auth::user()->pembimbingperusahaan->nik_pp)
+                ->orderBy('id_prakerin', 'desc')
+                ->paginate(5)
+            ]);
+        endif;
+
+        if (Auth::user()->level_user == 6):
+            return view('dashboard.index', [
+                'level_user' => $this->levelUser,
+                'view_perusahaan_aktif' => Viewperusahaanaktif::orderBy('jml_murid', 'desc')
+                ->paginate(5)
+            ]);
+        endif;
     }
 
     public function uploadfoto(Request $request)

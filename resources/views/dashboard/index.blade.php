@@ -3,6 +3,22 @@
 @section('title', 'Dashboard | SIMAK')
 
 @section('container')
+
+  @if (Session::has('alert'))
+    {{-- pop up alert --}}
+    <input id="my-modal-5" type="checkbox" class="modal-toggle" checked={true} />
+    <div class="modal">
+      <div class="modal-box w-1/4 bg-white text-center text-black">
+        <x-heroicon-s-x-mark class="m-auto w-1/4 items-center text-red-600" />
+        <p class="py-4 text-red-600">{{ Session::get('alert') }} <br> <img src="{{ asset('foto_profile/rock.jpg') }}" />
+        </p>
+        <div class="modal-action">
+          <label for="my-modal-5" class="btn bg-[#0A3A58]">TUTUP</label>
+        </div>
+      </div>
+    </div>
+  @endif
+
   <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
     @if (Auth::user()->level_user == 1 ||
@@ -64,11 +80,8 @@
       </div>
     </div>
 
-    @if (Auth::user()->level_user == 1 ||
-            Auth::user()->level_user == 2 ||
-            Auth::user()->level_user == 3 ||
-            Auth::user()->level_user == 6)
-      {{-- Surat pengajuan --}}
+    @if (Auth::user()->level_user == 1 || Auth::user()->level_user == 2 || Auth::user()->level_user == 3)
+      {{-- Surat pengajuan GURU --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
         {{-- div 1 --}}
@@ -78,6 +91,28 @@
           </div>
           <div>
             <a href="/suratpengajuan">
+              <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+            </a>
+          </div>
+        </div>
+        {{-- div 2 --}}
+        <div>
+          <x-heroicon-o-document-text class="w-[130px] text-[#7893a3] md:w-[140px]" />
+        </div>
+      </div>
+    @endif
+
+    @if (Auth::user()->level_user == 6)
+      {{-- Surat pengajuan SISWA --}}
+      <div
+        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+        {{-- div 1 --}}
+        <div class="flex w-1/2 flex-col justify-between">
+          <div>
+            <p class="text-lg font-semibold uppercase tracking-widest">Surat Pengajuan</p>
+          </div>
+          <div>
+            <a href="{{ route('pengajuan.index') }}">
               <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
             </a>
           </div>
@@ -184,42 +219,42 @@
     {{-- Wali Kelas --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-          {{-- div 1 --}}
-          <div class="flex w-1/2 flex-col justify-between">
-              <div>
-                  <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
-              </div>
-              <div>
-                  <a href="#">
-                      <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                  </a>
-              </div>
-          </div>
-          {{-- div 2 --}}
-          <div>
-              <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-          </div>
-      </div> -->
+            {{-- div 1 --}}
+            <div class="flex w-1/2 flex-col justify-between">
+                <div>
+                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
+                </div>
+                <div>
+                    <a href="#">
+                        <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                    </a>
+                </div>
+            </div>
+            {{-- div 2 --}}
+            <div>
+                <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+            </div>
+        </div> -->
 
     {{-- Kepala Program --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-          {{-- div 1 --}}
-          <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
-              <div>
-                  <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
-              </div>
-              <div>
-                  <a href="#">
-                      <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                  </a>
-              </div>
-          </div>
-          {{-- div 2 --}}
-          <div>
-              <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-          </div>
-      </div> -->
+            {{-- div 1 --}}
+            <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
+                <div>
+                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
+                </div>
+                <div>
+                    <a href="#">
+                        <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                    </a>
+                </div>
+            </div>
+            {{-- div 2 --}}
+            <div>
+                <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+            </div>
+        </div> -->
 
     @if (Auth::user()->level_user == 3 ||
             Auth::user()->level_user == 4 ||
@@ -392,43 +427,6 @@
 
     @endif
 
-    @if (Auth::user()->level_user == 1)
-
-      {{-- View Perusahaan Aktif --}}
-
-      <div class="col-span-3 h-[155px] text-white">
-        <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
-          <tr class="border-collapse text-white">
-            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Perusahaan Ter-Aktif</td>
-          </tr>
-          <tr>
-            <td class="bg-white text-black">No</td>
-            <td class="bg-white text-black">Nama Perusahaan</td>
-            <td class="bg-white text-black">Kontak</td>
-            <td class="bg-white text-black">Alamat</td>
-            <td class="bg-white text-black">Jumlah Murid</td>
-          </tr>
-
-          <?php $i = 1; ?>
-
-          @foreach ($view_perusahaan_aktif as $key)
-            <tr class="text-center">
-              <td class="table-auto bg-white text-black">{{ $i++ }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->nama_perusahaan }}</td>
-              @if ($key->kontak_perusahaan !== null)
-                <td class="table-auto bg-white text-black">{{ $key->kontak_perusahaan }}</td>
-              @else
-                <td class="table-auto bg-white text-red-500">Tidak Ada</td>
-              @endif
-              <td class="table-auto bg-white text-black">{{ $key->alamat_perusahaan }}</td>
-              <td class="table-auto bg-white text-black">{{ $key->jml_murid }}</td>
-            </tr>
-          @endforeach
-        </table>
-      </div>
-
-    @endif
-
     @if (Auth::user()->level_user == 2)
 
       {{-- View Murid yang belum prakerin --}}
@@ -466,6 +464,40 @@
 
     @endif
 
+    @if (Auth::user()->level_user == 5)
+
+      {{-- View Murid yang dibimbing --}}
+
+      <div class="col-span-4 h-[155px] text-white">
+        <table border="1" cellpadding="0" class="table w-full border-collapse text-center">
+          <tr class="border-collapse text-white">
+            <td colspan="8" class="w-max-auto sticky h-14 bg-[#0A3A58]">Daftar Murid Yang Dibimbing</td>
+          </tr>
+          <tr>
+            <td class="bg-white text-black">No</td>
+            <td class="bg-white text-black">NIS</td>
+            <td class="bg-white text-black">Nama Siswa</td>
+            <td class="bg-white text-black">Perusahaan</td>
+            <td class="bg-white text-black">Kepala Program</td>
+          </tr>
+
+          <?php $i = 1; ?>
+
+          @foreach ($view_pp_siswa as $key)
+            <tr class="text-center">
+              <td class="table-auto bg-white text-black">{{ $i++ }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nis }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nama_siswa }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nama_perusahaan }}</td>
+              <td class="table-auto bg-white text-black">{{ $key->nama_kaprog }}</td>
+            </tr>
+          @endforeach
+
+
+        </table>
+      </div>
+
+    @endif
 
     @if (Auth::user()->level_user == 2)
       {{-- Kompetensi --}}
@@ -477,7 +509,7 @@
             <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kompetensi</p>
           </div>
           <div>
-            <a href="/dataprakerin">
+            <a href="/kompetensi">
               <button
                 class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
             </a>

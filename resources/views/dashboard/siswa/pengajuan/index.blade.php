@@ -189,12 +189,20 @@
     </div>
     <br>
     @empty
-      <div class="text-center text-lg">
-        <label for="modal-tambah-pengajuan">
-          <span class="cursor-pointer text-blue-500 underline">
-            Data tidak ditemukan
-          </span>
-        </label>
+      <div class="relative -m-10 mx-auto w-fit text-center text-lg">
+        <svg class="w-[500px]" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#F2F4F8"
+            d="M43.8,-51.8C52.9,-44.6,53.7,-27.1,57.6,-9.5C61.5,8.1,68.5,25.8,61.8,34.1C55.1,42.3,34.8,41.1,18.2,45C1.6,48.8,-11.4,57.8,-24.3,57.3C-37.3,56.7,-50.3,46.6,-60.7,33C-71.1,19.3,-78.9,2,-76.2,-13.5C-73.6,-29,-60.4,-42.6,-45.9,-48.9C-31.5,-55.2,-15.7,-54.1,0.8,-55C17.3,-56,34.7,-59,43.8,-51.8Z"
+            transform="translate(100 100)" />
+        </svg>
+        <div class="absolute left-0 right-0 bottom-44">
+          <x-heroicon-o-document-magnifying-glass class="bg- m-auto w-[250px] text-slate-300" />
+          <label for="modal-tambah-pengajuan">
+            <span class="cursor-pointer text-[30px] font-bold text-slate-300 underline">
+              Data tidak ditemukan
+            </span>
+          </label>
+        </div>
       </div>
     @endforelse
 
