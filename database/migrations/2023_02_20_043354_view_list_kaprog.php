@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW view_list_kaprog AS
+        CREATE OR REPLACE VIEW view_list_kaprog AS
 
         SELECT 
             kepala_program.id_kaprog, 

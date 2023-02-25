@@ -16,6 +16,9 @@ class KompetensiController extends Controller
     public function index()
     {
         //
+        return view('kompetensi.index', [
+            
+        ]);
     }
 
     /**
@@ -37,6 +40,15 @@ class KompetensiController extends Controller
     public function store(StoreKompetensiRequest $request)
     {
         //
+        $request->validate([
+            'addMoreInputFields.*.nama_kompetensi' => 'required'
+        ]);
+     
+        foreach ($request->addMoreInputFields as $key => $value) {
+            Kompetensi::create($value);
+        }
+     
+        return back()->with('success', 'New subject has been added.');
     }
 
     /**

@@ -50,8 +50,6 @@ return new class extends Migration
 
             INSERT INTO prakerin (id_prakerin, nis, id_kaprog, id_perusahaan) VALUES (kodePrakerin, nis, kaprog, perusahaan);
 
-            COMMIT;
-
             IF kodeError != "00000" THEN ROLLBACK TO satu;
 
             END IF;

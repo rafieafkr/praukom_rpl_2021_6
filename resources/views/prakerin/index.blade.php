@@ -30,7 +30,7 @@
     </div>
     <table border="1" cellpadding="0" class="table w-full text-center border-collapse bg-white">
         <tr class="text-white border-collapse">
-            <td colspan="6" class="bg-[#0A3A58] h-14 sticky w-max-auto">Data Prakerin</td>
+            <td colspan="7" class="bg-[#0A3A58] h-14 sticky w-max-auto">Data Prakerin</td>
         </tr>
         <tr>
             <td class="bg-white text-black">NO</td>
@@ -38,6 +38,7 @@
             <td class="bg-white text-black">Nama Siswa</td>
             <td class="bg-white text-black">Perusahaan</td>
             <td class="bg-white text-black">Angkatan</td>
+            <td class="bg-white text-black">Status</td>
             <td class="bg-white text-black">Aksi</td>
         </tr>
         <?php 
@@ -51,12 +52,41 @@
             <td class="bg-white text-black">{{$p->nama_perusahaan}}</td>
             <td class="bg-white text-black">2022</td>
             <td class="bg-white text-black">
+
+                @switch($p->status)
+
+                @case(null)
+                <span class="rounded-full bg-green-500 px-3 py-1">
+                    <x-heroicon-o-clock class="inline-block w-5 text-black" />
+                    Sedang Prakerin
+                </span>
+                @break
+
+                @case('2')
+                <span class="rounded-full bg-red-500 px-3 py-1 text-white">
+                    <x-heroicon-m-x-circle class="inline-block w-5 text-white" />
+                    Dikeluarkan
+                </span>
+                @break
+
+                @endswitch
+
+            </td>
+
+            <td class="bg-white text-black">
+
                 <div class='flex m-auto w-full items-center text-center'>
                     <div class="flex-warp mr-auto items-center text-center w-1/2">
                         <a href="/dataprakerin/detail/{{$p->id_prakerin}}"><button
                                 class="rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
                                 <x-heroicon-m-eye class="w-[1.5em]" />
                             </button></a>
+                        <form action="/dataprakerin/keluarkan_siswa/{{$p->id_prakerin}}" method="post">
+                            @csrf
+                            <button class="btn btn-error mt-2" type="submit">
+                                Keluarkan
+                            </button>
+                        </form>
                     </div>
                     @if (Auth::user()->level_user == 1)
                     <a href="#delete-prakerin/{{ $p->id_prakerin }}"

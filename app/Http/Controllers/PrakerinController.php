@@ -57,4 +57,19 @@ class PrakerinController extends Controller
             return redirect('/dataprakerin');
         }
     }
+    
+    public function pecatSiswa(Prakerin $prakerin)
+    {
+        try {
+            DB::select('CALL procedure_pecat_siswa_pkl (?,?)', [
+                $prakerin->id_prakerin,
+                $prakerin->nis
+            ]);
+        } catch (\Exception $th) {
+            return redirect('/dataprakerin')->withErrors('Siswa telah dikeluarkan');          
+        }
+        
+        return redirect('/dataprakerin')->withSuccess('Siswa telah dikeluarkan');          
+    }
+
 }

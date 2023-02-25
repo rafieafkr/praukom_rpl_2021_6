@@ -29,7 +29,8 @@ return new class extends Migration
             prakerin.id_kaprog,
             view_list_kaprog.nama_kaprog, 
             prakerin.id_perusahaan,
-            view_list_perusahaan.nama_perusahaan 
+            view_list_perusahaan.nama_perusahaan,
+            prakerin.status
 
         FROM prakerin
         

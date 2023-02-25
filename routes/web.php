@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaffhubinController;
+use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MonitoringController;
@@ -98,12 +99,21 @@ Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);
 
 
 
+/*----------------------------- Route Modul Kompetensi -------------------------------*/
+
+Route::get('/kompetensi', [KompetensiController::class, 'index']);
+
+/*----------------------------------------------------------------------------------------*/
+
+
+
 /*------------------------------- Route Modul Data Prakerin ------------------------------*/
 
 Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas']], function() {
   Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin'])->middleware('auth');
   Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin'])->middleware('auth');
   Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin'])->middleware('auth');
+  Route::post('/dataprakerin/keluarkan_siswa/{prakerin}', [PrakerinController::class, 'pecatSiswa'])->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {

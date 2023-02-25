@@ -16,7 +16,7 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE VIEW view_list_hubin AS
+        CREATE OR REPLACE VIEW view_list_hubin AS
 
         SELECT 
             staff_hubin.id_staff, 
