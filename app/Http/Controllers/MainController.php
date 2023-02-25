@@ -39,10 +39,16 @@ class MainController extends Controller
         endif;
 
         if (Auth::user()->level_user == 2):
-            return view('dashboard.index', [
-                'level_user' => $this->levelUser,
-                'view_kaprog_siswa' => Viewbelumprakerin::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
-            ]);
+            if (Auth::user()->guru->kepalaprogram->jurusan == null) 
+            {
+                return view('dashboard.index', [
+                    'level_user' => $this->levelUser
+                ]);
+            } else {
+                return view('dashboard.index', [
+                    'level_user' => $this->levelUser,
+                    'view_kaprog_siswa' => Viewbelumprakerin::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)]);
+            }
         endif;
         
         if (Auth::user()->level_user == 3):

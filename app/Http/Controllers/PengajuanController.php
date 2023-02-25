@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePengajuanRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Exception;
 
 class PengajuanController extends Controller
 {
@@ -106,15 +107,26 @@ class PengajuanController extends Controller
     {
         $dataTerima = [
             'id_pengajuan' => $request->id_pengajuan,
+            'nis' => $request->nis,
+            'id_kaprog' => $request->id_kaprog,
+            'id_perusahaan' => $request->id_perusahaan,
             'status_pengajuan' => $request->status_pengajuan
         ];
-        $upd = DB::table('pengajuan')
-        -> where('id_pengajuan', $request->input('id_pengajuan'))
-        -> update($dataTerima);
-        // dd($dataTerima);
-        if ($upd) {
-            return redirect('/suratpengajuan')->withSuccess('Pengajuan berhasil diverifikasi !');
-        }
+        try {
+            // execute procedure
+        Pengajuan::hydrate(DB::select('CALL procedure_tambah_prakerin(?, ?, ?, ?, ?)', [
+            $dataTerima['id_pengajuan'],
+            $dataTerima['nis'],
+            $dataTerima['id_kaprog'],
+            $dataTerima['id_perusahaan'],
+            $dataTerima['status_pengajuan']
+          ]));
+        } catch(Exception) {
+            // reload page apabila gagal buat akun
+            return back()->withErrors('Pengajuan gagal disahkan');
+          }
+        // redirect ke hubin/leveluser apabila sukses buat akun
+        return redirect('/suratpengajuan');
     }
 
     public function updatetolak(Request $request)
@@ -127,17 +139,6 @@ class PengajuanController extends Controller
         -> update($dataTolak);
         if ($upd) {
             return redirect('/suratpengajuan')->withAlert('Pengajuan berhasil ditolak !');
-        }
-    }
-
-    public function hapussuratpengajuan(Request $request, $id_pengajuan)
-    {
-        $hapus = DB::table('pengajuan')
-                ->where('id_pengajuan', $request->id_pengajuan)
-                ->delete();
-
-        if($hapus){
-            return redirect('/suratpengajuan');
         }
     }
 }

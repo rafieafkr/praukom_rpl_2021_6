@@ -34,10 +34,10 @@ return new class extends Migration
         FROM prakerin
         
         LEFT JOIN view_list_ps ON prakerin.id_ps = view_list_ps.id_ps
-        INNER JOIN pembimbing_perusahaan ON prakerin.nik_pp = pembimbing_perusahaan.nik_pp
-        INNER JOIN view_list_kaprog ON prakerin.id_kaprog = view_list_kaprog.id_kaprog
-        INNER JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
-        INNER JOIN siswa ON prakerin.nis = siswa.nis;
+        LEFT JOIN pembimbing_perusahaan ON prakerin.nik_pp = pembimbing_perusahaan.nik_pp
+        LEFT JOIN view_list_kaprog ON prakerin.id_kaprog = view_list_kaprog.id_kaprog
+        LEFT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
+        LEFT JOIN siswa ON prakerin.nis = siswa.nis;
         
         ");
     }
@@ -50,5 +50,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('view_prakerin');
     }
 };

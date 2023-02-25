@@ -28,8 +28,13 @@
         <label class="text-black">
             NIK & Nama Pembimbing Perusahaan
             <br>
+            @if($edit->nik_pp == null)
+            <input disabled value="-"
+                class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
+            @else
             <input disabled value="{{ $edit->nik_pp }} - {{ $edit->pembimbingperusahaan->nama_pp }}"
                 class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
+            @endif
         </label>
         <br><br>
         {{-- nip dan nama ps --}}
@@ -50,8 +55,13 @@
         <label class="text-black">
             NIP & Nama Kepala Program
             <br>
+            @if ($edit->id_kaprog == null)
+            <input disabled value="-"
+                class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
+            @else
             <input disabled value="{{$edit->kepalaprogram->guru->nip_guru}} - {{$edit->kepalaprogram->guru->nama_guru}}"
                 class="disabled:bg-white disabled:border-none text-center w-full input bg-white" />
+            @endif
         </label>
         <br><br>
         {{-- perusahaan --}}

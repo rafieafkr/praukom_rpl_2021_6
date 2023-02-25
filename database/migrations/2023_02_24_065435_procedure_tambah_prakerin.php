@@ -16,14 +16,15 @@ return new class extends Migration
     {
         //
         DB::unprepared('
-        CREATE OR REPLACE PROCEDURE procedure_tambah_prakerin (nId_pengajuan INT,nStatus_pengajuan INT)
+        CREATE OR REPLACE PROCEDURE procedure_tambah_prakerin (nId_pengajuan INT,nNis VARCHAR(15), nId_kaprog INT, nId_perusahaan INT, nStatus_pengajuan INT)
 
           BEGIN
 
-            DECLARE nis INT;
+            DECLARE nis VARCHAR(15);
             DECLARE kaprog INT;
             DECLARE perusahaan INT;
             DECLARE kodeError CHAR;
+            DECLARE kodePrakerin CHAR(10);
 
             BEGIN
 
@@ -39,13 +40,15 @@ return new class extends Migration
 
             UPDATE pengajuan SET status_pengajuan = nStatus_pengajuan WHERE id_pengajuan = nId_pengajuan;
 
-            SELECT nis INTO nis FROM pengajuan WHERE id_pengajuan=nId_pengajuan;
+            SELECT nNis INTO nis FROM pengajuan WHERE id_pengajuan=nId_pengajuan;
             
-            SELECT id_kaprog INTO kaprog FROM pengajuan WHERE id_pengajuan=nId_pengajuan;
+            SELECT nId_kaprog INTO kaprog FROM pengajuan WHERE id_pengajuan=nId_pengajuan;
 
-            SELECT perusahaan INTO perusahaan FROM pengajuan WHERE id_pengajuan=nId_pengajuan;
+            SELECT nId_perusahaan INTO perusahaan FROM pengajuan WHERE id_pengajuan=nId_pengajuan;
 
-            INSERT INTO prakerin (nis, nik_pp, id_ps, id_kaprog, id_perusahaan, tanggal_masuk, tanggal_keluar, status) VALUES (nis, , , kaprog, perusahaan, , , );
+            SET kodePrakerin = newkodeprakerin();
+
+            INSERT INTO prakerin (id_prakerin, nis, id_kaprog, id_perusahaan) VALUES (kodePrakerin, nis, kaprog, perusahaan);
 
             COMMIT;
 
@@ -67,5 +70,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('procedure_tambah_prakerin');
     }
 };

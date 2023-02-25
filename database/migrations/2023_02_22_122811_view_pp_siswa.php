@@ -42,5 +42,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('view_pp_siswa');
     }
 };

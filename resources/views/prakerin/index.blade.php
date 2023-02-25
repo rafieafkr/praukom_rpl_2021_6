@@ -59,15 +59,33 @@
                             </button></a>
                     </div>
                     @if (Auth::user()->level_user == 1)
-                    <div class="flex-warp ml-auto items-center text-center w-1/2">
-                        <form action="/dataprakerin/hapus/{{$p->id_prakerin}}" method="POST">
-                            @csrf
-                            <input type="text" name="id_pengajuan" class="hidden" value="{{$p->id_pengajuan}}">
-                            <button type="submit"
-                                class="rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black">
-                                <x-heroicon-o-trash class="w-[1.5em]" />
-                            </button>
-                        </form>
+                    <a href="#delete-prakerin/{{ $p->id_prakerin }}"
+                        class="rounded-lg bg-red-500 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-red-700 text-black">
+                        <x-heroicon-m-trash class="w-[1.5em]" />
+                    </a>
+
+                    <div class="modal" id="delete-prakerin/{{ $p->id_prakerin }}">
+                        <div class="modal-box bg-white text-black items-center justify-center">
+                            <x-heroicon-o-exclamation-triangle
+                                class="w-[10em] h-[10em] items-center justify-center mx-auto text-sm text-red-600" />
+                            <h3 class="font-semibold text-lg text-center mt-2">
+                                Apakah Anda Yakin ingin menghapus
+                                <br>
+                                <b>DATA PRAKERIN</b>
+                                dengan NIS :
+                                <b>{{ $p->nis }}</b>
+                                ?
+                            </h3>
+                            <p class="text-center">Data yang terhapus tidak dapat kembali!</p>
+                            </p>
+                            <!-- Button -->
+                            <div class="modal-action gird flex justify-center">
+                                <a href="#"
+                                    class="btn btn-outline btn-[#FF8138] w-[120px]  bg-[#fff] text-[#FF8138] hover:bg-[#FFF] hover:border-[#FF8138] hover:text-[#FF8138]">Batalkan</a>
+                                <a href="dataprakerin/hapus/{{ $p->id_prakerin }}"
+                                    class="btn bg-[#ED1C24] border-[#ED1C24] w-[120px] text-[#fff] dark:text-[#fff] hover:bg-[#ED1C24] hover:border-[#ED1C24]">Hapus</a>
+                            </div>
+                        </div>
                     </div>
                     @endif
                 </div>

@@ -172,30 +172,30 @@
 
     @endif
 
-    @if (Auth::user()->level_user == 1)
+    <!-- @if (Auth::user()->level_user == 1)
 
-    {{-- sertifikat --}}
-    <div
-        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-        {{-- div 1 --}}
-        <div class="flex w-1/2 flex-col justify-between">
-            <div>
-                <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Sertifikat</p>
+        {{-- sertifikat --}}
+        <div
+            class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+            {{-- div 1 --}}
+            <div class="flex w-1/2 flex-col justify-between">
+                <div>
+                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Sertifikat</p>
+                </div>
+                <div>
+                    <a href="#">
+                        <button
+                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
+                    </a>
+                </div>
             </div>
+            {{-- div 2 --}}
             <div>
-                <a href="#">
-                    <button
-                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
-                </a>
+                <x-heroicon-o-document-check class="w-[130px] text-[#abacc9] md:w-[140px]" />
             </div>
         </div>
-        {{-- div 2 --}}
-        <div>
-            <x-heroicon-o-document-check class="w-[130px] text-[#abacc9] md:w-[140px]" />
-        </div>
-    </div>
 
-    @endif
+        @endif -->
 
     @if (Auth::user()->level_user == 1)
 
@@ -217,6 +217,33 @@
         {{-- div 2 --}}
         <div>
             <x-heroicon-o-user-group class="w-[130px] text-[#a5ccd9] md:w-[140px]" />
+        </div>
+    </div>
+
+    @endif
+
+    @if (
+    Auth::user()->level_user == 1
+    )
+
+    {{-- Data Prakerin --}}
+    <div
+        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+        {{-- div 1 --}}
+        <div class="flex w-1/2 flex-col justify-between">
+            <div>
+                <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Data Prakerin</p>
+            </div>
+            <div>
+                <a href="/dataprakerin">
+                    <button
+                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
+                </a>
+            </div>
+        </div>
+        {{-- div 2 --}}
+        <div>
+            <x-heroicon-s-document-text class="w-[130px] text-[#abacc9] md:w-[140px]" />
         </div>
     </div>
 
@@ -375,7 +402,7 @@
 
     {{-- View Perusahaan Aktif --}}
 
-    <div class="h-[155px] col-span-3 text-white">
+    <div class="h-[155px] col-span-4 text-white">
         <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
             <tr class="text-white border-collapse">
                 <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Perusahaan Ter-Aktif</td>
@@ -409,7 +436,6 @@
     @endif
 
     @if (
-    Auth::user()->level_user == 1 ||
     Auth::user()->level_user == 2 ||
     Auth::user()->level_user == 3 ||
     Auth::user()->level_user == 4
@@ -481,6 +507,25 @@
     Auth::user()->level_user == 2
     )
 
+    @if (Auth::user()->guru->kepalaprogram->jurusan == null)
+
+    <div class="h-[155px] col-span-3 text-white">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Daftar Murid Yang Belum Prakerin</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">NIS</td>
+                <td class="bg-white text-black">Nama Siswa</td>
+                <td class="bg-white text-black">Angkatan</td>
+                <td class="bg-white text-black">Kelas</td>
+            </tr>
+        </table>
+    </div>
+
+    @else
+
     {{-- View Murid yang belum prakerin --}}
 
     <div class="h-[155px] col-span-3 text-white">
@@ -513,6 +558,7 @@
 
         </table>
     </div>
+    @endif
 
     @endif
 

@@ -132,6 +132,7 @@
                         </form>
                     </div>
                     <div class="flex-warp">
+                        @if (Auth::user()->level_user == 3 || Auth::user()->level_user == 2)
                         <form action="terimapengajuan/{{$edit->id_pengajuan}}" method="POST">
                             @csrf
                             <input type="text" name="id_pengajuan" class="hidden" value="{{$edit->id_pengajuan}}">
@@ -145,14 +146,22 @@
                             <input type="text" name="status_pengajuan" class="hidden" value="5">
                             @break
 
-                            @case (1)
-                            <input type="text" name="status_pengajuan" class="hidden" value="7">
-                            @break
-
                             @endswitch
                             <button type="submit"
                                 class="cursor-pointer rounded-lg px-5 py-2 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block bg-[#06283D]">Terima</button>
                         </form>
+                        @else
+                        <form action="/suratpengajuan/detail/pengesahan/{id_pengajuan}" method="POST">
+                            @csrf
+                            <input type="text" name="id_pengajuan" class="hidden" value="{{$edit->id_pengajuan}}">
+                            <input type="text" name="nis" class="hidden" value="{{$edit->nis}}">
+                            <input type="text" name="id_kaprog" class="hidden" value="{{$edit->id_kaprog}}">
+                            <input type="text" name="id_perusahaan" class="hidden" value="{{$edit->id_perusahaan}}">
+                            <input type="text" name="status_pengajuan" class="hidden" value="7">
+                            <button type="submit"
+                                class="cursor-pointer rounded-lg px-5 py-2 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block bg-[#06283D]">Terima</button>
+                        </form>
+                        @endif
                     </div>
                 </div>
             </label>

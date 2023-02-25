@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Monitoring;
 use App\Models\Prakerin;
-use App\Models\Presensisiswa;
 use App\Models\Viewprakerin;
 use Illuminate\Support\Facades\Request;
 
@@ -49,5 +47,14 @@ class PrakerinController extends Controller
         return view('prakerin.detail', [
             'edit' => $detail
         ]);
+    }
+
+    public function hapusprakerin($id_prakerin)
+    {
+        $hapus = Prakerin::where('id_prakerin', '=', $id_prakerin)->delete();
+
+        if($hapus){
+            return redirect('/dataprakerin');
+        }
     }
 }
