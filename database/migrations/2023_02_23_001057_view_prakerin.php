@@ -21,7 +21,7 @@ return new class extends Migration
         SELECT 
             prakerin.id_prakerin, 
             prakerin.nis, 
-            siswa.nama_siswa, 
+            view_list_siswa.nama_siswa, 
             prakerin.nik_pp, 
             pembimbing_perusahaan.nama_pp, 
             prakerin.id_ps, 
@@ -30,6 +30,7 @@ return new class extends Migration
             view_list_kaprog.nama_kaprog, 
             prakerin.id_perusahaan,
             view_list_perusahaan.nama_perusahaan,
+            view_list_siswa.tahun,
             prakerin.status
 
         FROM prakerin
@@ -38,7 +39,7 @@ return new class extends Migration
         LEFT JOIN pembimbing_perusahaan ON prakerin.nik_pp = pembimbing_perusahaan.nik_pp
         LEFT JOIN view_list_kaprog ON prakerin.id_kaprog = view_list_kaprog.id_kaprog
         LEFT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
-        LEFT JOIN siswa ON prakerin.nis = siswa.nis;
+        LEFT JOIN view_list_siswa ON prakerin.nis = view_list_siswa.nis;
         
         ");
     }

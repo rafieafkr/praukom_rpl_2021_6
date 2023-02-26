@@ -101,7 +101,11 @@ Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);
 
 /*----------------------------- Route Modul Kompetensi -------------------------------*/
 
-Route::get('/kompetensi', [KompetensiController::class, 'index']);
+Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
+  Route::get('/kompetensi', [KompetensiController::class, 'index'])->middleware('auth');
+  Route::post('/kompetensi/tambah', [KompetensiController::class, 'tambahkompetensi'])->middleware('auth');
+  Route::get('/kompetensi/hapus/{id_kompetensi}', [KompetensiController::class, 'hapuskompetensi'])->middleware('auth');
+});
 
 /*----------------------------------------------------------------------------------------*/
 

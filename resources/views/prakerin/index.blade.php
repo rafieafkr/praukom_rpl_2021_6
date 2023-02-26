@@ -50,7 +50,7 @@
             <td class="bg-white text-black">{{$p->nis}}</td>
             <td class="bg-white text-black">{{$p->nama_siswa}}</td>
             <td class="bg-white text-black">{{$p->nama_perusahaan}}</td>
-            <td class="bg-white text-black">2022</td>
+            <td class="bg-white text-black">{{$p->tahun}}</td>
             <td class="bg-white text-black">
 
                 @switch($p->status)
@@ -81,12 +81,14 @@
                                 class="rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
                                 <x-heroicon-m-eye class="w-[1.5em]" />
                             </button></a>
+                        @if (Auth::user()->level_user == 5)
                         <form action="/dataprakerin/keluarkan_siswa/{{$p->id_prakerin}}" method="post">
                             @csrf
                             <button class="btn btn-error mt-2" type="submit">
                                 Keluarkan
                             </button>
                         </form>
+                        @endif
                     </div>
                     @if (Auth::user()->level_user == 1)
                     <a href="#delete-prakerin/{{ $p->id_prakerin }}"

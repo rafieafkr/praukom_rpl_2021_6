@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kompetensi;
-use App\Http\Requests\StoreKompetensiRequest;
+use Exception;
 use App\Http\Requests\UpdateKompetensiRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class KompetensiController extends Controller
 {
@@ -16,8 +18,10 @@ class KompetensiController extends Controller
     public function index()
     {
         //
+        $ambilJurusan = (Auth::user()->guru->kepalaprogram->jurusan->id_jurusan);
         return view('kompetensi.index', [
-            
+            'ambilJurusan' => $ambilJurusan,
+            'kompetensi' => Kompetensi::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
         ]);
     }
 
@@ -31,24 +35,25 @@ class KompetensiController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreKompetensiRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreKompetensiRequest $request)
+
+    public function tambahkompetensi(Request $request)
     {
         //
-        $request->validate([
-            'addMoreInputFields.*.nama_kompetensi' => 'required'
-        ]);
-     
-        foreach ($request->addMoreInputFields as $key => $value) {
-            Kompetensi::create($value);
+        try{
+            $tambahKompetensi = $request->validate([
+                'addmore.*.id_jurusan' => 'required',
+                'addmore.*.nama_kompetensi' => 'required'
+            ]);
+        
+            // dd($tambahKompetensi);
+    
+            foreach ($request->addmore as $key => $value) {
+                Kompetensi::create($value);
+            }
+        } catch (Exception $err){ 
+            return back()->with('alert', 'Kompetensi gagal ditambahkan');
         }
-     
-        return back()->with('success', 'New subject has been added.');
+        return back()->with('success', 'Kompetensi berhasil ditambahkan');
     }
 
     /**
@@ -85,14 +90,12 @@ class KompetensiController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kompetensi  $kompetensi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Kompetensi $kompetensi)
+    public function hapuskompetensi($id_kompetensi)
     {
-        //
+        $hapus = Kompetensi::where('id_kompetensi', '=', $id_kompetensi)->delete();
+
+        if($hapus){
+            return redirect('/kompetensi')->withAlert('Kompetensi berhasil dihapus');
+        }
     }
 }
