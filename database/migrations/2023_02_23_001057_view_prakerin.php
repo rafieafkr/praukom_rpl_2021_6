@@ -21,7 +21,7 @@ return new class extends Migration
         SELECT 
             prakerin.id_prakerin, 
             prakerin.nis, 
-            siswa.nama_siswa, 
+            view_list_siswa.nama_siswa, 
             prakerin.nik_pp, 
             pembimbing_perusahaan.nama_pp, 
             prakerin.id_ps, 
@@ -29,15 +29,17 @@ return new class extends Migration
             prakerin.id_kaprog,
             view_list_kaprog.nama_kaprog, 
             prakerin.id_perusahaan,
-            view_list_perusahaan.nama_perusahaan 
+            view_list_perusahaan.nama_perusahaan,
+            view_list_siswa.tahun,
+            prakerin.status
 
         FROM prakerin
         
         LEFT JOIN view_list_ps ON prakerin.id_ps = view_list_ps.id_ps
-        INNER JOIN pembimbing_perusahaan ON prakerin.nik_pp = pembimbing_perusahaan.nik_pp
-        INNER JOIN view_list_kaprog ON prakerin.id_kaprog = view_list_kaprog.id_kaprog
-        INNER JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
-        INNER JOIN siswa ON prakerin.nis = siswa.nis;
+        LEFT JOIN pembimbing_perusahaan ON prakerin.nik_pp = pembimbing_perusahaan.nik_pp
+        LEFT JOIN view_list_kaprog ON prakerin.id_kaprog = view_list_kaprog.id_kaprog
+        LEFT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
+        LEFT JOIN view_list_siswa ON prakerin.nis = view_list_siswa.nis;
         
         ");
     }
@@ -50,5 +52,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('view_prakerin');
     }
 };

@@ -22,15 +22,14 @@ return new class extends Migration
         //     COUNT(nis) AS jml_murid, 
         //     view_list_perusahaan.*
 
-        // FROM prakerin
+        //     FROM prakerin
 
-        // RIGHT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
+        //     RIGHT JOIN view_list_perusahaan ON prakerin.id_perusahaan = view_list_perusahaan.id_perusahaan
 
-        // GROUP BY id_perusahaan
+        //     GROUP BY id_perusahaan
 
-        // ORDER BY jml_murid DESC;
-
-        // ");
+        //     ORDER BY jml_murid DESC;
+    //     ");
     }
 
     /**

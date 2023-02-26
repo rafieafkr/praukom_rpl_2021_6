@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Pengajuan;
 use App\Models\ViewLihatPengajuan;
 use Illuminate\Support\Facades\DB;
-use Exception;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Exception;
 
 class PengajuanController extends Controller
 {
@@ -205,6 +205,32 @@ class PengajuanController extends Controller
         'staff_hubins' => $this->staff_hubin
       ]);
     }
+    
+    public function updatehubin(Request $request)
+    {
+        $dataTerima = [
+            'id_pengajuan' => $request->id_pengajuan,
+            'nis' => $request->nis,
+            'id_kaprog' => $request->id_kaprog,
+            'id_perusahaan' => $request->id_perusahaan,
+            'status_pengajuan' => $request->status_pengajuan
+        ];
+        try {
+            // execute procedure
+        Pengajuan::hydrate(DB::select('CALL procedure_tambah_prakerin(?, ?, ?, ?, ?)', [
+            $dataTerima['id_pengajuan'],
+            $dataTerima['nis'],
+            $dataTerima['id_kaprog'],
+            $dataTerima['id_perusahaan'],
+            $dataTerima['status_pengajuan']
+          ]));
+        } catch(Exception) {
+            // reload page apabila gagal buat akun
+            return back()->withErrors('Pengajuan gagal disahkan');
+          }
+        // redirect ke hubin/leveluser apabila sukses buat akun
+        return redirect('/suratpengajuan');
+    }
 
     public function updatetolak(Request $request)
     {
@@ -282,16 +308,5 @@ class PengajuanController extends Controller
       Pengajuan::destroy($pengajuan->id_pengajuan);
       
       return redirect(route('pengajuan.index'))->withSuccess('Pengajuan berhasil dihapus');
-    }
-
-    public function hapussuratpengajuan(Request $request, $id_pengajuan)
-    {
-        $hapus = DB::table('pengajuan')
-                ->where('id_pengajuan', $request->id_pengajuan)
-                ->delete();
-
-        if($hapus){
-            return redirect('/suratpengajuan');
-        }
     }
 }

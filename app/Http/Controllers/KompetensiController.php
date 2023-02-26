@@ -4,115 +4,50 @@ namespace App\Http\Controllers;
 
 use App\Models\Kompetensi;
 use Illuminate\Support\Facades\DB;
+use Exception;
+use App\Http\Requests\UpdateKompetensiRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class KompetensiController extends Controller
 {
-    protected $kompetensi;
-    public function __construct()
-    {
-        $this->kompetensi = new Kompetensi();
-    }
+
     public function index()
     {
-        $dataview = DB::table('view_kompetensi')
-            ->select()
-            ->get();
-
-        $datajurusan = DB::table('view_jurusan_kompetensi')
-            ->select()
-            ->get();
-            // dd($datajurusan);
-        
-        return view('dashboard.modules.kompetensi',[
-                'dataview'=>$dataview,
-                'datajurusan'=>$datajurusan
-              ]);
+        //
+        $ambilJurusan = (Auth::user()->guru->kepalaprogram->jurusan->id_jurusan);
+        return view('kompetensi.index', [
+            'ambilJurusan' => $ambilJurusan,
+            'kompetensi' => Kompetensi::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
+        ]);
     }
+
+    public function tambahkompetensi(Request $request)
+    {
+        //
+        try{
+            $tambahKompetensi = $request->validate([
+                'addmore.*.id_jurusan' => 'required',
+                'addmore.*.nama_kompetensi' => 'required'
+            ]);
+        
+            // dd($tambahKompetensi);
     
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePenilaianRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function simpan(Request $request)
-    {
-        // dd($request);
-        //insert tabel nilai
-          Kompetensi::create([
-            "nama_kompetensi" => $request->nama_kompetensi,
-            "id_jurusan" => $request->id_jurusan,
-          ]);
-          return redirect('kompetensi');
-
-        
+            foreach ($request->addmore as $key => $value) {
+                Kompetensi::create($value);
+            }
+        } catch (Exception $err){ 
+            return back()->with('alert', 'Kompetensi gagal ditambahkan');
+        }
+        return back()->with('success', 'Kompetensi berhasil ditambahkan');
     }
 
-    public function hapus($id_kompetensi)
+    public function hapuskompetensi($id_kompetensi)
     {
-        
-        $hapus = DB::table('kompetensi')
-                        ->where('id_kompetensi',$id_kompetensi)
-                        ->delete();
-      
+        $hapus = Kompetensi::where('id_kompetensi', '=', $id_kompetensi)->delete();
+
         if($hapus){
-            return back();
+            return redirect('/kompetensi')->withAlert('Kompetensi berhasil dihapus');
         }
     }
-
-    public function cari(Request $request)
-	{
-        $dataview = DB::table('view_kompetensi')
-        ->select()
-        ->get();
-
-        $datajurusan = DB::table('jurusan')
-        ->select()
-        ->get();
-
-		$cari = $request->cari;
- 
-    		// mengambil data dari table pegawai sesuai pencarian data
-		$dataview = DB::table('view_kompetensi')
-		->where('nama_kompetensi','like',"%".$cari."%")
-        ->orWhere('nama_jurusan','like',"%".$cari."%")
-		->paginate();
- 
-    		// mengirim data pegawai ke view index
-		return view('dashboard.modules.kompetensi',['dataview' => $dataview,
-                                                    'datajurusan' => $datajurusan
-                                                    ]);
- 
-	}
-  
-       //UPDATE 
-   public function edit($id)
-   {
-
-       $datakompetensi = DB::table('view_kompetensi')
-                    ->where('id_kompetensi', $id)
-                    ->select()
-                    ->get();
-                    // dd($datajurusan);
-
-       return view('dashboard.modules.editkompetensi', ['datakompetensi' => $datakompetensi]);
-   }
-   public function update(Request $request)
-    {
-        // dd($request);
-      
-        DB::table('kompetensi')
-            ->where('id_kompetensi','=', $request->id_kompetensi)
-
-        ->update([
-        
-            'nama_kompetensi' => $request->nama_kompetensi
-        ]);
-
-        return redirect('kompetensi');
-           
-    } 
-
 }

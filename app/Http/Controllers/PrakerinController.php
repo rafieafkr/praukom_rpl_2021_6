@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Monitoring;
 use App\Models\Prakerin;
-use App\Models\Presensisiswa;
 use App\Models\Viewprakerin;
 use Illuminate\Support\Facades\Request;
 
@@ -50,4 +48,28 @@ class PrakerinController extends Controller
             'edit' => $detail
         ]);
     }
+
+    public function hapusprakerin($id_prakerin)
+    {
+        $hapus = Prakerin::where('id_prakerin', '=', $id_prakerin)->delete();
+
+        if($hapus){
+            return redirect('/dataprakerin');
+        }
+    }
+    
+    public function pecatSiswa(Prakerin $prakerin)
+    {
+        try {
+            DB::select('CALL procedure_pecat_siswa_pkl (?,?)', [
+                $prakerin->id_prakerin,
+                $prakerin->nis
+            ]);
+        } catch (\Exception $th) {
+            return redirect('/dataprakerin')->withErrors('Siswa telah dikeluarkan');          
+        }
+        
+        return redirect('/dataprakerin')->withSuccess('Siswa telah dikeluarkan');          
+    }
+
 }

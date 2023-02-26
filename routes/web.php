@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StaffhubinController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MonitoringController;
@@ -11,7 +11,6 @@ use App\Http\Controllers\PrakerinController;
 use App\Http\Controllers\KepalaprogramController;
 use App\Http\Controllers\PresensisiswaController;
 use App\Http\Controllers\JurusanController;
-use App\Http\Controllers\KompetensiController;
 use App\Http\Controllers\PenilaianController;
 
 /*
@@ -84,8 +83,8 @@ Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kel
   Route::post('/suratpengajuan/detail/tolakpengajuan/{id_pengajuan}', [PengajuanController::class, 'updatetolak'])->middleware('auth');
 });
 
-Route::group(['middleware' => ['auth','level:Siswa']], function() {
-  Route::post('/suratpengajuan/hapus/{id_pengajuan}', [PengajuanController::class, 'hapussuratpengajuan'])->middleware('auth');
+Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
+  Route::post('/suratpengajuan/detail/pengesahan/{id_pengajuan}', [PengajuanController::class, 'updatehubin'])->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth','level:Siswa']], function() {
@@ -106,11 +105,30 @@ Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);
 
 
 
+/*----------------------------- Route Modul Kompetensi -------------------------------*/
+
+Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
+  Route::get('/kompetensi', [KompetensiController::class, 'index'])->middleware('auth');
+  Route::post('/kompetensi/tambah', [KompetensiController::class, 'tambahkompetensi'])->middleware('auth');
+  Route::get('/kompetensi/hapus/{id_kompetensi}', [KompetensiController::class, 'hapuskompetensi'])->middleware('auth');
+});
+
+/*----------------------------------------------------------------------------------------*/
+
+
+
 /*------------------------------- Route Modul Data Prakerin ------------------------------*/
 
-Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin']);
-Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin']);
-Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin']);
+Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas']], function() {
+  Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin'])->middleware('auth');
+  Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin'])->middleware('auth');
+  Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin'])->middleware('auth');
+  Route::post('/dataprakerin/keluarkan_siswa/{prakerin}', [PrakerinController::class, 'pecatSiswa'])->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
+  Route::get('/dataprakerin/hapus/{id_prakerin}', [PrakerinController::class, 'hapusprakerin'])->middleware('auth');
+});
 
 /*----------------------------------------------------------------------------------------*/
 
