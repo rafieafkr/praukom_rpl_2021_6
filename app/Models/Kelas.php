@@ -28,4 +28,9 @@ class Kelas extends Model
     {
         return $this->hasOne(Siswa::class, 'id_kelas', 'id_kelas');
     }
+
+    public function walikelas()
+    {
+        return $this->hasOne(Walikelas::class, 'id_walas', 'id_walas');
+    }
 }

@@ -9,7 +9,7 @@
     Tambah
   </label>
 
-  <a href="/hubin"
+  <a href="{{ route('dashboard.index') }}"
     class="cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
     Kembali
   </a>
@@ -186,17 +186,17 @@
     let identitas;
 
     levelUser.addEventListener("change", () => {
-        if (levelUser.value < 5) {
-            nama = "nama";
-            identitas = ["NIP", "identitas"];
-        } else if (levelUser.value == 5) {
-            nama = "nama";
-            identitas = ["NIK", "identitas"];
-        } else if (levelUser.value == 6) {
-            nama = "nama";
-            identitas = ["NIS", "identitas"];
-        }
-        inputkhusus.innerHTML = `
+      if (levelUser.value < 5) {
+        nama = "nama";
+        identitas = ["NIP", "identitas"];
+      } else if (levelUser.value == 5) {
+        nama = "nama";
+        identitas = ["NIK", "identitas"];
+      } else if (levelUser.value == 6) {
+        nama = "nama";
+        identitas = ["NIS", "identitas"];
+      }
+      inputkhusus.innerHTML = `
           <div id="inputKhusus" class="w-[512px]">
           <label>
             Nama Lengkap

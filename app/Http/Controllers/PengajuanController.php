@@ -107,6 +107,11 @@ class PengajuanController extends Controller
           "bukti_terima" => ['image', 'file', 'max:1024']
         ]);
 
+        // cek apakah nis sama dengan yang di profil
+        if ($validated['nis'] != Auth::user()->siswa->nis) {
+          return back()->withErrors('NIS tidak sesuai');
+        }
+
         // upload file ke storage
         if($request->file('bukti_terima')) {
           $validated['bukti_terima'] = $request->file('bukti_terima')->store('bukti_terima');
@@ -135,30 +140,31 @@ class PengajuanController extends Controller
       // redirect ke siswa/pengajuan apabila sukses kirim pengajuan
       return redirect(route('pengajuan.index'))->withSuccess('Pengajuan berhasil dikirim');
     }
+
     public function carisuratpengajuan(Request $request)
-	{
-		$caripengajuan = Pengajuan::where('nis','like',"%".request('show')."%")
-        ->get();
+    {
+      $caripengajuan = Pengajuan::where('nis','like',"%".request('show')."%")
+          ->get();
 
-        // dd($caripengajuan);
-        if (Auth::user()->level_user == 1):
-            return view('suratpengajuan.index', [
-                'sp3' =>  $caripengajuan
-            ]);
-        endif;
+          // dd($caripengajuan);
+          if (Auth::user()->level_user == 1):
+              return view('suratpengajuan.index', [
+                  'sp3' =>  $caripengajuan
+              ]);
+          endif;
 
-        if (Auth::user()->level_user == 2):
-            return view('suratpengajuan.index', [
-                'sp' =>  $caripengajuan
-            ]);
-        endif;
-        
-        if (Auth::user()->level_user == 3):
-            return view('suratpengajuan.index', [
-                'sp2' =>  $caripengajuan
-            ]);
-        endif;
-	}
+          if (Auth::user()->level_user == 2):
+              return view('suratpengajuan.index', [
+                  'sp' =>  $caripengajuan
+              ]);
+          endif;
+          
+          if (Auth::user()->level_user == 3):
+              return view('suratpengajuan.index', [
+                  'sp2' =>  $caripengajuan
+              ]);
+          endif;
+    }
 
     public function detailsuratpengajuan($id_pengajuan)
     {   

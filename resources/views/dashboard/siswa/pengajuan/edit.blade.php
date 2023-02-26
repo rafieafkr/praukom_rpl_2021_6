@@ -154,13 +154,11 @@
         <input id="input-img" type="file" name="bukti_terima" class="file-input-bordered file-input mt-2 w-full"
           onchange="showImg()" />
       </label>
-      @if ($pengajuan[0]->bukti_terima)
-        <div id="div-bukti-terima">
-          <br>
-          <img id="bukti-terima" class="w-2/3" src="{{ asset('storage/' . $pengajuan[0]->bukti_terima) }}"
-            alt="bukti-terima">
-        </div>
-      @endif
+      <div id="div-bukti-terima" style="display: none;">
+        <br>
+        <img id="bukti-terima" class="w-2/3" src="{{ asset('storage/' . $pengajuan[0]->bukti_terima) }}"
+          alt="bukti-terima">
+      </div>
       <br><br>
       <a href="{{ route('pengajuan.index') }}"
         class="mr-2 cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:hidden">
@@ -188,6 +186,7 @@
 
         fReader.readAsDataURL(file)
         fReader.onload = (fReaderEvent) => {
+          divImg.style.display = 'inline-block'
           img.src = fReaderEvent.target.result
         }
       } else {

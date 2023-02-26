@@ -26,7 +26,7 @@ return new class extends Migration
             $table->engine = 'innodb';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->integer('id')->autoIncrement();
+            $table->char('id', 10)->primary();
             $table->tinyInteger('level_user')->length(3)->nullable(false)->default(6);
             $table->string('email',60)->nullable(true);
             $table->string('password',255)->nullable(false);

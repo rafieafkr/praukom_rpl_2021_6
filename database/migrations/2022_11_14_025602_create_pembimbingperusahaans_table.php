@@ -24,7 +24,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->string('nik_pp')->length(20)->nullable(false)->primary();
-            $table->integer('id_akun')->nullable(false);
+            $table->char('id_akun', 10)->nullable(false);
             $table->string('nama_pp')->length(60)->nullable(false);
             $table->string('foto_pp')->length(255)->nullable();
 

@@ -180,7 +180,7 @@
             <p class="text-lg font-semibold uppercase tracking-widest text-[#1e586c]">Level User</p>
           </div>
           <div>
-            <a href="#">
+            <a href="{{ route('leveluser.index') }}">
               <button
                 class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-400">Lihat</button>
             </a>
@@ -219,42 +219,42 @@
     {{-- Wali Kelas --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-            {{-- div 1 --}}
-            <div class="flex w-1/2 flex-col justify-between">
-                <div>
-                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
-                </div>
-                <div>
-                    <a href="#">
-                        <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                    </a>
-                </div>
-            </div>
-            {{-- div 2 --}}
-            <div>
-                <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-            </div>
-        </div> -->
+              {{-- div 1 --}}
+              <div class="flex w-1/2 flex-col justify-between">
+                  <div>
+                      <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
+                  </div>
+                  <div>
+                      <a href="#">
+                          <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                      </a>
+                  </div>
+              </div>
+              {{-- div 2 --}}
+              <div>
+                  <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+              </div>
+          </div> -->
 
     {{-- Kepala Program --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-            {{-- div 1 --}}
-            <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
-                <div>
-                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
-                </div>
-                <div>
-                    <a href="#">
-                        <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                    </a>
-                </div>
-            </div>
-            {{-- div 2 --}}
-            <div>
-                <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-            </div>
-        </div> -->
+              {{-- div 1 --}}
+              <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
+                  <div>
+                      <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
+                  </div>
+                  <div>
+                      <a href="#">
+                          <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                      </a>
+                  </div>
+              </div>
+              {{-- div 2 --}}
+              <div>
+                  <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+              </div>
+          </div> -->
 
     @if (Auth::user()->level_user == 3 ||
             Auth::user()->level_user == 4 ||

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->string('nis')->primary()->length(15)->nullable(false);
-            $table->integer('id_akun')->nullable(false);
+            $table->char('id_akun', 10)->nullable(false);
             $table->tinyInteger('jurusan')->length(4)->nullable(true);
             $table->tinyInteger('id_kelas')->length(4)->nullable(true);
             $table->string('nama_siswa')->length(60)->nullable(false);
