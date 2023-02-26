@@ -29,8 +29,8 @@ return new class extends Migration
               SET kode_baru = "USR0000001";
               RETURN kode_baru;
             ELSE
-              SET ambil_angka = SUBSTR(kode_lama, 4,3) + 1;
-              SET get_nol = LPAD(ambil_angka, 5, 0);
+              SET ambil_angka = SUBSTR(kode_lama, 4,7) + 1;
+              SET get_nol = LPAD(ambil_angka, 7, 0);
               SET kode_baru = CONCAT("USR", get_nol);
               RETURN kode_baru;
             END IF;

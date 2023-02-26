@@ -17,9 +17,11 @@ return new class extends Migration
         DB::unprepared('
         CREATE OR REPLACE PROCEDURE procedure_tambah_akun (nLevel_user INT, nEmail VARCHAR(60), nPassword VARCHAR(60), nUsername VARCHAR(60), nNama VARCHAR(60), nIdentitas VARCHAR(20))
           BEGIN
-            DECLARE idakun INT;
+            DECLARE idakun CHAR(10);
             DECLARE idguru INT;
             DECLARE kodeError CHAR;
+
+            SET idakun = function_id_akun();
 
             BEGIN
               GET DIAGNOSTICS CONDITION 1
@@ -28,8 +30,7 @@ return new class extends Migration
 
             START TRANSACTION;
             SAVEPOINT satu;
-            INSERT INTO akun (level_user,email,password,username) VALUES (nLevel_user, nEmail, nPassword, nUsername);
-            SELECT id INTO idakun FROM akun WHERE username=nUsername;
+            INSERT INTO akun (id,level_user,email,password,username) VALUES (idakun, nLevel_user, nEmail, nPassword, nUsername);
 
             IF(nLevel_user=1) THEN
               INSERT INTO guru (id_akun,nip_guru,nama_guru) VALUES (idakun, nIdentitas, nNama);

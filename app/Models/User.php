@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     
     protected $table = 'akun';
+    protected $keyType = 'string';
     // protected $primaryKey = 'id_akun';
 
     protected $fillable = [

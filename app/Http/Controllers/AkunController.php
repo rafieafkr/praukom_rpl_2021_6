@@ -79,7 +79,7 @@ class AkunController extends Controller
           $validated['identitas'],
         ]));
 
-        } catch(Exception) {
+        } catch(\Exception) {
           // reload page apabila gagal buat akun
           return back()->withErrors('Akun gagal dibuat');
         }
@@ -155,14 +155,14 @@ class AkunController extends Controller
         ]);
         try {
         // execute procedure
-        Akun::hydrate(DB::select('CALL procedure_update_akun(?, ?, ?, ?, ?, ?)', [
-          $akun->id,
-          $validated['level_user'],
-          $validated['email'],
-          $validated['username'],
-          $validated['nama'],
-          $validated['identitas'],
-        ]));
+          Akun::hydrate(DB::select('CALL procedure_update_akun(?, ?, ?, ?, ?, ?)', [
+            $akun->id,
+            $validated['level_user'],
+            $validated['email'],
+            $validated['username'],
+            $validated['nama'],
+            $validated['identitas'],
+          ]));
 
         } catch(\Exception) {
           // reload page apabila gagal buat akun
@@ -180,7 +180,12 @@ class AkunController extends Controller
 
     public function destroy(Akun $akun)
     {
-        Akun::destroy($akun->id);
+        try {
+          Akun::destroy($akun->id);
+        } catch (\Throwable $th) {
+          return redirect(route('leveluser.index'))->withErrors('Akun gagal dihapus');
+        }
+
         return back()->withSuccess('Akun berhasil dihapus');
     }
 }
