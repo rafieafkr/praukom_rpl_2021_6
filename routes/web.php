@@ -38,6 +38,10 @@ Route::get('/hack', [LoginController::class, 'hack']);
 
 Route::get('/dashboard', [MainController::class, 'index']);
 Route::post('/dashboard/gantifoto/{id}', [MainController::class, 'uploadfoto']);
+Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
+  Route::post('/dashboard/pilihjurusan', [MainController::class, 'pilihjurusan'])->middleware('auth');
+  Route::put('/dashboard/lepasjurusan', [MainController::class, 'lepasjurusan'])->middleware('auth');
+});
 
 /*----------------------------------------------------------------------------------------*/
 
@@ -113,15 +117,18 @@ Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
 
 /*------------------------------- Route Modul Data Prakerin ------------------------------*/
 
-Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas']], function() {
+Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas,Pembimbing Perusahaan']], function() {
   Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin'])->middleware('auth');
   Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin'])->middleware('auth');
   Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin'])->middleware('auth');
-  Route::post('/dataprakerin/keluarkan_siswa/{prakerin}', [PrakerinController::class, 'pecatSiswa'])->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
   Route::get('/dataprakerin/hapus/{id_prakerin}', [PrakerinController::class, 'hapusprakerin'])->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth','level:Pembimbing Perusahaan']], function() {
+  Route::post('/dataprakerin/keluarkan_siswa/{prakerin}', [PrakerinController::class, 'pecatSiswa'])->middleware('auth');
 });
 
 /*----------------------------------------------------------------------------------------*/

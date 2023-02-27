@@ -438,7 +438,8 @@
     @if (
     Auth::user()->level_user == 2 ||
     Auth::user()->level_user == 3 ||
-    Auth::user()->level_user == 4
+    Auth::user()->level_user == 4 ||
+    Auth::user()->level_user == 5
     )
 
     {{-- Data Prakerin --}}
@@ -629,8 +630,131 @@
 </div>
 
 @if (
+Auth::user()->level_user == 2
+)
+
+{{-- pop up profile --}}
+<input id="my-modal-3" type="checkbox" class="modal-toggle" />
+<div class="modal">
+    <div class="w-[60em] rounded-2xl bg-transparent">
+        <div class="card card-side m-auto w-[24em] bg-base-100 shadow-xl md:w-[40em]">
+            <label for="my-modal-3"
+                class="btn-sm btn-circle btn absolute right-2 top-2 border border-[#000000] bg-[#eb2424] hover:bg-red-500">✕</label>
+            <div class="w-[15em] rounded-l-2xl bg-[#d9d9d9] pb-3">
+                <div class="ml-3 mb-3 w-full text-xl font-normal uppercase text-[#173A6F]">
+                    <p>Profile</p>
+                </div>
+                <div class="flex space-x-2">
+                    <label tabindex="0" class="avatar m-auto mt-[0.3em]">
+                        <div class="w-[10em] rounded-full">
+                            @if (Auth::user()->foto)
+                            <img src="{{ asset('storage/' . Auth::user()->foto) }}" />
+                            @else
+                            <img src="{{ asset('foto_profile/profile.jpg') }}" />
+                            @endif
+                        </div>
+                    </label>
+                </div>
+                <div class="m-auto mt-5 w-fit text-center h-[3em]">
+                    <form action="/dashboard/gantifoto/{id}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="text" class="hidden" value="{{Auth::user()->id}}" />
+                        <input type="file" name="foto" id="foto" accept="image/*"
+                            class="text-center m-auto file-input file-input-bordered file-input-xs w-3/4 max-w-xs" />
+                        <button type="submit" class="rounded-md bg-[#ffffff] w-fit px-2 py-1 text-[#4C77A9] mt-2">Simpan
+                            Foto
+                        </button>
+                    </form>
+                    @if (Session::has('errors'))
+                    <p class="text-red-500 w-full text-center">{{ Session::get('errors') }}</p>
+                    @endif
+                </div>
+            </div>
+            <div class="card-body w-[20em] pb-3">
+                @auth
+                <div class="m-auto mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NAMA</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->guru->nama_guru }}</span>
+                </div>
+                @endauth
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">NIP</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->guru->nip_guru }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">LEVEL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->leveluser->nama_level }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">JURUSAN</label>
+                    <br>
+                    @auth
+                    @if (!isset(Auth::user()->guru->kepalaprogram->jurusan->nama_jurusan))
+                    <form action="/dashboard/pilihjurusan" method="POST">
+                        @csrf
+                        <input type="text" hidden name="id_kaprog"
+                            value="{{ Auth::user()->guru->kepalaprogram->id_kaprog }}">
+                        <select name="jurusan" id="">
+                            <option value="">Pilih Jurusan</option>
+                            @foreach ($jurusan as $key)
+                            <option value="{{ $key->id_jurusan }}">{{$key->nama_jurusan}}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="rounded-md bg-[#ffffff] w-fit px-2 py-1 text-[#4C77A9]">Simpan
+                        </button>
+                    </form>
+                    @else
+                    <div class="flex">
+                        <div class="flex-warp mr-2">
+                            <span
+                                class="text-center text-lg">{{ Auth::user()->guru->kepalaprogram->jurusan->nama_jurusan }}</span>
+                        </div>
+                        <div class="flex-warp">
+                            <form action="/dashboard/lepasjurusan" method="post">
+                                @method('PUT')
+                                @csrf
+                                <input type="text" name="id_kaprog" hidden
+                                    value="{{ Auth::user()->guru->kepalaprogram->id_kaprog }}">
+                                <input type="text" name="jurusan_ada" hidden
+                                    value="{{ Auth::user()->guru->kepalaprogram->jurusan->id_jurusan }}">
+                                <button
+                                    class="rounded-lg px-1 py-1 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black"
+                                    type="submit">Lepas
+                                    Jurusan</button>
+                            </form>
+                        </div>
+                    </div>
+                    @endif
+                    @endauth
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">E-MAIL</label>
+                    <br>
+                    <span class="text-center text-lg">{{ Auth::user()->email }}</span>
+                </div>
+                <div class="mb-4 h-min w-full">
+                    <label class="text-md font-normal" for="">KONTAK</label>
+                    <br>
+                    @auth
+                    @if (!isset(Auth::user()->guru->kontak_guru->kontak))
+                    <span class="text-center text-lg">-</span>
+                    @else
+                    <span class="text-center text-lg">{{ Auth::user()->guru->kontak_guru->kontak }}</span>
+                    @endif
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endif
+
+@if (
 Auth::user()->level_user == 1 ||
-Auth::user()->level_user == 2 ||
 Auth::user()->level_user == 3 ||
 Auth::user()->level_user == 4
 )

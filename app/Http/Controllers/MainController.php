@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,11 +43,13 @@ class MainController extends Controller
             if (Auth::user()->guru->kepalaprogram->jurusan == null) 
             {
                 return view('dashboard.index', [
-                    'level_user' => $this->levelUser
+                    'level_user' => $this->levelUser,
+                    'jurusan' => Jurusan::all()->whereNull('kepala_jurusan')
                 ]);
             } else {
                 return view('dashboard.index', [
                     'level_user' => $this->levelUser,
+                    'jurusanfull' => Jurusan::all(),
                     'view_kaprog_siswa' => Viewbelumprakerin::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)]);
             }
         endif;
@@ -108,6 +111,38 @@ class MainController extends Controller
             return redirect('/dashboard');
         } else {
             return redirect('/dashboard')->withErrors('Maaf, foto tidak bisa diubah');
+        }
+    }
+
+    public function pilihjurusan(Request $request)
+    {
+        
+        $dataJurusan = DB::table('jurusan')
+        -> where('id_jurusan','=', $request->jurusan)
+        -> update([
+            'kepala_jurusan' => $request->id_kaprog
+        ]);
+        // dd($dataJurusan);
+        if ($dataJurusan) {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/dashboard')->withErrors('Maaf, jurusan tidak bisa diubah');
+        }
+    }
+
+    public function lepasjurusan(Request $request)
+    {
+        
+        $lepasJurusan = DB::table('jurusan')
+        -> where('id_jurusan','=', $request->jurusan_ada)
+        -> update([
+            'kepala_jurusan' => null
+        ]);
+        // ddd($lepasJurusan);
+        if ($lepasJurusan) {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/dashboard')->withErrors('Maaf, jurusan tidak bisa diubah');
         }
     }
 }

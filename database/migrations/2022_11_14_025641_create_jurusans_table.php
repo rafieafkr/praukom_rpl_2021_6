@@ -24,7 +24,7 @@ return new class extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_jurusan')->length(4)->autoIncrement();
-            $table->tinyInteger('kepala_jurusan')->length(4)->nullable(false);
+            $table->tinyInteger('kepala_jurusan')->length(4)->nullable(true);
             $table->string('nama_jurusan')->length(30)->nullable(false);
             $table->string('akronim')->length(5)->nullable(false);
 

@@ -16,31 +16,31 @@ class Pengajuan extends Model
 
     public function kepalaprogram()
     {
-        return $this->hasMany(Kepalaprogram::class, 'id_kaprog', 'id_kaprog');
+        return $this->hasOne(Kepalaprogram::class, 'id_kaprog', 'id_kaprog');
     }
 
     public function perusahaan()
     {
-        return $this->hasMany(Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
+        return $this->hasOne(Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
     }
 
     public function pembimbingsekolah()
     {
-        return $this->hasMany(Pembimbingsekolah::class, 'id_ps', 'id_ps');
+        return $this->hasOne(Pembimbingsekolah::class, 'id_ps', 'id_ps');
     }
 
     public function siswa()
     {
-        return $this->hasMany(Siswa::class, 'nis', 'nis');
+        return $this->hasOne(Siswa::class, 'nis', 'nis');
     }
 
     public function walikelas()
     {
-        return $this->hasMany(Walikelas::class, 'id_walas', 'id_walas');
+        return $this->hasOne(Walikelas::class, 'id_walas', 'id_walas');
     }
 
     public function staffhubin()
     {
-        return $this->hasMany(Staffhubin::class, 'id_staff', 'id_staff');
+        return $this->hasOne(Staffhubin::class, 'id_staff', 'id_staff');
     }
 }
