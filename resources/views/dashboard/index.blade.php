@@ -144,59 +144,6 @@
 
     @endif
 
-    @if (
-    Auth::user()->level_user == 1 ||
-    Auth::user()->level_user == 6
-    )
-
-    {{-- Nilai sertifikat --}}
-    <div
-        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#47b5ff] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-        {{-- div 1 --}}
-        <div class="flex w-1/2 flex-col justify-between">
-            <div>
-                <p class="text-lg font-semibold uppercase tracking-widest">Nilai Sertifikat</p>
-            </div>
-            <div>
-                <a href="#">
-                    <button
-                        class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
-                </a>
-            </div>
-        </div>
-        {{-- div 2 --}}
-        <div>
-            <x-heroicon-o-clipboard-document-list class="w-[130px] text-[#8bd0ff] md:w-[140px]" />
-        </div>
-    </div>
-
-    @endif
-
-    <!-- @if (Auth::user()->level_user == 1)
-
-        {{-- sertifikat --}}
-        <div
-            class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-            {{-- div 1 --}}
-            <div class="flex w-1/2 flex-col justify-between">
-                <div>
-                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Sertifikat</p>
-                </div>
-                <div>
-                    <a href="#">
-                        <button
-                            class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
-                    </a>
-                </div>
-            </div>
-            {{-- div 2 --}}
-            <div>
-                <x-heroicon-o-document-check class="w-[130px] text-[#abacc9] md:w-[140px]" />
-            </div>
-        </div>
-
-        @endif -->
-
     @if (Auth::user()->level_user == 1)
 
     {{-- level user --}}
@@ -461,6 +408,46 @@
         <div>
             <x-heroicon-s-document-text class="w-[130px] text-[#abacc9] md:w-[140px]" />
         </div>
+    </div>
+
+    @endif
+
+    @if (
+    Auth::user()->level_user == 4
+    )
+
+    {{-- View PS Siswa --}}
+
+    <div class="h-[155px] col-span-4 text-white">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Siswa Yang Dibimbing</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">NIS</td>
+                <td class="bg-white text-black">Nama</td>
+                <td class="bg-white text-black">Kelas</td>
+                <td class="bg-white text-black">Perusahaan</td>
+            </tr>
+
+            <?php $i=1; ?>
+
+            @foreach ($view_ps_siswa as $key)
+            <tr class="text-center">
+                <td class="table-auto bg-white text-black">{{$i++}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nis}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_siswa}}</td>
+                @if ($key->tingkat_kelas == null)
+                <td class="table-auto bg-white text-black">-</td>
+                @else
+                <td class="table-auto bg-white text-black">{{$key->tingkat_kelas}} {{$key->akronim}}
+                    {{$key->nama_kelas}}</td>
+                @endif
+                <td class="table-auto bg-white text-black">{{$key->nama_perusahaan}}</td>
+            </tr>
+            @endforeach
+        </table>
     </div>
 
     @endif

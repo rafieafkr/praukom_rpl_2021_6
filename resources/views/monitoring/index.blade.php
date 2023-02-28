@@ -119,8 +119,8 @@
                         <x-heroicon-o-trash class="w-[1.5em]" />
                     </button></a>
                 <a href="/monitoring/print/{{$monit->id_monitoring}}"><button
-                        class="rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-green-600 active:bg-slate-500 bg-green-500 text-black">
-                        <x-heroicon-o-printer class="w-[1.5em]" />
+                        class="rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-[0A3A58] active:bg-slate-500 bg-[#0A3A58] text-black">
+                        <x-heroicon-o-printer class="w-[1.5em] text-white" />
                     </button></a>
                 <div class="modal" id="delete-monit/{{ $monit->id_monitoring }}">
                     <div class="modal-box bg-white text-black items-center justify-center">
@@ -139,7 +139,7 @@
                         <!-- Button -->
                         <div class="modal-action gird flex justify-center">
                             <a href="#"
-                                class="btn btn-outline btn-[#FF8138] w-[120px]  bg-[#fff] text-[#FF8138] hover:bg-[#FFF] hover:border-[#FF8138] hover:text-[#FF8138]">Batalkan</a>
+                                class="btn btn-outline btn-[#0A3A58] w-[120px]  bg-[#fff] text-[#0A3A58] hover:bg-[#FFF]">Batalkan</a>
                             <a href="/monitoring/hapus/{{$monit->id_monitoring}}"
                                 class="btn bg-[#ED1C24] border-[#ED1C24] w-[120px] text-[#fff] dark:text-[#fff] hover:bg-[#ED1C24] hover:border-[#ED1C24]">Hapus</a>
                         </div>

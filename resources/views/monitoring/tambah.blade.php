@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Monitoring - SIMAK')
+@section('title', 'Tambah Monitoring - SIMAK')
 
 @section('container')
 <div class="flex w-full">

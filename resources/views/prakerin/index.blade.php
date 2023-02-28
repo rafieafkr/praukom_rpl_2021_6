@@ -11,6 +11,14 @@
 </div>
 <div class="overflow-x-auto mx-20 my-10 min-h-screen">
     <div class='w-fit h-[3em] ml-auto mb-3 flex'>
+        <div class="flex-warp">
+            @if (Auth::user()->level_user == 1)
+            <a href="/dataprakerin/print"><button
+                    class="rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-green-600 active:bg-slate-500 bg-[#0A3A58] text-black mt-1.5 mr-1">
+                    <x-heroicon-o-printer class="w-[1.5em] text-white" />
+                </button></a>
+            @endif
+        </div>
         <div class="flex-warp m-auto">
             @if (request('show'))
             <a href="/dataprakerin" class="cursor-pointer">
@@ -81,6 +89,7 @@
                                 class="rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500 text-black">
                                 <x-heroicon-m-eye class="w-[1.5em]" />
                             </button></a>
+
                         @if (Auth::user()->level_user == 5)
                         <form action="/dataprakerin/keluarkan_siswa/{{$p->id_prakerin}}" method="post">
                             @csrf

@@ -135,6 +135,7 @@ Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kel
 
 Route::group(['middleware' => ['auth','level:Staff Hubin']], function() {
   Route::get('/dataprakerin/hapus/{id_prakerin}', [PrakerinController::class, 'hapusprakerin'])->middleware('auth');
+  Route::get('/dataprakerin/print', [PrakerinController::class, 'printprakerin'])->middleware('auth');
 });
 
 Route::group(['middleware' => ['auth','level:Pembimbing Perusahaan']], function() {

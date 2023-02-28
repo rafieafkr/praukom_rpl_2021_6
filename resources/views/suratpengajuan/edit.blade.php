@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Surat Pengajuan - SIMAK')
+@section('title', 'Verifikasi Surat Pengajuan - SIMAK')
 
 @section('container')
 <div class="flex w-full">

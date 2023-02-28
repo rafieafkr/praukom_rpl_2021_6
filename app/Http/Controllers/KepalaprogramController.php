@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Viewlistps;
 use App\Models\Viewprakerin;
+use App\Models\Prakerin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -42,10 +43,7 @@ class KepalaprogramController extends Controller
 
     public function editps($id_prakerin)
     {       
-        $edit =  DB::table('prakerin')
-        ->where('id_prakerin', $id_prakerin)
-        ->select()
-        ->get();
+        $edit =  Prakerin::where('id_prakerin', $id_prakerin)->select()->get();
         
         return view('pilihps.edit', [
             'edit' => $edit,

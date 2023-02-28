@@ -10,6 +10,7 @@ use App\Models\Leveluser;
 use App\Models\Viewbelumprakerin;
 use App\Models\Viewprakerin;
 use App\Models\Viewperusahaanaktif;
+use App\Models\Viewpssiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,7 +63,8 @@ class MainController extends Controller
 
         if (Auth::user()->level_user == 4):
             return view('dashboard.index', [
-                'level_user' => $this->levelUser
+                'level_user' => $this->levelUser,
+                'view_ps_siswa' => Viewpssiswa::all()->where('id_ps','=', Auth::user()->guru->pembimbingsekolah->id_ps)
             ]);
         endif;
 

@@ -13,9 +13,14 @@
         }
     }
 
+    @page {
+        size: auto;
+        margin: 0mm;
+    }
+
     .atas {
         display: flex;
-        margin-top: 7px;
+        margin-top: 2px;
     }
 
     .divhead {
@@ -24,7 +29,7 @@
     }
 
     .foto {
-        margin-top: -10px;
+        margin-top: -2px;
         width: 15%;
     }
 
