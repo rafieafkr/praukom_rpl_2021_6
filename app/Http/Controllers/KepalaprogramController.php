@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prakerin;
-use App\Models\Pengajuan;
 use App\Models\Viewlistps;
 use App\Models\Viewprakerin;
 use Illuminate\Support\Facades\DB;
@@ -11,18 +9,12 @@ use Illuminate\Http\Request;
 
 class KepalaprogramController extends Controller
 {
-    protected $pilihPs;
     protected $pembimbingsekolah;
-    protected $suratpengajuan;
-    protected $ambilViewPs;
     protected $prakerin;
     
     public function __construct()
     {
         $this->pembimbingsekolah = Viewlistps::all();
-        $this->pilihPs = Prakerin::all();
-        $this->ambilViewPs = Viewlistps::all();
-        $this->suratpengajuan = Pengajuan::all();
         $this->prakerin = Viewprakerin::all();
     }
 

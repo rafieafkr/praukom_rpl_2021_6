@@ -34,6 +34,11 @@ class Guru extends Model
         return $this->hasOne(Staffhubin::class, 'id_guru', 'id_guru');
     }
 
+    public function kepalasekolah()
+    {
+        return $this->hasOne(Kepalasekolah::class, 'id_guru', 'id_guru');
+    }
+
     public function akun()
     {
         return $this->belongsTo(User::class, 'id_akun', 'id');

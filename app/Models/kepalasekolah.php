@@ -12,10 +12,15 @@ class Kepalasekolah extends Model
     protected $primaryKey = 'id_kepsek';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nip_guru','nama_kepsek','jabatan'];
+    protected $fillable = ['id_guru','jabatan'];
 
     public function monitoring()
     {
         return $this->belongsTo(Monitoring::class, 'id_kepsek', 'id_kepsek');
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru', 'id_guru');
     }
 }

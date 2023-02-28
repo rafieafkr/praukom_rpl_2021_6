@@ -49,10 +49,20 @@ Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
 
 /*-------------------------------- Route Modul Monitoring --------------------------------*/
 
-Route::get('/monitoring', [MonitoringController::class, 'monitoring']);
-Route::get('/monitoring/edit/{id_monitoring}', [MonitoringController::class, 'editmonitoring']);
-Route::post('/monitoring/update', [MonitoringController::class, 'updatemonitoring']);
-Route::post('/monitoring/hapus', [MonitoringController::class, 'destroymonitoring']);
+Route::group(['middleware' => ['auth','level:Kepala Program,Pembimbing Sekolah']], function() {
+  Route::get('/monitoring', [MonitoringController::class, 'monitoring'])->middleware('auth');
+  Route::get('/monitoring/detail/{id_monitoring}', [MonitoringController::class, 'detailmonitoring'])->middleware('auth');
+});
+
+Route::group(['middleware' => ['auth','level:Pembimbing Sekolah']], function() {
+  Route::get('/monitoring/tambah', [MonitoringController::class, 'tambahmonitoring'])->middleware('auth');
+  Route::post('/monitoring/store', [MonitoringController::class, 'storemonitoring'])->middleware('auth');
+  Route::get('/monitoring/edit/{id_monitoring}', [MonitoringController::class, 'editmonitoring'])->middleware('auth');
+  Route::post('/monitoring/update', [MonitoringController::class, 'updatemonitoring'])->middleware('auth');
+  Route::get('/monitoring/hapus/{id_monitoring}', [MonitoringController::class, 'destroymonitoring'])->middleware('auth');
+  Route::get('/monitoring/print/{id_monitoring}', [MonitoringController::class, 'printmonitoring'])->middleware('auth');
+
+});
 
 /*----------------------------------------------------------------------------------------*/
 
