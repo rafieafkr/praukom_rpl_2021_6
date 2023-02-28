@@ -15,7 +15,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-[#CCE0DD] h-full">
+<body class="bg-[#CCE0DD] h-screen">
 <center>
         <h1 class=" font-extrabold text-[30px] tracking-[.20em] text-[#173A6F] mt-10"> DAFTAR KELAS</h1>
 </center>
@@ -54,12 +54,14 @@
     <!-- The button to open modal -->
     <div class="overflow-x-scroll mx-20">
             <form action="/search_kelas" method="GET">
-                <div class="flex flex-row gap-2">
+                <div class="flex flex-row">
                     <input type="text" name="cari" placeholder="Masukkan kata kunci..." value="" class="input input-bordered inline-block max-w-xs">
-                    <button type="submit" class="btn inline-block"><x-heroicon-m-magnifying-glass class="w-8" /></button>
+                    <button type="submit" class="btn inline-block"><x-heroicon-o-magnifying-glass class="w-[2em]" /></button>
                     @if(request('cari'))
                         <a href="/kelas">
-                            <x-heroicon-o-x-mark class="inline-block w-8" />
+                            <div class="btn btn-error bg-transparent rounded-full border-none hover:bg-transparent">
+                            <x-heroicon-s-x-circle class="w-[3em]" />
+                            </div>
                         </a>
                     @endif
                 </div>
@@ -91,15 +93,19 @@
                     <div class="flex justify-center">
 
 
-                        <a href="/kelas/edit/{{$d->id_kelas}}"><button type="submit"
-                        class="btn btn-info mr-6">EDIT</button></a>
+                        <a href="/kelas/edit/{{$d->id_kelas}}"> 
+                            <button class="rounded-lg px-5 py-2 mr-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-blue-600 active:bg-slate-500 bg-blue-400 text-black">
+                                <x-heroicon-s-pencil-square class="w-[1.5em]" />
+                            </button>
+                        </a>
 
                         <form action="/kelas/hapus/{{$d->id_kelas}}" method="post">
                             @method("delete")
                             @csrf
                             <a>
-                            <button type="submit"
-                            class="btn btn-error mr-6">HAPUS</button></a>
+                            <button class="rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black" type="submit">
+                                <x-heroicon-m-trash class="w-[1.5em]" />
+                            </button>
                         </form>
 
                     </div>
@@ -120,12 +126,14 @@
     <div class="overflow-x-scroll mx-20">
     <form action="/search_angkatan" method="GET">
                 
-                <div class="flex flex-row gap-2">
+                <div class="flex flex-row">
                     <input type="text" name="cari2" placeholder="Masukkan tahun..." value="" class="input input-bordered inline-block max-w-xs">
-                    <button type="submit" class="btn inline-block"><x-heroicon-m-magnifying-glass class="w-8" /></button>
+                    <button type="submit" class="btn inline-block"><x-heroicon-o-magnifying-glass class="w-[2em]" /></button>
                     @if(request('cari2'))
                         <a href="/kelas">
-                            <x-heroicon-o-x-mark class="inline-block w-8" />
+                            <div class="btn btn-error bg-transparent rounded-full border-none hover:bg-transparent">
+                            <x-heroicon-s-x-circle class="w-[3em]" />
+                            </div>
                         </a>
                     @endif
                 </div>
@@ -149,15 +157,20 @@
                     <div class="flex justify-center">
 
 
-                        <a href="/edit/angkatan/{{$d->id_angkatan}}"><button type="submit"
-                        class="btn btn-info mr-6">EDIT</button></a>
+                        <a href="/edit/angkatan/{{$d->id_angkatan}}">
+                             <button class="rounded-lg px-5 py-2 mr-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-blue-600 active:bg-slate-500 bg-blue-400 text-black">
+                                <x-heroicon-s-pencil-square class="w-[1.5em]" />
+                            </button>
+                        </a>
 
                         <form action="/angkatan/hapus/{{$d->id_angkatan}}" method="post">
                             @method("delete")
                             @csrf
                             <a>
-                            <button type="submit"
-                            class="btn btn-error mr-6">HAPUS</button></a>
+                                <button class="rounded-lg px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-slate-500 bg-red-500 text-black" type="submit">
+                                    <x-heroicon-m-trash class="w-[1.5em]" />
+                                </button>
+                            </a>
                         </form>
 
                     </div>
