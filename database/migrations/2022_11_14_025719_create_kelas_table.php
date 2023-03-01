@@ -25,7 +25,7 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->tinyInteger('id_kelas')->length(4)->autoIncrement();
             $table->tinyInteger('id_walas')->length(4)->nullable(false);
-            $table->tinyInteger('id_jurusan')->length(4)->nullable(false);
+            $table->char('jurusan')->length(5)->nullable(false);
             $table->tinyInteger('id_angkatan')->length(4)->nullable(false);
             $table->string('nama_kelas')->length(5)->nullable(false);
             $table->string('tingkat_kelas')->length(5)->nullable(false);

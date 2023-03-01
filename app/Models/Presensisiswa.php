@@ -12,5 +12,5 @@ class Presensisiswa extends Model
     protected $primaryKey = 'id_presensi';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nik_pp','nis','tgl_kehadiran','keterangan','jam_masuk','jam_keluar','kegiatan','status_hadir'];
+    protected $fillable = ['nik_pp','nis','tgl_kehadiran','keterangan','jam_masuk','jam_keluar','kegiatan','foto_selfie','status_hadir'];
 }

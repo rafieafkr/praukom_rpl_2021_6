@@ -15,11 +15,17 @@ class KompetensiController extends Controller
     public function index()
     {
         //
-        $ambilJurusan = (Auth::user()->guru->kepalaprogram->jurusan->id_jurusan);
-        return view('kompetensi.index', [
-            'ambilJurusan' => $ambilJurusan,
-            'kompetensi' => Kompetensi::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
-        ]);
+        if(Auth::user()->guru->kepalaprogram->jurusan == null){
+          return back()->with('error', 'Anda belum memiliki jurusan');
+        } else {
+
+          $ambilJurusan = (Auth::user()->guru->kepalaprogram->jurusan->id_jurusan);
+
+          return view('kompetensi.index', [
+              'ambilJurusan' => $ambilJurusan,
+              'kompetensi' => Kompetensi::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)
+          ]);
+        }
     }
 
     public function tambahkompetensi(Request $request)

@@ -88,13 +88,6 @@ class AkunController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Akun  $Akun
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Akun  $akun

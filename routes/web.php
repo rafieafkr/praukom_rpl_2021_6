@@ -99,7 +99,7 @@ Route::group(['middleware' => ['auth','level:Siswa']], function() {
 
 /*----------------------------- Route Modul Presensi Siswa -------------------------------*/
 
-Route::get('/presensisiswa', [PresensisiswaController::class, 'presensi']);
+Route::get('/presensi-siswasiswa', [PresensisiswaController::class, 'presensi']);
 
 /*----------------------------------------------------------------------------------------*/
 
@@ -148,13 +148,14 @@ Route::get('/search_penilaian_sikap',[PenilaianController::class,'cariTableSikap
 Route::get('/cetak_penilaian/{id}', [PenilaianController::class, 'print']);
 
 //Routes Fitur Presensi Siswa
-Route::get('/presensi', [PresensisiswaController::class, 'index']);
-Route::get('/get-kompetensi', [PresensisiswaController::class, 'getPp'])->name('getPp');
-Route::post('/simpan',[PresensisiswaController::class,'simpan']);
-Route::get('/edit/{id}',[PresensisiswaController::class,'edit']);
-Route::put('/update_presensi',[PresensisiswaController::class,'update']);
+// Route::get('/presensi-siswa', [PresensisiswaController::class, 'index']);
+// Route::post('/presensi-siswa/simpan',[PresensisiswaController::class,'simpan']);
+// Route::get('/presensi-siswa/{presensi}/edit/',[PresensisiswaController::class,'edit']);
+// Route::put('/presensi-siswa/{presensi}',[PresensisiswaController::class,'update']);
+// Route::delete('/presensi-siswa/{presensi}',[PresensisiswaController::class,'hapus']);
+Route::resource('/presensi-siswa', PresensisiswaController::class)->parameter('presensi-siswa', 'presensi');
 Route::get('/search',[PresensisiswaController::class,'cari']);
-Route::get('/cetak_presensi/{id}', [PresensisiswaController::class, 'print']);
+Route::get('/presensi-siswa/{id}/cetak', [PresensisiswaController::class, 'print'])->name('presensi-siswa.print');
 
 //Route Fitur Jurusan
 Route::get('/jurusan', [JurusanController::class, 'index']);
@@ -172,8 +173,8 @@ Route::delete('/hapus_kompetensi/{id}',[KompetensiController::class,'hapus']);
 Route::get('/kompetensi/edit/{id}',[KompetensiController::class,'edit']);
 Route::post('/kompetensi/update',[KompetensiController::class,'update']);
 
-Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun']);
 // Fitur tambah akun
+Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun']);
 
 // Fitur tambah pengajuan
 Route::resource('/pengajuan', PengajuanController::class);

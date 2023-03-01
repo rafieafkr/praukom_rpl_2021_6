@@ -10,3 +10,8 @@
     max-width: -moz-fit-content;
     max-width: fit-content;
 }
+
+@page {
+    size: auto;
+    margin: 0mm;
+}

@@ -29,6 +29,7 @@ return new class extends Migration
             $table->tinyInteger('id_ps')->length(4)->nullable();
             $table->tinyInteger('id_kaprog')->length(4)->nullable(false);
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
+            $table->tinyInteger('status')->length(4)->nullable(true);
 
             $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('nik_pp')->references('nik_pp')->on('pembimbing_perusahaan')->cascadeOnDelete()->cascadeOnUpdate();

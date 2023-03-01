@@ -9,7 +9,7 @@
   @vite('resources/css/app.css')
 </head>
 
-<body>
+<body class="">
   <center>
     <h1 class="mb-5 font-bold">LAPORAN PRESENSI SISWA PRAKERIN</h1>
   </center>

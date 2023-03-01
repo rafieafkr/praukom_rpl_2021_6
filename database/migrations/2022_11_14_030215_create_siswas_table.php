@@ -25,14 +25,12 @@ return new class extends Migration
             $table->collation = 'utf8mb4_general_ci';
             $table->string('nis')->primary()->length(15)->nullable(false);
             $table->char('id_akun', 10)->nullable(false);
-            $table->tinyInteger('jurusan')->length(4)->nullable(true);
             $table->tinyInteger('id_kelas')->length(4)->nullable(true);
             $table->string('nama_siswa')->length(60)->nullable(false);
             $table->string('tempat_lahir')->length(60)->nullable(true);
             $table->date('tanggal_lahir')->nullable(true);
 
             $table->foreign('id_akun')->references('id')->on('akun')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreign('jurusan')->references('id_jurusan')->on('jurusan')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('id_kelas')->references('id_kelas')->on('kelas')->cascadeOnDelete()->cascadeOnUpdate();
         });
     }

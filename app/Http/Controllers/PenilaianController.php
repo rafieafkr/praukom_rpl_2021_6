@@ -110,8 +110,8 @@ class PenilaianController extends Controller
             "inisiatif_kerja" => $request->inisiatif_kerja,
             "perilaku" => $request->perilaku
           ]);
-        } catch (\Exception) {
-          return back()->withErrors('Input nilai gagal.');
+        } catch (\Exception $err) {
+          return $err->getMessage();
         }
         return back()->withSucces('Nilai tersimpan.');
     }

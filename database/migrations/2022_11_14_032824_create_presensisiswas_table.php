@@ -24,15 +24,16 @@ return new class extends Migration
             $table->engine = 'innodb';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->tinyInteger('id_presensi')->length(4)->autoIncrement()->nullable(false);
+            $table->integer('id_presensi')->length(11)->autoIncrement()->nullable(false);
             $table->string('nik_pp')->length(17)->nullable(false);
             $table->string('nis')->length(15)->nullable(false);
             $table->date('tgl_kehadiran')->nullable(false);
             $table->text('keterangan')->nullable();
-            $table->time('jam_masuk')->nullable(false);
-            $table->time('jam_keluar')->nullable(false);
-            $table->text('kegiatan')->nullable(false);
-            $table->string('status_hadir')->length(20)->nullable(false);
+            $table->time('jam_masuk')->nullable();
+            $table->time('jam_keluar')->nullable();
+            $table->text('kegiatan')->nullable();
+            $table->string('status_hadir')->length(20)->default(0)->nullable(false);
+            $table->string('foto_selfie')->length(255)->nullable();
 
             $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('nik_pp')->references('nik_pp')->on('pembimbing_perusahaan')->cascadeOnDelete()->cascadeOnUpdate();
