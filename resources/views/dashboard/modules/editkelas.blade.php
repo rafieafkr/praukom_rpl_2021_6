@@ -38,7 +38,7 @@
     </div>
     <!-- Form Surat Pengajuan  -->
     <div class="ml-5">
-        <a href="/penilaian"><button class="btn">Kembali</button></a>
+        <a href="/kelas"><button class="btn">Kembali</button></a>
     </div>
 
     <div class="container px-5 mt-10 bg-white pb-5 overflow-auto w-full mx-auto">
