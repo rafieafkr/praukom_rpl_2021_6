@@ -15,34 +15,21 @@ return new class extends Migration
     public function up()
     {
         DB::unprepared("
-
             CREATE OR REPLACE PROCEDURE procedure_pecat_siswa_pkl (nidPrakerin CHAR(4), nNis VARCHAR(15))
             BEGIN 
-
             DECLARE kodeError CHAR;
-
             BEGIN
-
-            GET DIAGNOSTICS CONDITION 1
-            
+            GET DIAGNOSTICS CONDITION 1 
             kodeError = RETURNED_SQLSTATE;
-
             END;
-
           START TRANSACTION;
-
           SAVEPOINT satu;
-
             UPDATE prakerin SET status = 2
             WHERE id_prakerin = nidPrakerin;
-
             DELETE FROM penilaian 
             WHERE nis = nNis;
-
             IF kodeError != '00000' THEN ROLLBACK TO satu;
-
             END IF;
-            
             COMMIT;
           END;
 

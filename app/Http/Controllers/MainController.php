@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,7 @@ use App\Models\Leveluser;
 use App\Models\Viewbelumprakerin;
 use App\Models\Viewprakerin;
 use App\Models\Viewperusahaanaktif;
+use App\Models\Viewpssiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -42,24 +44,31 @@ class MainController extends Controller
             if (Auth::user()->guru->kepalaprogram->jurusan == null) 
             {
                 return view('dashboard.index', [
-                    'level_user' => $this->levelUser
+                    'level_user' => $this->levelUser,
+                    'jurusan' => Jurusan::all()->whereNull('kepala_jurusan')
                 ]);
             } else {
                 return view('dashboard.index', [
                     'level_user' => $this->levelUser,
-                    'view_kaprog_siswa' => Viewbelumprakerin::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)]);
+                    'jurusanfull' => Jurusan::all(),
+                    'view_kaprog_siswa' => Viewbelumprakerin::all()->where('id_jurusan', '=', Auth::user()->guru->kepalaprogram->jurusan->id_jurusan)->paginate(5)
+                ]);
             }
         endif;
         
         if (Auth::user()->level_user == 3):
             return view('dashboard.index', [
-                'level_user' => $this->levelUser
+                'level_user' => $this->levelUser,
+                'view_walas_siswa' => Viewbelumprakerin::where('nama_walas','=', Auth::user()->guru->nama_guru)
+                ->orderBy('id_prakerin', 'desc')
+                ->paginate(5)
             ]);
         endif;
 
         if (Auth::user()->level_user == 4):
             return view('dashboard.index', [
-                'level_user' => $this->levelUser
+                'level_user' => $this->levelUser,
+                'view_ps_siswa' => Viewpssiswa::all()->where('id_ps','=', Auth::user()->guru->pembimbingsekolah->id_ps)->paginate(5)
             ]);
         endif;
 
@@ -108,6 +117,38 @@ class MainController extends Controller
             return redirect('/dashboard');
         } else {
             return redirect('/dashboard')->withErrors('Maaf, foto tidak bisa diubah');
+        }
+    }
+
+    public function pilihjurusan(Request $request)
+    {
+        
+        $dataJurusan = DB::table('jurusan')
+        -> where('id_jurusan','=', $request->jurusan)
+        -> update([
+            'kepala_jurusan' => $request->id_kaprog
+        ]);
+        // dd($dataJurusan);
+        if ($dataJurusan) {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/dashboard')->withErrors('Maaf, jurusan tidak bisa diubah');
+        }
+    }
+
+    public function lepasjurusan(Request $request)
+    {
+        
+        $lepasJurusan = DB::table('jurusan')
+        -> where('id_jurusan','=', $request->jurusan_ada)
+        -> update([
+            'kepala_jurusan' => null
+        ]);
+        // ddd($lepasJurusan);
+        if ($lepasJurusan) {
+            return redirect('/dashboard');
+        } else {
+            return redirect('/dashboard')->withErrors('Maaf, jurusan tidak bisa diubah');
         }
     }
 }

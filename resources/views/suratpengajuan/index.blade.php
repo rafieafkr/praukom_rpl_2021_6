@@ -70,7 +70,7 @@
             <tr>
               <td class="bg-white text-black">{{ $no++ }}</td>
               <td class="bg-white text-black">{{ $sp3s->nis }}</td>
-              <td class="bg-white text-black">{{ $sp3s->perusahaan[0]->nama_perusahaan }}</td>
+              <td class="bg-white text-black">{{ $sp3s->perusahaan->nama_perusahaan }}</td>
               <td class="bg-white text-black">
                 @if ($sp3s->bukti_terima !== null)
                   <span class="rounded-full bg-green-500 px-3 py-1 text-white">
@@ -192,7 +192,7 @@
             <tr>
               <td class="bg-white text-black">{{ $no++ }}</td>
               <td class="bg-white text-black">{{ $sp1->nis }}</td>
-              <td class="bg-white text-black">{{ $sp1->perusahaan[0]->nama_perusahaan }}</td>
+              <td class="bg-white text-black">{{ $sp1->perusahaan->nama_perusahaan }}</td>
               <td class="bg-white text-black">
                 @if ($sp1->bukti_terima !== null)
                   <span class="rounded-full bg-green-500 px-3 py-1 text-white">
@@ -315,7 +315,7 @@
             <tr>
               <td class="bg-white text-black">{{ $no++ }}</td>
               <td class="bg-white text-black">{{ $sp2s->nis }}</td>
-              <td class="bg-white text-black">{{ $sp2s->perusahaan[0]->nama_perusahaan }}</td>
+              <td class="bg-white text-black">{{ $sp2s->perusahaan->nama_perusahaan }}</td>
               <td class="bg-white text-black">
                 @if ($sp2s->bukti_terima !== null)
                   <span class="rounded-full bg-green-500 px-3 py-1 text-white">

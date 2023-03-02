@@ -12,7 +12,7 @@ class Prakerin extends Model
     protected $primaryKey = 'id_prakerin';
     protected $softDelete = false;
     public $timestamps = false;
-    protected $fillable = ['nis','nik_pp','id_ps','id_kaprog','id_perusahaan'];
+    protected $fillable = ['nis','nik_pp','id_ps','id_kaprog','id_perusahaan','status'];
 
     public function kepalaprogram()
     {

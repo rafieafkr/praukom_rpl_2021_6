@@ -57,6 +57,14 @@ class PrakerinController extends Controller
             return redirect('/dataprakerin');
         }
     }
+
+    public function printprakerin()
+    {
+        $print = Viewprakerin::all();
+        return view('prakerin.laporanprakerin',[
+            'print' => $print
+        ]);
+    }
     
     public function pecatSiswa(Prakerin $prakerin)
     {

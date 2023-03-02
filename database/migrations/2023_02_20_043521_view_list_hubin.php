@@ -27,7 +27,7 @@ return new class extends Migration
             FROM staff_hubin
 
             INNER JOIN guru ON staff_hubin.id_guru = guru.id_guru;
-");
+        ");
     }
 
     /**

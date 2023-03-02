@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\kepalaprogram;
 use App\Models\Prakerin;
-use App\Http\Requests\StorekepalaprogramRequest;
-use App\Http\Requests\UpdatekepalaprogramRequest;
-use App\Models\Pembimbingsekolah;
 use App\Models\Pengajuan;
+use App\Models\Viewlistps;
+use App\Models\Viewprakerin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class KepalaprogramController extends Controller
 {
-    protected $Pilihps;
-    protected $Ps;
-    protected $Sp;
+    protected $pembimbingsekolah;
+    protected $prakerin;
+    
     public function __construct()
     {
-        $this->Ps = Pembimbingsekolah::all();
-        $this->Pilihps = Prakerin::all();
-        $this->Sp = Pengajuan::all();
+        $this->pembimbingsekolah = Viewlistps::all();
+        $this->prakerin = Viewprakerin::all();
     }
 
     public function indexps()
@@ -33,10 +30,8 @@ class KepalaprogramController extends Controller
 
     public function editps($id_prakerin)
     {       
-        $edit =  DB::table('prakerin')
-        ->where('id_prakerin', $id_prakerin)
-        ->select()
-        ->get();
+        $edit =  Prakerin::where('id_prakerin', $id_prakerin)->select()->get();
+        
         return view('pilihps.edit', [
             'edit' => $edit,
             'pembimbing_sekolah' => $this->Ps

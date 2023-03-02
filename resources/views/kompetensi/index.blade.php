@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Data Prakerin - SIMAK')
+@section('title', 'Kompetensi - SIMAK')
 
 @section('container')
   <div class="flex w-full">
@@ -111,7 +111,7 @@
                     class="border-sm form-control w-full rounded-md border bg-white py-3 text-center text-black" />
                 </td>
                 <td class="items-center bg-white"><button id="dynamic-ar" type="button" name="add"
-                    class="cursor-pointer rounded-lg bg-green-500 px-5 py-2 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block">Tambah
+                    class="cursor-pointer rounded-lg bg-[#0A3A58] px-5 py-2 text-[#ffffff] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 hover:text-green-500 active:bg-slate-300 lg:inline-block">Tambah
                     Input Kompetensi</button>
                 </td>
               </tr>

@@ -23,12 +23,14 @@ return new class extends Migration
             $table->engine = 'innodb';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
-            $table->integer('id_prakerin')->autoIncrement();
+            $table->char('id_prakerin')->length(10)->primary();
             $table->string('nis')->length(15)->nullable(false);
-            $table->string('nik_pp')->length(17)->nullable(false);
-            $table->tinyInteger('id_ps')->length(4)->nullable();
+            $table->string('nik_pp')->length(17)->nullable(true);
+            $table->tinyInteger('id_ps')->length(4)->nullable(true);
             $table->tinyInteger('id_kaprog')->length(4)->nullable(false);
             $table->tinyInteger('id_perusahaan')->length(4)->nullable(false);
+            $table->date('tanggal_masuk')->nullable(true);
+            $table->date('tanggal_keluar')->nullable(true);
             $table->tinyInteger('status')->length(4)->nullable(true);
 
             $table->foreign('nis')->references('nis')->on('siswa')->cascadeOnDelete()->cascadeOnUpdate();

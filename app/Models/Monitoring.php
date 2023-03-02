@@ -16,16 +16,16 @@ class Monitoring extends Model
 
     public function pembimbingsekolah()
     {
-        return $this->hasMany(Pembimbingsekolah::class, 'id_ps','id_ps');
+        return $this->hasOne(Pembimbingsekolah::class, 'id_ps','id_ps');
     }
 
     public function perusahaan()
     {
-        return $this->hasMany(Perusahaan::class, 'id_perusahaan','id_perusahaan');
+        return $this->hasOne(Perusahaan::class, 'id_perusahaan','id_perusahaan');
     }
 
     public function kepalasekolah()
     {
-        return $this->hasMany(Kepalasekolah::class, 'id_kepsek','id_kepsek');
+        return $this->hasOne(Kepalasekolah::class, 'id_kepsek','id_kepsek');
     }
 }

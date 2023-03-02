@@ -33,7 +33,7 @@ return new class extends Migration
         LEFT JOIN jurusan ON kelas.id_jurusan = jurusan.id_jurusan
         
         INNER JOIN angkatan ON kelas.id_angkatan = angkatan.id_angkatan;
-");
+        ");
     }
 
     /**

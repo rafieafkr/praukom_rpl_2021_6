@@ -16,17 +16,20 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE OR REPLACE VIEW view_list_jurusan AS
+        CREATE OR REPLACE TRIGGER trigger_log_pengajuan
+        
+        AFTER UPDATE ON pengajuan
+        
+        FOR EACH ROW
+        
+        BEGIN
+        
+        INSERT INTO log_pengajuan
 
-        SELECT 
-            jurusan.id_jurusan, 
-            jurusan.nama_jurusan,
-            jurusan.akronim,
-            view_list_kaprog.nama_kaprog
+        VALUES ('','UPDATE',OLD.id_pengajuan,OLD.nis,now());
 
-            FROM jurusan
-
-            INNER JOIN view_list_kaprog ON jurusan.kepala_jurusan = view_list_kaprog.id_kaprog;
+        END;
+        
         ");
     }
 
@@ -38,6 +41,5 @@ return new class extends Migration
     public function down()
     {
         //
-        // Schema::dropIfExists('view_list_jurusan');
     }
 };

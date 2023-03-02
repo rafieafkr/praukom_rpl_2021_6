@@ -61,6 +61,7 @@ class PengajuanController extends Controller
 
     public function indexsuratpengajuan()
     {
+
         if (Auth::user()->level_user == 1):
             return view('suratpengajuan.index', [
                 'sp3' => Pengajuan::where('status_pengajuan','=',5)
@@ -85,6 +86,7 @@ class PengajuanController extends Controller
                 ->orderBy('id_pengajuan', 'desc')->paginate(10)->withQueryString(),
             ]);
         endif;
+        
     }
 
     /**
@@ -180,10 +182,11 @@ class PengajuanController extends Controller
         $dataTerima = [
             'status_pengajuan' => $request->status_pengajuan
         ];
+        
         $upd = DB::table('pengajuan')
         -> where('id_pengajuan', $request->input('id_pengajuan'))
         -> update($dataTerima);
-        // dd($dataTerima);
+        
         if ($upd) {
             return redirect('/suratpengajuan')->withSuccess('Pengajuan berhasil diverifikasi !');
         }
