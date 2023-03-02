@@ -4,11 +4,6 @@
 
 @section('container')
   <div class="float-right mb-3 lg:float-none lg:mb-0">
-    <label for="modal-tambah-presensi"
-      class="mr-3 cursor-pointer rounded-lg border-none bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
-      Tambah
-    </label>
-
     <a href="{{ route('dashboard.index') }}"
       class="cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300 lg:inline-block">
       Kembali
@@ -34,27 +29,10 @@
         </span>
       </div>
     @endif
-
-    {{-- validation error message --}}
-    @if ($errors->any())
-      @foreach ($errors->all() as $error)
-        <div
-          class="mb-5 flex w-[400px] flex-row rounded-lg bg-red-500 p-3 py-3 text-white shadow-[1px_2px_10px_rgba(0,0,1,0.3)]">
-          <div class="mr-1 flex items-center">
-            <x-heroicon-m-x-circle class="inline-block w-7" />
-          </div>
-          <div>
-            <span class="capitalize leading-3">
-              {{ $error }}
-            </span>
-          </div>
-        </div>
-      @endforeach
-    @endif
   </div>
 
   {{-- search --}}
-  <form action="{{ route('presensi-siswa.index') }}" method="GET">
+  <form action="{{ route('presensi-pp.index') }}" method="GET">
     <div class="form-control flex w-full flex-row items-center justify-end gap-2">
       <input type="date" name="cari" placeholder="Cari tanggal kehadiran" value="{{ request('cari') }}"
         class="input-bordered input inline-block max-w-xs">
@@ -78,23 +56,21 @@
       class="@if (!isset($presensiSiswa[0])) hidden @endif table w-full border-collapse rounded-b-lg bg-white p-5 text-center">
       <tr>
         <th>No</th>
+        <th>Nama Siswa</th>
         <th>Tanggal Kehadiran</th>
-        <th>Jam Masuk</th>
-        <th>Jam Keluar</th>
         <th>Kegiatan</th>
         <th>Keterangan</th>
         <th>Status</th>
         <th>Foto Selfie</th>
-        <th>Aksi</th>
+        <th colspan="2">Aksi</th>
       </tr>
 
       @forelse ($presensiSiswa as $presensi)
         <tr>
           <td class="sticky left-0 z-10">
             {{ $loop->iteration + $presensiSiswa->count() * ($presensiSiswa->currentPage() - 1) }}</td>
+          <td>{{ $presensi->nama_siswa }}</td>
           <td>{{ $presensi->tgl_kehadiran }}</td>
-          <td>{{ $presensi->jam_masuk }}</td>
-          <td>{{ $presensi->jam_keluar }}</td>
           <td>
             {{ strlen($presensi->kegiatan) >= 30 ? Str::substrReplace($presensi->kegiatan, '...', 30) : $presensi->kegiatan }}
           </td>
@@ -130,21 +106,36 @@
               </span>
             @endif
           </td>
+
           <td>
-            <a href="{{ route('presensi-siswa.edit', ['presensi' => $presensi->id_presensi]) }}"
+            {{-- terima/tolak --}}
+            @if ($presensi->status_hadir == 0)
+              <form class="inline" action="{{ route('presensi-pp.terima', ['id_presensi' => $presensi->id_presensi]) }}"
+                method="post">
+                @csrf
+                @method('put')
+                <button class="btn rounded-lg border-none bg-transparent hover:bg-transparent" type="submit">
+                  <x-heroicon-o-check-circle class="w-[3em] rounded-full bg-green-500" />
+                </button>
+              </form>
+              <form class="inline" action="{{ route('presensi-pp.tolak', ['id_presensi' => $presensi->id_presensi]) }}"
+                method="post">
+                @csrf
+                @method('put')
+                <button class="btn rounded-lg border-none bg-transparent hover:bg-transparent" type="submit">
+                  <x-heroicon-o-x-circle class="w-[3em] rounded-full bg-red-500" />
+                </button>
+              </form>
+            @else
+              -
+            @endif
+          </td>
+
+          <td>
+            <a href="{{ route('presensi-pp.detail', ['presensi' => $presensi->id_presensi]) }}"
               class="mr-2 rounded-lg bg-slate-300 px-5 py-2 shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-400 active:bg-slate-500">
-              <button>Edit</button>
+              <button>Detail</button>
             </a>
-            <form method="post" action="{{ route('presensi-siswa.destroy', ['presensi' => $presensi->id_presensi]) }}"
-              class="inline-block">
-              @csrf
-              @method('delete')
-              @if ($presensi->status_hadir == 0)
-                <button
-                  class="rounded-lg bg-red-500 px-5 py-2 text-white shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-red-600 active:bg-red-700"
-                  onclick="return confirm('Apakah yakin ingin menghapus presensi pada tanggal\n{{ $presensi->tgl_kehadiran }}?')">Hapus</button>
-              @endif
-            </form>
             <a href="{{ route('presensi-siswa.print', ['id' => $presensi->id_presensi]) }}">
               <button type="submit"
                 class="mr-2 rounded-lg bg-[#0a3a58] px-5 py-2 text-white shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-800 active:bg-slate-900">Cetak</button>
@@ -238,109 +229,10 @@
             <span class="cursor-pointer text-[30px] font-bold">
               Tidak ada presensi
             </span>
-            <label for="modal-tambah-presensi"
-              class="mx-auto w-fit cursor-pointer rounded-lg bg-slate-100 px-4 py-1 text-[#4c77a9] shadow-[1px_2px_10px_rgba(0,0,1,0.2)] transition hover:bg-slate-200 active:bg-slate-300">
-              Buat presensi
-            </label>
           </div>
         </div>
       @endforelse
     </table>
 
   </div>
-  <input id="modal-tambah-presensi" type="checkbox" class="modal-toggle" />
-  <label for="modal-tambah-presensi" class="modal cursor-pointer">
-    <label class="modal-box relative" for="">
-      <label for="modal-tambah-presensi" class="btn-sm btn-circle btn absolute right-2 top-2">✕</label>
-      <br>
-      <form action="{{ route('presensi-siswa.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="hidden w-full placeholder:mb-2">
-          <br>
-          <input type="text" name="nis" class="select-bordered select w-full p-1 text-center"
-            value="{{ Auth::user()->siswa->nis }}">
-        </div>
-
-        <div class="mb-2 hidden w-full">
-          <label for="nik_pp">Pembimbing</label>
-          <input type="text" name="nik_pp" value="{{ Auth::user()->siswa->prakerin->nik_pp }}">
-        </div>
-        <div class="mb-2 w-full">
-          <label for="keterangan"> Keterangan </label>
-          <br>
-          <select id="keterangan" name="keterangan" class="select-bordered select w-full p-1 text-center">
-            <option value="" disabled selected> --Pilih Keterangan Presensi--</option>
-            <option value="hadir">Hadir</option>
-            <option value="sakit">Sakit</option>
-            <option value="izin">Izin</option>
-            <option value="alfa">Alfa</option>
-          </select>
-        </div>
-
-        <div class="mb-2 w-full">
-          <label for="tgl_kehadiran"> Tanggal Kehadiran </label>
-          <br>
-          <input id="tgl_kehadiran" type="date" name="tgl_kehadiran" class="input-bordered input w-full">
-        </div>
-
-        <div class="mb-2 w-full">
-          <label for="jam_masuk"> Jam Masuk </label>
-          <br>
-          <input id="jam_masuk" type="time" name="jam_masuk" class="input-bordered input w-full">
-        </div>
-
-        <div class="mb-2 w-full">
-          <label for="jam_keluar"> Jam Keluar </label>
-          <br>
-          <input id="jam_keluar" type="time" name="jam_keluar" class="input-bordered input w-full">
-        </div>
-
-        <div class="mb-2 w-full">
-          <label for="kegiatan"> Kegiatan </label>
-          <br>
-          <textarea name="kegiatan" class="textarea-bordered textarea w-full" placeholder="Hari ini mengerjakan..."></textarea>
-        </div>
-
-        <div class="mb-2 w-full">
-          <label>
-            Foto Selfie
-            <br>
-            <input id="foto_selfie" type="file" name="foto_selfie" class="file-input-bordered file-input w-full"
-              value="{{ old('foto_selfie') }}" onchange="showImg()" />
-          </label>
-          <br><br>
-          <img id="img-show" class="max-w-[300px]" alt="foto selfie" style="display: none;">
-        </div>
-
-        <div class="modal-action">
-          <button type="submit"
-            class="mr-2 rounded-lg bg-[#06283D] px-5 py-2 text-white shadow-[1px_2px_5px_rgba(0,0,1,0.2)] transition hover:bg-slate-800 active:bg-slate-900">Simpan</button>
-        </div>
-      </form>
-    </label>
-  </label>
-  <!-- js -->
-  <script type="text/javascript">
-    function showImg() {
-      const img = document.getElementById('foto_selfie')
-      const imgShow = document.getElementById('img-show')
-
-      // ambil ekstensi file
-      const fileName = img.files[0]
-      const ext = fileName.name.split('.').pop()
-
-      // kalau ekstensi berformat gambar maka munculkan
-      if (ext === 'jpg' || ext === 'jpeg' || ext === 'png') {
-        const fReader = new FileReader()
-        fReader.readAsDataURL(fileName)
-        fReader.onload = (fReaderEvent) => {
-          imgShow.src = fReaderEvent.target.result
-          imgShow.style.display = 'inline-block'
-        }
-      } else {
-        // selain itu jangan tampilkan
-        imgShow.style.display = 'none'
-      }
-    }
-  </script>
 @endsection

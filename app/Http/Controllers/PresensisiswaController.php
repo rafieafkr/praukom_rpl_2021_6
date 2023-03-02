@@ -40,9 +40,26 @@ class PresensisiswaController extends Controller
                           ->paginate(10);
       }
 
-
       return view('dashboard.siswa.presensi.index', [
         'presensiSiswa'=>$presensiSiswa,
+      ]);
+    }
+
+    public function indexPp()
+    {
+      if (request('cari')) {
+        $presensiSiswa = DB::table('view_presensi')
+                          ->where('nik_pp', Auth::user()->pembimbingperusahaan->nik_pp)
+                          ->where('tgl_kehadiran', request('cari'))
+                          ->paginate(20);
+      } else {
+        $presensiSiswa = DB::table('view_presensi')
+                          ->where('nik_pp', Auth::user()->pembimbingperusahaan->nik_pp)
+                          ->paginate(20);
+      }
+
+      return view('dashboard.pembimbing_perusahaan.presensi.index', [
+        "presensiSiswa" => $presensiSiswa
       ]);
     }
 
@@ -86,22 +103,10 @@ class PresensisiswaController extends Controller
       return redirect(route('presensi-siswa.index'))->withSuccess('Presensi berhasil dibuat');
     }
 
-    public function print($id)
-    {
-      $data_presensi = DB::table('view_presensi')
-                        ->where('nis', $id)
-                        ->select()
-                        ->get();
-                  //  dd($data_presensi);
-                  
-      return view('dashboard.siswa.presensi.laporan  ', ['data_presensi' => $data_presensi]);
-    }
-    
-
-   //UPDATE 
+   //buka halaman edit 
     public function edit($id)
     {
-      $dataupdt = DB::table('presensi_siswa')
+      $dataupdt = DB::table('view_presensi')
                   ->where('id_presensi', $id)
                   ->select()
                   ->get();
@@ -155,67 +160,78 @@ class PresensisiswaController extends Controller
         return back()->withSuccess('Presensi berhasil diubah');
     } 
 
-    public function terimapresensi(Request $request, $id_presensi)
-    {
-        $terimapresensi = [
-            'status_hadir' => $request->status_hadir
-        ];
-        $upd = DB::table('presensi_siswa')
-        -> where('id_presensi', $id_presensi)
-        -> update($terimapresensi);
-        if ($upd) {
-            return back();
-        } else {
-            return back();
-        }
-        
+    // terima presensi
+    public function terimapresensi($id_presensi)
+    { 
+      try {
+        DB::table('presensi_siswa')
+            ->where('id_presensi', $id_presensi)
+            ->update([
+              'status_hadir' => 2
+            ]);
+      } catch (Exception $th) {
+        return back()->withErrors('Gagal menerima presensi');
+      }
+
+      return back()->withSuccess('Berhasil terima presensi');
     }
 
-    public function tolakpresensi(Request $request, $id_presensi)
+    // tolak presensi
+    public function tolakpresensi($id_presensi)
     {
-        $terimapresensi = [
-            'status_hadir' => $request->status_hadir
-        ];
-        $upd = DB::table('presensi_siswa')
-        -> where('id_presensi', $id_presensi)
-        -> update($terimapresensi);
-        if ($upd) {
-            return back();
-        } else {
-            return back();
-        }
+      try {
+        DB::table('presensi_siswa')
+            ->where('id_presensi', $id_presensi)
+            ->update([
+              'status_hadir' => 1
+            ]);
+      } catch (Exception $th) {
+        return back()->withErrors('Gagal menerima presensi');
+      }
 
-}
+      return back()->withSuccess('Berhasil tolak presensi');
+    }
 
     public function filter_presensi(Request $request)
-      {
-        // menangkap data pencarian
-        $prakerin = DB::table('prakerin')
-        ->select()
-        ->get();
-        $filterpresensi = $request->filter;
+    {
+      // menangkap data pencarian
+      $prakerin = DB::table('prakerin')
+      ->select()
+      ->get();
+      $filterpresensi = $request->filter;
 
-        // mengambil data dari table presensi_siswa sesuai pencarian data
-        $dataview = DB::table('view_presensi')
-        ->where('status_hadir',$filterpresensi)
-        ->paginate();
+      // mengambil data dari table presensi_siswa sesuai pencarian data
+      $dataview = DB::table('view_presensi')
+      ->where('status_hadir',$filterpresensi)
+      ->paginate();
 
-        return view('dashboard.siswa.presensi.index',[
-          'dataview' => $dataview,
-          'prakerin' => $prakerin
-          ]);
+      return view('dashboard.siswa.presensi.index',[
+        'dataview' => $dataview,
+        'prakerin' => $prakerin
+        ]);
+    }
+
+    public function print($id)
+    {
+      $data_presensi = DB::table('view_presensi')
+                        ->where('nis', $id)
+                        ->select()
+                        ->get();
+                  //  dd($data_presensi);
+                  
+      return view('dashboard.siswa.presensi.laporan  ', ['data_presensi' => $data_presensi]);
+    }
+
+    public function destroy(Presensisiswa $presensi) {
+      if($presensi->status_hadir != 0) {
+        return back()->withError('Gagal hapus presensi');
       }
 
-      public function destroy(Presensisiswa $presensi) {
-        if($presensi->status_hadir != 0) {
-          return back()->withError('Gagal hapus presensi');
-        }
-
-        try {
-          Presensisiswa::destroy($presensi->id_presensi);
-        } catch (Exception $e) {
-          return back()->withError('Gagal hapus presensi');
-        }
+      try {
+        Presensisiswa::destroy($presensi->id_presensi);
+      } catch (Exception $e) {
+        return back()->withError('Gagal hapus presensi');
       }
+    }
 
 }

@@ -147,15 +147,15 @@ Route::get('/search_penilaian',[PenilaianController::class,'cariTableKompetensi'
 Route::get('/search_penilaian_sikap',[PenilaianController::class,'cariTableSikap']);
 Route::get('/cetak_penilaian/{id}', [PenilaianController::class, 'print']);
 
-//Routes Fitur Presensi Siswa
-// Route::get('/presensi-siswa', [PresensisiswaController::class, 'index']);
-// Route::post('/presensi-siswa/simpan',[PresensisiswaController::class,'simpan']);
-// Route::get('/presensi-siswa/{presensi}/edit/',[PresensisiswaController::class,'edit']);
-// Route::put('/presensi-siswa/{presensi}',[PresensisiswaController::class,'update']);
-// Route::delete('/presensi-siswa/{presensi}',[PresensisiswaController::class,'hapus']);
+//Routes Fitur Presensi Siswa - PP
+Route::get('/presensi-pp', [PresensisiswaController::class, 'indexPp'])->name('presensi-pp.index');
+Route::get('/presensi-pp/{presensi}/detail', [PresensisiswaController::class, 'edit'])->name('presensi-pp.detail');
+Route::put('/presensi-pp/{id_presensi}/terima', [PresensisiswaController::class, 'terimapresensi'])->name('presensi-pp.terima');
+Route::put('/presensi-pp/{id_presensi}/tolak', [PresensisiswaController::class, 'tolakpresensi'])->name('presensi-pp.tolak');
+
+// Routes Fitur Presensi Siswa - Siswa
 Route::resource('/presensi-siswa', PresensisiswaController::class)->parameter('presensi-siswa', 'presensi');
-Route::get('/search',[PresensisiswaController::class,'cari']);
-Route::get('/presensi-siswa/{id}/cetak', [PresensisiswaController::class, 'print'])->name('presensi-siswa.print');
+Route::get('/presensi/{id}/cetak', [PresensisiswaController::class, 'print'])->name('presensi-siswa.print');
 
 //Route Fitur Jurusan
 Route::get('/jurusan', [JurusanController::class, 'index']);

@@ -19,7 +19,9 @@ return new class extends Migration
         CREATE OR REPLACE VIEW view_presensi AS
         SELECT 
                 siswa.nis, 
-                pembimbing_perusahaan.nama_pp, 
+                siswa.nama_siswa, 
+                presensi_siswa.nik_pp,
+                pembimbing_perusahaan.nama_pp,
                 presensi_siswa.tgl_kehadiran, 
                 presensi_siswa.jam_masuk,
                 presensi_siswa.jam_keluar,

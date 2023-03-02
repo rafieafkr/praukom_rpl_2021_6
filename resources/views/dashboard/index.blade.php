@@ -34,9 +34,9 @@
   <div class="mb-3 w-full text-center text-[20px] font-normal uppercase tracking-widest text-[#173a6e] md:text-[28px]">
     selamat datang
     @if (Auth::user()->level_user == 1 ||
-        Auth::user()->level_user == 2 ||
-        Auth::user()->level_user == 3 ||
-        Auth::user()->level_user == 4)
+            Auth::user()->level_user == 2 ||
+            Auth::user()->level_user == 3 ||
+            Auth::user()->level_user == 4)
       {{ Auth::user()->guru->nama_guru }}
     @elseif (Auth::user()->level_user == 5)
       {{ Auth::user()->pembimbingperusahaan->nama_pp }}
@@ -60,9 +60,9 @@
         <div class="mt-[20px] md:ml-5">
           <p class="text-lg font-light md:text-2xl">
             @if (Auth::user()->level_user == 1 ||
-                Auth::user()->level_user == 2 ||
-                Auth::user()->level_user == 3 ||
-                Auth::user()->level_user == 4)
+                    Auth::user()->level_user == 2 ||
+                    Auth::user()->level_user == 3 ||
+                    Auth::user()->level_user == 4)
               {{ Auth::user()->guru->nama_guru }}
             @elseif (Auth::user()->level_user == 5)
               {{ Auth::user()->pembimbingperusahaan->nama_pp }}
@@ -161,25 +161,25 @@
 
     <!-- @if (Auth::user()->level_user == 1)
   {{-- sertifikat --}}
-                                  <div
+                                        <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#67699d] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-                                      {{-- div 1 --}}
-                                      <div class="flex w-1/2 flex-col justify-between">
-                                          <div>
-                                              <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Sertifikat</p>
-                                          </div>
-                                          <div>
-                                              <a href="#">
-                                                  <button
+                                            {{-- div 1 --}}
+                                            <div class="flex w-1/2 flex-col justify-between">
+                                                <div>
+                                                    <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Sertifikat</p>
+                                                </div>
+                                                <div>
+                                                    <a href="#">
+                                                        <button
   class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9] shadow-md shadow-slate-500">Lihat</button>
-                                              </a>
-                                          </div>
-                                      </div>
-                                      {{-- div 2 --}}
-                                      <div>
-                                          <x-heroicon-o-document-check class="w-[130px] text-[#abacc9] md:w-[140px]"/>
-                                      </div>
-                                  </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {{-- div 2 --}}
+                                            <div>
+                                                <x-heroicon-o-document-check class="w-[130px] text-[#abacc9] md:w-[140px]"/>
+                                            </div>
+                                        </div>
   @endif -->
 
     @if (Auth::user()->level_user == 1)
@@ -254,47 +254,44 @@
     {{-- Wali Kelas --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#0A3A58] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-                                  {{-- div 1 --}}
-                                  <div class="flex w-1/2 flex-col justify-between">
-                                      <div>
-                                          <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
-                                      </div>
-                                      <div>
-                                          <a href="#">
-                                              <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                                          </a>
-                                      </div>
-                                  </div>
-                                  {{-- div 2 --}}
-                                  <div>
-                                      <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-                                  </div>
-                              </div> -->
+                                        {{-- div 1 --}}
+                                        <div class="flex w-1/2 flex-col justify-between">
+                                            <div>
+                                                <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Wali Kelas</p>
+                                            </div>
+                                            <div>
+                                                <a href="#">
+                                                    <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {{-- div 2 --}}
+                                        <div>
+                                            <x-heroicon-o-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+                                        </div>
+                                    </div> -->
 
     {{-- Kepala Program --}}
     <!-- <div
   class="jusify-between flex h-[155px] w-full rounded-xl bg-[#256D85] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
-                                  {{-- div 1 --}}
-                                  <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
-                                      <div>
-                                          <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
-                                      </div>
-                                      <div>
-                                          <a href="#">
-                                              <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
-                                          </a>
-                                      </div>
-                                  </div>
-                                  {{-- div 2 --}}
-                                  <div>
-                                      <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
-                                  </div>
-                              </div> -->
+                                        {{-- div 1 --}}
+                                        <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
+                                            <div>
+                                                <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Kepala Program</p>
+                                            </div>
+                                            <div>
+                                                <a href="#">
+                                                    <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {{-- div 2 --}}
+                                        <div>
+                                            <x-heroicon-m-user-plus class="w-[130px] text-[#7893a3] md:w-[140px]"/>
+                                        </div>
+                                    </div> -->
 
-    @if (Auth::user()->level_user == 3 ||
-        Auth::user()->level_user == 4 ||
-        Auth::user()->level_user == 5 ||
-        Auth::user()->level_user == 6)
+    @if (Auth::user()->level_user == 3 || Auth::user()->level_user == 4 || Auth::user()->level_user == 6)
       {{-- Presensi Siswa --}}
       <div
         class="jusify-between flex h-[155px] w-full rounded-xl bg-[#00b191] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
@@ -305,6 +302,28 @@
           </div>
           <div>
             <a href="{{ route('presensi-siswa.index') }}">
+              <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
+            </a>
+          </div>
+        </div>
+        {{-- div 2 --}}
+        <div>
+          <x-heroicon-o-clock class="w-[130px] text-[#73d4c2] md:w-[140px]" />
+        </div>
+      </div>
+    @endif
+
+    @if (Auth::user()->level_user == 5)
+      {{-- Presensi Siswa - PP --}}
+      <div
+        class="jusify-between flex h-[155px] w-full rounded-xl bg-[#00b191] px-5 py-3 text-white shadow-md shadow-slate-500 md:px-5">
+        {{-- div 1 --}}
+        <div class="flex w-1/2 flex-col justify-between lg:w-[45%]">
+          <div>
+            <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Presensi Siswa</p>
+          </div>
+          <div>
+            <a href="{{ route('presensi-pp.index') }}">
               <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
             </a>
           </div>
@@ -575,9 +594,9 @@
   </div>
 
   @if (Auth::user()->level_user == 1 ||
-      Auth::user()->level_user == 2 ||
-      Auth::user()->level_user == 3 ||
-      Auth::user()->level_user == 4)
+          Auth::user()->level_user == 2 ||
+          Auth::user()->level_user == 3 ||
+          Auth::user()->level_user == 4)
 
     {{-- pop up profile --}}
     <input id="my-modal-3" type="checkbox" class="modal-toggle" />
