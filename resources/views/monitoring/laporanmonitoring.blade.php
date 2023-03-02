@@ -204,7 +204,7 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td style="width: 410px;">{{ $print->alamat_perusahaan }}</td>
+                <td style="width: 410px;"> {{ $print->alamat_perusahaan }}</td>
             </tr>
             @endforeach
         </table>

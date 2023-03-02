@@ -28,7 +28,7 @@
         <label class="text-black">
             Perusahaan
             <br>
-            <input disabled value="{{$edit->perusahaan[0]->nama_perusahaan}}"
+            <input disabled value="{{$edit->perusahaan->nama_perusahaan}}"
                 class="disabled:bg-white disabled:border-none w-full input bg-white" />
         </label>
         <br><br>
@@ -36,7 +36,7 @@
         <label class="text-black">
             Alamat Perusahaan
             <br>
-            <input disabled value="{{ $edit->perusahaan[0]->alamat_perusahaan }}"
+            <input disabled value="{{ $edit->perusahaan->alamat_perusahaan }}"
                 class="disabled:bg-white disabled:border-none w-full input bg-white" />
         </label>
         <br><br>
@@ -44,8 +44,12 @@
         <label class="text-black">
             Telepon Perusahaan
             <br>
-            <input disabled value="{{ $edit->perusahaan[0]->kontak_perusahaan }}"
+            @if (!isset($edit->perusahaan->kontak_perusahaan->kontak_perusahaan))
+            <input disabled value="-" class="disabled:bg-white disabled:border-none w-full input bg-white" />
+            @else
+            <input disabled value="{{ $edit->perusahaan->kontak_perusahaan->kontak_perusahaan }}"
                 class="disabled:bg-white disabled:border-none w-full input bg-white" />
+            @endif
         </label>
         <br><br>
         {{-- status pengajuan --}}
@@ -174,7 +178,7 @@
         <label class="text-black">
             Kepala Program
             <br>
-            <input disabled value="{{$edit->kepalaprogram[0]->guru->nama_guru}}"
+            <input disabled value="{{$edit->kepalaprogram->guru->nama_guru}}"
                 class="disabled:bg-white disabled:border-none w-full input bg-white" />
         </label>
         <br><br>
@@ -182,7 +186,7 @@
         <label class="text-black">
             Wali Kelas
             <br>
-            <input disabled value="{{$edit->walikelas[0]->guru->nama_guru}}"
+            <input disabled value="{{$edit->walikelas->guru->nama_guru}}"
                 class="disabled:bg-white disabled:border-none w-full input bg-white" />
         </label>
         <br><br>
@@ -190,7 +194,7 @@
         <label class="text-black">
             Staff Hubin
             <br>
-            <input disabled value="{{$edit->staffhubin[0]->guru->nama_guru}}"
+            <input disabled value="{{$edit->staffhubin->guru->nama_guru}}"
                 class="disabled:bg-white disabled:border-none w-full input bg-white" />
         </label>
         <br><br>

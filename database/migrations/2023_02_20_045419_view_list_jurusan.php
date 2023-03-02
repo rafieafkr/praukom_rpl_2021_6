@@ -27,7 +27,7 @@ return new class extends Migration
             FROM jurusan
 
             INNER JOIN view_list_kaprog ON jurusan.kepala_jurusan = view_list_kaprog.id_kaprog;
-");
+        ");
     }
 
     /**

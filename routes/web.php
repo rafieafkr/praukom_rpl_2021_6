@@ -127,7 +127,7 @@ Route::group(['middleware' => ['auth','level:Kepala Program']], function() {
 
 /*------------------------------- Route Modul Data Prakerin ------------------------------*/
 
-Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas,Pembimbing Perusahaan']], function() {
+Route::group(['middleware' => ['auth','level:Staff Hubin,Kepala Program,Wali Kelas,Pembimbing Perusahaan,Pembimbing Sekolah']], function() {
   Route::get('/dataprakerin', [PrakerinController::class, 'dataprakerin'])->middleware('auth');
   Route::get('/dataprakerin/show', [PrakerinController::class, 'cariprakerin'])->middleware('auth');
   Route::get('/dataprakerin/detail/{id_prakerin}', [PrakerinController::class, 'detailprakerin'])->middleware('auth');

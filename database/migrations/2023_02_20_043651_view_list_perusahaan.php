@@ -27,7 +27,7 @@ return new class extends Migration
             FROM perusahaan
 
             LEFT JOIN kontak_perusahaan ON perusahaan.id_perusahaan = kontak_perusahaan.id_perusahaan;
-");
+        ");
     }
 
     /**

@@ -453,6 +453,42 @@
     @endif
 
     @if (
+    Auth::user()->level_user == 3
+    )
+
+    {{-- View Walas Siswa --}}
+
+    <div class="h-[155px] col-span-4 text-white">
+        <table border="1" cellpadding="0" class="table w-full text-center border-collapse ">
+            <tr class="text-white border-collapse">
+                <td colspan="8" class="bg-[#0A3A58] h-14 sticky w-max-auto">Siswa Yang Belum Prakerin</td>
+            </tr>
+            <tr>
+                <td class="bg-white text-black">No</td>
+                <td class="bg-white text-black">NIS</td>
+                <td class="bg-white text-black">Nama</td>
+                <td class="bg-white text-black">Kelas</td>
+                <td class="bg-white text-black">Nama Walas</td>
+            </tr>
+
+            <?php $i=1; ?>
+
+            @foreach ($view_walas_siswa as $key)
+            <tr class="text-center">
+                <td class="table-auto bg-white text-black">{{$i++}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nis}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_siswa}}</td>
+                <td class="table-auto bg-white text-black">{{$key->tingkat_kelas}} {{$key->akronim}}
+                    {{$key->nama_kelas}}</td>
+                <td class="table-auto bg-white text-black">{{$key->nama_walas}}</td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    @endif
+
+    @if (
     Auth::user()->level_user == 6
     )
 

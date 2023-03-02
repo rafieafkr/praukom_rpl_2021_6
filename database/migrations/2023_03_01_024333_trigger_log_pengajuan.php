@@ -16,17 +16,20 @@ return new class extends Migration
     {
         //
         DB::unprepared("
-        CREATE OR REPLACE VIEW view_list_hubin AS
+        CREATE OR REPLACE TRIGGER trigger_log_pengajuan
+        
+        AFTER UPDATE ON pengajuan
+        
+        FOR EACH ROW
+        
+        BEGIN
+        
+        INSERT INTO log_pengajuan
 
-        SELECT 
-            staff_hubin.id_staff, 
-            guru.id_guru, 
-            guru.nip_guru, 
-            guru.nama_guru AS nama_staff
+        VALUES ('','UPDATE',OLD.id_pengajuan,OLD.nis,now());
 
-            FROM staff_hubin
-
-            INNER JOIN guru ON staff_hubin.id_guru = guru.id_guru;
+        END;
+        
         ");
     }
 
@@ -38,6 +41,5 @@ return new class extends Migration
     public function down()
     {
         //
-        Schema::dropIfExists('view_list_hubin');
     }
 };
