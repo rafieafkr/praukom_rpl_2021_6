@@ -173,6 +173,20 @@ Route::delete('/hapus_kompetensi/{id}',[KompetensiController::class,'hapus']);
 Route::get('/kompetensi/edit/{id}',[KompetensiController::class,'edit']);
 Route::post('/kompetensi/update',[KompetensiController::class,'update']);
 
+//Route Fitur Kelas dan Angkatan
+Route::get('/kelas', [KelasController::class, 'index']);
+Route::post('/tambah_kelas', [KelasController::class, 'simpanKelas']);
+Route::get('/kelas/edit/{id}',[KelasController::class,'editKelas']);
+Route::post('/kelas/update',[KelasController::class,'updateKelas']);
+Route::get('/search_kelas',[KelasController::class,'cariKelas']);
+Route::delete('/kelas/hapus/{id}',[KelasController::class,'hapusKelas']);
+
+Route::post('/tambah_angkatan', [KelasController::class, 'simpanAngkatan']);
+Route::get('/edit/angkatan/{id}',[KelasController::class,'editAngkatan']);
+Route::post('/update/angkatan',[KelasController::class,'updateAngkatan']);
+Route::get('/search_angkatan',[KelasController::class,'cariAngkatan']);
+Route::delete('/angkatan/hapus/{id}',[KelasController::class,'hapusAngkatan']);
+
 // Fitur tambah akun
 Route::resource('/hubin/leveluser', AkunController::class)->parameters(['leveluser' => 'akun']);
 
