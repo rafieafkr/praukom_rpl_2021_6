@@ -29,8 +29,8 @@ return new class extends Migration
             FROM siswa
 
             LEFT JOIN view_list_kelas ON siswa.id_kelas = view_list_kelas.id_kelas
-
-            LEFT JOIN view_list_jurusan ON siswa.jurusan = view_list_jurusan.id_jurusan;
+            LEFT JOIN kelas ON siswa.id_kelas = kelas.id_kelas
+            LEFT JOIN view_list_jurusan ON kelas.id_jurusan = view_list_jurusan.id_jurusan;
 ");
     }
 

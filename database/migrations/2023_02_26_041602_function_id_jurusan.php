@@ -16,7 +16,6 @@ return new class extends Migration
     {
         
         DB::unprepared('
-        DELIMITER ||
         CREATE OR REPLACE FUNCTION function_id_jurusan()
         RETURNS char(5)
         BEGIN
@@ -40,8 +39,7 @@ return new class extends Migration
             RETURN id_jurusanbaru;
             
           END IF;
-        END ||
-        DELIMITER ;
+        END ;
         
         ');
     }

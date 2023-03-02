@@ -112,7 +112,7 @@
             <p class="text-lg font-semibold uppercase tracking-widest">Surat Pengajuan</p>
           </div>
           <div>
-            <a href="/siswa/suratpengajuan">
+            <a href="{{ route('pengajuan.index') }}">
               <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
             </a>
           </div>
@@ -203,7 +203,7 @@
             <p class="text-lg font-semibold uppercase tracking-widest text-[#ffffff]">Presensi Siswa</p>
           </div>
           <div>
-            <a href="/presensisiswa">
+            <a href="{{ route('presensi-siswa.index') }}">
               <button class="mt-5 rounded-md bg-[#ffffff] px-5 py-1 align-bottom text-[#4C77A9]">Lihat</button>
             </a>
           </div>

@@ -38,7 +38,7 @@ return new class extends Migration
             IF kodeError != "00000" THEN ROLLBACK TO satu;
             END IF;
             COMMIT;
-          END;-
+          END;
         ');
     }
 

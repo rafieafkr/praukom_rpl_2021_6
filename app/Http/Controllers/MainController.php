@@ -68,7 +68,7 @@ class MainController extends Controller
         if (Auth::user()->level_user == 4):
             return view('dashboard.index', [
                 'level_user' => $this->levelUser,
-                'view_ps_siswa' => Viewpssiswa::all()->where('id_ps','=', Auth::user()->guru->pembimbingsekolah->id_ps)->paginate(5)
+                'view_ps_siswa' => Viewpssiswa::all()->where('id_ps','=', Auth::user()->guru->pembimbingsekolah->id_ps)
             ]);
         endif;
 

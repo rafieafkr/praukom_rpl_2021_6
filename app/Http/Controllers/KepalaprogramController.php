@@ -24,7 +24,7 @@ class KepalaprogramController extends Controller
     {
         return view('pilihps.index',[
             'title' => 'Pilih Pembimbing Perusahaan',
-            'prakerin' => $this->Pilihps
+            'prakerin' => $this->prakerin
         ]);
     }
 

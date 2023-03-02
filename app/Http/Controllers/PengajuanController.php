@@ -297,19 +297,25 @@ class PengajuanController extends Controller
       return redirect(route('pengajuan.index'))->withSuccess('Pengajuan ke '.$validated['perusahaan'].' berhasil diubah');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pengajuan  $pengajuan
-     * @return \Illuminate\Http\Response
-     */
+    // print pengajuan
+    public function print(Pengajuan $pengajuan)
+    {
+      $dataView = DB::table('view_print_pengajuan')->where('id_pengajuan', $pengajuan->id_pengajuan)->first();
+      return view('dashboard.siswa.pengajuan.print', ["pengajuan" => $dataView]);
+    }
+
+    // hapus pengajuan
     public function destroy(Pengajuan $pengajuan)
     {
-      if ($pengajuan->bukti_terima) {
-        Storage::delete($pengajuan->bukti_terima);
+      try {
+        // cek apakah ada bukti terima
+        if ($pengajuan->bukti_terima) {
+          Storage::delete($pengajuan->bukti_terima);
+        }
+        Pengajuan::destroy($pengajuan->id_pengajuan);
+      } catch (Exception $th) {
+        return back()->withErrors('Pengajuan gagal dihapus');
       }
-      Pengajuan::destroy($pengajuan->id_pengajuan);
-      
       return redirect(route('pengajuan.index'))->withSuccess('Pengajuan berhasil dihapus');
     }
 }

@@ -210,6 +210,7 @@ Route::resource('/hubin/leveluser', AkunController::class)->parameters(['levelus
 
 // Fitur tambah pengajuan
 Route::resource('/pengajuan', PengajuanController::class);
+Route::get('/pengajuan/{pengajuan}/print', [PengajuanController::class, 'print'])->name('pengajuan.print');
 
 // tabel list siswa
 Route::get('/hubin/listsiswa', function() {

@@ -18,6 +18,7 @@ class JurusanFactory extends Factory
     public function definition()
     {
         return [
+            "id_jurusan" => "JRS01",
             "kepala_jurusan" => 1,
             "nama_jurusan" => "Rekayasa Perangkat Lunak",
             "akronim" => "RPL",

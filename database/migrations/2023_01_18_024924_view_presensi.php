@@ -28,7 +28,7 @@ return new class extends Migration
                 presensi_siswa.keterangan,
                 presensi_siswa.kegiatan,
                 presensi_siswa.status_hadir,
-                presensi_siswa.id_presensi
+                presensi_siswa.id_presensi,
                 presensi_siswa.foto_selfie
 
         FROM presensi_siswa

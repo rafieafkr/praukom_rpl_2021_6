@@ -23,6 +23,7 @@ return new class extends Migration
             kelas.tingkat_kelas, 
             kelas.nama_kelas, 
             view_list_walas.nama_walas, 
+            jurusan.id_jurusan,
             jurusan.nama_jurusan,
             angkatan.tahun
 
